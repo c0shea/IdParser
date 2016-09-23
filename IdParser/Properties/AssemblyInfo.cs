@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("ID Parser")]
 [assembly: AssemblyDescription("Parses AAMVA-compliant driver's licenses and ID cards")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Connor O'Shea")]
 [assembly: AssemblyProduct("ID Parser")]
 [assembly: AssemblyCopyright("Copyright © 2016 Connor O'Shea")]
 [assembly: AssemblyTrademark("")]

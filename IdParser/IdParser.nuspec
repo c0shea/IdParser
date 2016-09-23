@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Connor O'Shea</authors>
+    <owners>Connor O'Shea</owners>
+    <licenseUrl>https://github.com/c0shea/IdParser/blob/master/LICENSE.md</licenseUrl>
+    <projectUrl>https://github.com/c0shea/IdParser</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Drivers License Identification Parser PDF417</tags>
+  </metadata>
+</package>
