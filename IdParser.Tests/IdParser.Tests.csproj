@@ -57,6 +57,9 @@
     <Compile Include="DriversLicenseTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GA License.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MA License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
