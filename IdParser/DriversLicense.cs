@@ -17,7 +17,7 @@ namespace IdParser {
                 return;
 
             var elementId = subfileRecord.Substring(0, 3);
-            var data = subfileRecord.Substring(3);
+            var data = subfileRecord.Substring(3).Trim();
 
             switch (elementId) {
                 // Required attributes
