@@ -13,5 +13,15 @@ namespace IdParser.Tests {
 
             Assert.AreEqual("SMITH", license.LastName);
         }
+
+        [TestMethod]
+        public void TestNYLicense()
+        {
+            var file = File.ReadAllText("NY License.txt");
+            var license = IdParser.Parse(file);
+
+            Assert.AreEqual("Michael", license.LastName);
+            Assert.AreEqual(new DateTime(2013, 08, 31), license.DateOfBirth);
+        }
     }
 }
