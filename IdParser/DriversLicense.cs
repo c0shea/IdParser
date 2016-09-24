@@ -51,9 +51,10 @@ namespace IdParser {
                     Jurisdiction.RestrictionCodeDescription = data;
                     break;
                 case "DDC":
-                    HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
-                    break;
-                default:
+                    if (data != string.Empty && data != "00000000") {
+                        HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
                     break;
             }
         }

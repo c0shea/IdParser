@@ -44,10 +44,16 @@ namespace IdParser {
                     MiddleName = data;
                     break;
                 case "DBD":
-                    IssueDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    if (data != string.Empty && data != "00000000") {
+                        IssueDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
                     break;
                 case "DBB":
-                    DateOfBirth = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    if (data != string.Empty && data != "00000000") {
+                        DateOfBirth = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
                     break;
                 case "DBC":
                     Sex = (Sex)Convert.ToInt32(data);
@@ -169,7 +175,10 @@ namespace IdParser {
 
                     break;
                 case "DDB":
-                    RevisionDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    if (data != string.Empty && data != "00000000") {
+                        RevisionDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
                     break;
                 case "DDD":
                     if (data == "1") {
@@ -187,30 +196,29 @@ namespace IdParser {
                     WeightInKilograms = Convert.ToInt16(data);
                     break;
                 case "DDH":
-                    Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
-                    break;
-                case "DDI":
-                    Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
-                    break;
-                case "DDJ":
-                    Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
-                    break;
-                case "DDK":
-                    if (data == "1") {
-                        IsOrganDonor = true;
-                    }
-                    else {
-                        IsOrganDonor = false;
+                    if (data != string.Empty && data != "00000000") {
+                        Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                     }
 
                     break;
+                case "DDI":
+                    if (data != string.Empty && data != "00000000") {
+                        Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
+                    break;
+                case "DDJ":
+                    if (data != string.Empty && data != "00000000") {
+                        Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
+                    break;
+                case "DDK":
+                    IsOrganDonor = data == "1";
+
+                    break;
                 case "DDL":
-                    if (data == "1") {
-                        IsVeteran = true;
-                    }
-                    else {
-                        IsVeteran = false;
-                    }
+                    IsVeteran = data == "1";
 
                     break;
                 default:
