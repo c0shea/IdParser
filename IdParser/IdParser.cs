@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 
 namespace IdParser {
     public static class IdParser {
@@ -9,14 +10,15 @@ namespace IdParser {
         /// Validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
         /// <param name="rawPdf417Input">The string to parse the information out of</param>
-        /// <param name="suppressExceptionsForWarnings">
+        /// <param name="suppressValidation">
         /// If set to true, exceptions will not be thrown for elements that do not match
         /// the AAMVA standardbut do not adversly affect parsing. When set to false
         /// (the default if not specified), exceptions will be thrown for all validation errors.
         /// </param>
-        public static IdentificationCard Parse(string rawPdf417Input, bool suppressExceptionsForWarnings = false)
-        {
-            ValidateFormat(rawPdf417Input, suppressExceptionsForWarnings);
+        public static IdentificationCard Parse(string rawPdf417Input, bool suppressValidation = false) {
+            if (!suppressValidation) {
+                ValidateFormat(rawPdf417Input);
+            }
 
             if (ParseSubfileType(rawPdf417Input) == "DL") {
                 return new DriversLicense(rawPdf417Input, GetSubfileRecords(rawPdf417Input));
@@ -25,7 +27,7 @@ namespace IdParser {
             return new IdentificationCard(rawPdf417Input, GetSubfileRecords(rawPdf417Input));
         }
 
-        private static void ValidateFormat(string input, bool suppressWarnings) {
+        private static void ValidateFormat(string input) {
             if (input.Length < 31) {
                 throw new ArgumentException("The input is missing required header elements and is not a valid AAMVA format.");
             }
@@ -34,15 +36,15 @@ namespace IdParser {
                 throw new ArgumentException("The compliance indicator is invalid. Expected 0x40.");
             }
 
-            if (input.Substring(1, 1) != ((char)10).ToString() && !suppressWarnings) {
+            if (input.Substring(1, 1) != ((char)10).ToString()) {
                 throw new ArgumentException("The data element separator is invalid. Expected 0x0A.");
             }
 
-            if (input.Substring(2, 1) != ((char)30).ToString() && !suppressWarnings) {
+            if (input.Substring(2, 1) != ((char)30).ToString()) {
                 throw new ArgumentException("The record separator is wrong. Expected 0x1E.");
             }
 
-            if (input.Substring(3, 1) != ((char)13).ToString() && !suppressWarnings) {
+            if (input.Substring(3, 1) != ((char)13).ToString()) {
                 throw new ArgumentException("The segment terminator is wrong. Expected 0x0D.");
             }
 
@@ -66,19 +68,30 @@ namespace IdParser {
 
             return records;
         }
-    }
 
+        public static string GetDescription(this Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+
+            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+    }
+    
     public enum IssuerIdentificationNumber {
         Alabama = 636033,
         Alaska = 636059,
+        [Description("American Samoa")]
         AmericanSamoa = 604427,
         Arizona = 636026,
         Arkansas = 636026,
+        [Description("British Columbia")]
         BritishColumbia = 636028,
         California = 636014,
         Coahuila = 636056,
         Colorado = 636020,
         Connecticut = 636006,
+        [Description("District of Columbia")]
         DistrictOfColumbia = 636043,
         Delaware = 636011,
         Florida = 636010,
@@ -104,34 +117,49 @@ namespace IdParser {
         Montana = 636008,
         Nebraska = 636054,
         Nevada = 636049,
+        [Description("New Brunswick")]
         NewBrunswick = 636017,
+        [Description("New Hampshire")]
         NewHampshire = 636039,
+        [Description("New Jersey")]
         NewJersey = 636036,
+        [Description("New Mexico")]
         NewMexico = 636009,
+        [Description("New York")]
         NewYork = 636001,
         Newfoundland = 636016,
+        [Description("North Carolina")]
         NorthCarolina = 636004,
+        [Description("North Dakota")]
         NorthDakota = 636034,
+        [Description("Nova Scotia")]
         NovaScotia = 636013,
         Ohio = 636023,
         Oklahoma = 636058,
         Ontario = 636012,
         Oregon = 636029,
         Pennsylvania = 636025,
+        [Description("Price Edward Island")]
         PrinceEdwardIsland = 604426,
         Quebec = 604428,
+        [Description("Rhode Island")]
         RhodeIsland = 636052,
         Saskatchewan = 636044,
+        [Description("South Carolina")]
         SouthCarolina = 636005,
+        [Description("South Dakota")]
         SouthDakota = 636042,
         Tennessee = 636053,
-        StateDepartmentUsa = 636027,
+        [Description("US State Department")]
+        UsStateDepartment = 636027,
         Texas = 636015,
+        [Description("US Virgin Islands")]
         UsVirginIslands = 636062,
         Utah = 636040,
         Vermont = 636024,
         Virginia = 636000,
         Washington = 636045,
+        [Description("West Virginia")]
         WestVirginia = 636061,
         Wisconsin = 636031,
         Wyoming = 636060,
