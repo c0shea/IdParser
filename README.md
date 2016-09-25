@@ -4,11 +4,13 @@ ID Parser can be used to parse AAMVA-compliant driver's licenses and ID cards in
 
 ## Usage
 
-    var idCard = IdParser.Parse(barcode);
-    Console.WriteLine(idCard.StreetLine1); // "123 NORTH STATE ST."
-    Console.WriteLine(idCard.IssuerIdentificationNumber.GetDescription()); // "New York"
-    
-    if (idCard is DriversLicense) {
-        var license = (DriversLicense)idCard;
-        Console.WriteLine(license.Jurisdiction.VehicleClass); // "C"
-    }
+```cs
+var idCard = IdParser.Parse(barcode);
+Console.WriteLine(idCard.StreetLine1); // "123 NORTH STATE ST."
+Console.WriteLine(idCard.IssuerIdentificationNumber.GetDescription()); // "New York"
+
+if (idCard is DriversLicense) {
+    var license = (DriversLicense)idCard;
+    Console.WriteLine(license.Jurisdiction.VehicleClass); // "C"
+}
+```
