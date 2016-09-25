@@ -87,7 +87,7 @@ namespace IdParser {
                     Sex = (Sex)Convert.ToInt32(data);
                     break;
                 case "DAY":
-                    EyeColor = data;
+                    EyeColor = data == "UNK" ? null : data;
                     break;
                 case "DAU":
                     Height = new Height(AamvaVersionNumber, data);
@@ -158,10 +158,10 @@ namespace IdParser {
 
                 // Optional attributes
                 case "DAH":
-                    StreetLine2 = data;
+                    StreetLine2 = data == "NONE" ? null : data;
                     break;
                 case "DAZ":
-                    HairColor = data;
+                    HairColor = data == "UNK" ? null : data;
                     break;
                 case "DCI":
                     PlaceOfBirth = data;
@@ -288,7 +288,10 @@ namespace IdParser {
         public string City { get; set; }
         public string JurisdictionCode { get; set; }
         public string PostalCode { get; set; }
-        public string Address => StreetLine2 == null ? $"{StreetLine1}\n{City}, {JurisdictionCode} {PostalCode}" : $"{StreetLine1}\n{StreetLine2}\n{City}, {JurisdictionCode} {PostalCode}";
+
+        public string FormattedPostalCode => Country == Country.USA && PostalCode.Length > 5 ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}" : PostalCode;
+        public string Address => StreetLine2 == null ? $"{StreetLine1}\n{City}, {JurisdictionCode} {FormattedPostalCode}" : 
+                                                       $"{StreetLine1}\n{StreetLine2}\n{City}, {JurisdictionCode} {FormattedPostalCode}";
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }
         public Country Country { get; set; }
@@ -311,8 +314,8 @@ namespace IdParser {
         public ComplianceType ComplianceType { get; set; }
         public DateTime? RevisionDate { get; set; }
         public bool HasTemporaryLawfulStatus { get; set; }
-        public short WeightInPounds { get; set; }
-        public short WeightInKilograms { get; set; }
+        public short? WeightInPounds { get; set; }
+        public short? WeightInKilograms { get; set; }
         public DateTime? Under18Until { get; set; }
         public DateTime? Under19Until { get; set; }
         public DateTime? Under21Until { get; set; }

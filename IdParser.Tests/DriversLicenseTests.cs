@@ -1,16 +1,36 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IdParser.Tests {
     [TestClass]
     public class DriversLicenseTests {
         [TestMethod]
-        public void TestMALicense() {
-            var file = File.ReadAllText("MA License.txt");
-            var license = IdParser.Parse(file, true);
+        public void TestMA2009License() {
+            var file = File.ReadAllText("MA License 2009.txt");
+            var idCard = IdParser.Parse(file, true);
 
-            Assert.AreEqual("SMITH", license.LastName);
+            Assert.AreEqual("SMITH", idCard.LastName);
+        }
+
+        [TestMethod]
+        public void TestMA2016License() {
+            var file = File.ReadAllText("MA License 2016.txt");
+            var idCard = IdParser.Parse(file, true);
+
+            Assert.AreEqual("SAMPLE", idCard.LastName);
+            Assert.AreEqual("S12345678", idCard.IdNumber);
+            Assert.AreEqual("24 BEACON STREET", idCard.StreetLine1);
+            Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
+            Assert.AreEqual("02133-0000", idCard.FormattedPostalCode);
+
+            if (idCard is DriversLicense) {
+                var license = (DriversLicense)idCard;
+
+                Assert.AreEqual("D", license.Jurisdiction.VehicleClass);
+                Assert.AreEqual("NONE", license.Jurisdiction.RestrictionCodes);
+            }
         }
 
         [TestMethod]
