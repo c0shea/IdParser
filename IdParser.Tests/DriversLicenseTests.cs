@@ -52,5 +52,16 @@ namespace IdParser.Tests {
                 Assert.AreEqual("C", license.Jurisdiction.VehicleClass);
             }
         }
+
+        [TestMethod]
+        public void TestCTLicense()
+        {
+            var file = File.ReadAllText("CT License.txt");
+            var idCard = IdParser.Parse(file, true);
+
+            Assert.IsTrue(idCard.IsOrganDonor);
+            Assert.AreEqual("CTLIC", idCard.LastName);
+            Assert.AreEqual("990000001", idCard.IdNumber);
+        }
     }
 }

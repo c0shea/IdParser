@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace IdParser {
     public class DriversLicense : IdentificationCard {
-        internal DriversLicense(string input, List<string> subfileRecords) : base(input, subfileRecords) {
+        internal DriversLicense(Version version, string input, List<string> subfileRecords) : base(version, input, subfileRecords) {
             Jurisdiction = new DriversLicenseJurisdiction();
 
             foreach (var record in subfileRecords) {
@@ -21,6 +21,15 @@ namespace IdParser {
 
             switch (elementId) {
                 // Required attributes
+                // AAMVA 2000
+                case "DAR":
+                    Jurisdiction.VehicleClass = data;
+                    break;
+                case "DAS":
+                    Jurisdiction.RestrictionCodes = data;
+                    break;
+
+                // AAMVA 2003+
                 case "DCA":
                     Jurisdiction.VehicleClass = data;
                     break;
@@ -51,7 +60,7 @@ namespace IdParser {
                     Jurisdiction.RestrictionCodeDescription = data;
                     break;
                 case "DDC":
-                    if (data != string.Empty && data != "00000000") {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
                         HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                     }
 

@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
 namespace IdParser {
     public static class IdParser {
+        private const char ExpectedLineFeed = (char)10;
+        private const char ExpectedRecordSeparator = (char)30;
+        private const char ExpectedCarriageReturn = (char)13;
+
         /// <summary>
         /// Validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
@@ -20,11 +25,13 @@ namespace IdParser {
                 ValidateFormat(rawPdf417Input);
             }
 
-            if (ParseSubfileType(rawPdf417Input) == "DL") {
-                return new DriversLicense(rawPdf417Input, GetSubfileRecords(rawPdf417Input));
+            var version = ParseAamvaVersion(rawPdf417Input);
+
+            if (ParseSubfileType(version, rawPdf417Input) == "DL") {
+                return new DriversLicense(version, rawPdf417Input, GetSubfileRecords(version, rawPdf417Input));
             }
 
-            return new IdentificationCard(rawPdf417Input, GetSubfileRecords(rawPdf417Input));
+            return new IdentificationCard(version, rawPdf417Input, GetSubfileRecords(version, rawPdf417Input));
         }
 
         private static void ValidateFormat(string input) {
@@ -36,15 +43,15 @@ namespace IdParser {
                 throw new ArgumentException("The compliance indicator is invalid. Expected 0x40.");
             }
 
-            if (input.Substring(1, 1) != ((char)10).ToString()) {
+            if (ParseDataElementSeparator(input) != ExpectedLineFeed) {
                 throw new ArgumentException("The data element separator is invalid. Expected 0x0A.");
             }
 
-            if (input.Substring(2, 1) != ((char)30).ToString()) {
+            if (ParseRecordSeparator(input) != ExpectedRecordSeparator) {
                 throw new ArgumentException("The record separator is wrong. Expected 0x1E.");
             }
 
-            if (input.Substring(3, 1) != ((char)13).ToString()) {
+            if (ParseSegmentTerminator(input) != ExpectedCarriageReturn) {
                 throw new ArgumentException("The segment terminator is wrong. Expected 0x0D.");
             }
 
@@ -53,14 +60,55 @@ namespace IdParser {
             }
         }
 
-        private static string ParseSubfileType(string input) {
+        private static byte ParseAamvaVersionNumber(string input) {
+            return Convert.ToByte(input.Substring(15, 2));
+        }
+
+        /// <summary>
+        /// Gets the AAMVA version of the input.
+        /// </summary>
+        /// <param name="input">The raw PDF417 barcode data</param>
+        public static Version ParseAamvaVersion(string input) {
+            var version = ParseAamvaVersionNumber(input);
+
+            if (Enum.IsDefined(typeof(Version), version)) {
+                return (Version)version;
+            }
+
+            return Version.Future;
+        }
+
+        internal static char ParseDataElementSeparator(string input) {
+            return input.Substring(1, 1)[0];
+        }
+
+        internal static char ParseRecordSeparator(string input) {
+            return input.Substring(2, 1)[0];
+        }
+
+        internal static char ParseSegmentTerminator(string input) {
+            return input.Substring(3, 1)[0];
+        }
+
+        private static string ParseSubfileType(Version version, string input) {
+            if (version == Version.Aamva2000) {
+                return input.Substring(19, 2);
+            }
+
             return input.Substring(21, 2);
         }
 
-        private static List<string> GetSubfileRecords(string input) {
-            var offset = Convert.ToInt32(input.Substring(23, 4));
+        private static List<string> GetSubfileRecords(Version version, string input) {
+            int offset = 0;
 
-            var records = input.Substring(offset).Split(new[] { (char)10, (char)13 }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            if (version == Version.Aamva2000) {
+                offset = Convert.ToInt32(input.Substring(21, 4));
+            }
+            else if (version >= Version.Aamva2003) {
+                offset = Convert.ToInt32(input.Substring(23, 4));
+            }
+
+            var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
             var firstRecord = records[0].Substring(0, 2);
             if (firstRecord == "DL" || firstRecord == "ID") {
                 records[0] = records[0].Substring(2);
@@ -77,7 +125,20 @@ namespace IdParser {
             return attribute == null ? value.ToString() : attribute.Description;
         }
     }
-    
+
+    public enum Version : byte {
+        PreStandard = 0,
+        Aamva2000 = 1,
+        Aamva2003 = 2,
+        Aamva2005 = 3,
+        Aamva2009 = 4,
+        Aamva2010 = 5,
+        Aamva2011 = 6,
+        Aamva2012 = 7,
+        Aamva2013 = 8,
+        Future = 99
+    }
+
     public enum IssuerIdentificationNumber {
         Alabama = 636033,
         Alaska = 636059,
@@ -166,7 +227,7 @@ namespace IdParser {
         Yukon = 604429
     }
 
-    public enum Sex {
+    public enum Sex : byte {
         Male = 1,
         Female = 2
     }

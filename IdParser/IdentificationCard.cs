@@ -4,11 +4,17 @@ using System.Globalization;
 
 namespace IdParser {
     public class IdentificationCard {
-        internal IdentificationCard(string input, List<string> subfileRecords) {
+        internal IdentificationCard(Version version, string input, List<string> subfileRecords) {
             // D.12.3 Header
             IssuerIdentificationNumber = (IssuerIdentificationNumber)Convert.ToInt32(input.Substring(9, 6));
-            AamvaVersionNumber = Convert.ToByte(input.Substring(15, 2));
-            JurisdictionVersionNumber = Convert.ToByte(input.Substring(17, 2));
+            AamvaVersionNumber = version;
+
+            if (version == Version.Aamva2000) {
+                JurisdictionVersionNumber = 0;
+            }
+            else {
+                JurisdictionVersionNumber = Convert.ToByte(input.Substring(17, 2));
+            }
 
             // Default Values
             WeightRange = WeightRange.None;
@@ -30,9 +36,21 @@ namespace IdParser {
 
             switch (elementId) {
                 // Required attributes
+                case "DAA":
+                    var names = data.Split(',', '$');
+                    LastName = names[0];
+                    FirstName = names[1];
+                    MiddleName = names[2];
+                    break;
                 case "DBA":
                     // TODO: This doesn't handle Canada's format correctly
-                    ExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    if (AamvaVersionNumber == Version.Aamva2000) {
+                        ExpirationDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                    }
+                    else {
+                        ExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
                     break;
                 case "DCS":
                     LastName = data;
@@ -45,13 +63,23 @@ namespace IdParser {
                     break;
                 case "DBD":
                     if (data != string.Empty && data != "00000000") {
-                        IssueDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (AamvaVersionNumber == Version.Aamva2000) {
+                            IssueDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            IssueDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
                 case "DBB":
                     if (data != string.Empty && data != "00000000") {
-                        DateOfBirth = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (AamvaVersionNumber == Version.Aamva2000) {
+                            DateOfBirth = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            DateOfBirth = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
@@ -62,7 +90,7 @@ namespace IdParser {
                     EyeColor = data;
                     break;
                 case "DAU":
-                    Height = new Height(data);
+                    Height = new Height(AamvaVersionNumber, data);
                     break;
                 case "DAG":
                     StreetLine1 = data;
@@ -176,7 +204,12 @@ namespace IdParser {
                     break;
                 case "DDB":
                     if (data != string.Empty && data != "00000000") {
-                        RevisionDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (AamvaVersionNumber == Version.Aamva2000) {
+                            RevisionDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            RevisionDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
@@ -196,20 +229,27 @@ namespace IdParser {
                     WeightInKilograms = Convert.ToInt16(data);
                     break;
                 case "DDH":
-                    if (data != string.Empty && data != "00000000") {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
                         Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                     }
 
                     break;
                 case "DDI":
-                    if (data != string.Empty && data != "00000000") {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
                         Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                     }
 
                     break;
                 case "DDJ":
-                    if (data != string.Empty && data != "00000000") {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
                         Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                    }
+
+                    break;
+                case "DBH":
+                    if (AamvaVersionNumber == Version.Aamva2000 &&
+                        IssuerIdentificationNumber == IssuerIdentificationNumber.Connecticut) {
+                        IsOrganDonor = data == "Y";
                     }
 
                     break;
@@ -231,7 +271,7 @@ namespace IdParser {
         }
 
         public IssuerIdentificationNumber IssuerIdentificationNumber { get; set; }
-        public byte AamvaVersionNumber { get; set; }
+        public Version AamvaVersionNumber { get; set; }
         public byte JurisdictionVersionNumber { get; set; }
 
         public DateTime ExpirationDate { get; set; }
