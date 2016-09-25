@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release</releaseNotes>
+    <releaseNotes>Added support for AAMVA 2000</releaseNotes>
     <copyright>Copyright 2016</copyright>
     <tags>Drivers License Identification Parser PDF417</tags>
   </metadata>
