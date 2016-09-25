@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbbreviationAttribute.cs" />
     <Compile Include="DriversLicense.cs" />
     <Compile Include="DriversLicenseJurisdiction.cs" />
     <Compile Include="Height.cs" />

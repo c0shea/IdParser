@@ -12,6 +12,7 @@ namespace IdParser.Tests {
             var idCard = IdParser.Parse(file, true);
 
             Assert.AreEqual("SMITH", idCard.LastName);
+            Assert.AreEqual("MA", idCard.IssuerIdentificationNumber.GetAbbreviation());
         }
 
         [TestMethod]
@@ -24,6 +25,7 @@ namespace IdParser.Tests {
             Assert.AreEqual("24 BEACON STREET", idCard.StreetLine1);
             Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
             Assert.AreEqual("02133-0000", idCard.FormattedPostalCode);
+            Assert.AreEqual("MA", idCard.IssuerIdentificationNumber.GetAbbreviation());
 
             if (idCard is DriversLicense) {
                 var license = (DriversLicense)idCard;
@@ -41,6 +43,7 @@ namespace IdParser.Tests {
             Assert.AreEqual("Michael", license.LastName);
             Assert.AreEqual(new DateTime(2013, 08, 31), license.DateOfBirth);
             Assert.AreEqual("New York", license.IssuerIdentificationNumber.GetDescription());
+            Assert.AreEqual("NY", license.IssuerIdentificationNumber.GetAbbreviation());
         }
 
         [TestMethod]
@@ -49,6 +52,7 @@ namespace IdParser.Tests {
             var idCard = IdParser.Parse(file);
 
             Assert.AreEqual("STAUNTON", idCard.City);
+            Assert.AreEqual("VA", idCard.IssuerIdentificationNumber.GetAbbreviation());
 
             if (idCard is DriversLicense) {
                 var license = (DriversLicense)idCard;
@@ -65,6 +69,7 @@ namespace IdParser.Tests {
 
             Assert.AreEqual("123 NORTH STATE ST.", idCard.StreetLine1);
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.AreEqual("GA", idCard.IssuerIdentificationNumber.GetAbbreviation());
 
             if (idCard is DriversLicense) {
                 var license = (DriversLicense)idCard;
@@ -82,6 +87,7 @@ namespace IdParser.Tests {
             Assert.IsTrue(idCard.IsOrganDonor);
             Assert.AreEqual("CTLIC", idCard.LastName);
             Assert.AreEqual("990000001", idCard.IdNumber);
+            Assert.AreEqual("CT", idCard.IssuerIdentificationNumber.GetAbbreviation());
         }
 
         [TestMethod]
