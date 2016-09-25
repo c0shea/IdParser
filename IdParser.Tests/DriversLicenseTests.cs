@@ -63,5 +63,16 @@ namespace IdParser.Tests {
             Assert.AreEqual("CTLIC", idCard.LastName);
             Assert.AreEqual("990000001", idCard.IdNumber);
         }
+
+        [TestMethod]
+        public void TestNonStandardDataElementSeparator()
+        {
+            var file = File.ReadAllText("MA License Piped.txt");
+            var idCard = IdParser.Parse(file, true);
+
+            Assert.AreEqual("S65807412", idCard.IdNumber);
+            Assert.AreEqual("123 MAIN STREET", idCard.StreetLine1);
+            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
+        }
     }
 }

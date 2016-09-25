@@ -63,6 +63,9 @@
     <Content Include="GA License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MA License Piped.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MA License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
