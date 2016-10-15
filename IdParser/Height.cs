@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace IdParser {
-    public class Height {
+    public class Height : IComparable<Height>, IEquatable<Height> {
         private const double CentimetersPerInch = 2.54;
         private const byte InchesPerFoot = 12;
         private readonly bool _isMetricInstantiated;
@@ -43,6 +43,37 @@ namespace IdParser {
             }
 
             return $"{Feet}'{Inches}\"";
+        }
+
+        public int CompareTo(Height other) {
+            if (TotalInches > other.TotalInches) return -1;
+            if (TotalInches == other.TotalInches) return 0;
+            return 1;
+        }
+
+        public bool Equals(Height other) {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return TotalInches == other.TotalInches;
+        }
+
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Height)obj);
+        }
+
+        public static bool operator ==(Height left, Height right) {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Height left, Height right) {
+            return !Equals(left, right);
+        }
+
+        public override int GetHashCode() {
+            return TotalInches.GetHashCode();
         }
     }
 }
