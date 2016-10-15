@@ -61,27 +61,27 @@ namespace IdParser {
 
         private static void ValidateFormat(string input) {
             if (input.Length < 31) {
-                throw new ArgumentException("The input is missing required header elements and is not a valid AAMVA format.");
+                throw new ArgumentException("The input is missing required header elements and is not a valid AAMVA format.", nameof(input));
             }
 
             if (input.Substring(0, 1) != "@") {
-                throw new ArgumentException("The compliance indicator is invalid. Expected 0x40.");
+                throw new ArgumentException("The compliance indicator is invalid. Expected 0x40.", nameof(input));
             }
 
             if (ParseDataElementSeparator(input) != ExpectedLineFeed) {
-                throw new ArgumentException("The data element separator is invalid. Expected 0x0A.");
+                throw new ArgumentException("The data element separator is invalid. Expected 0x0A.", nameof(input));
             }
 
             if (ParseRecordSeparator(input) != ExpectedRecordSeparator) {
-                throw new ArgumentException("The record separator is wrong. Expected 0x1E.");
+                throw new ArgumentException("The record separator is wrong. Expected 0x1E.", nameof(input));
             }
 
             if (ParseSegmentTerminator(input) != ExpectedCarriageReturn) {
-                throw new ArgumentException("The segment terminator is wrong. Expected 0x0D.");
+                throw new ArgumentException("The segment terminator is wrong. Expected 0x0D.", nameof(input));
             }
 
             if (input.Substring(4, 5) != "ANSI ") {
-                throw new ArgumentException("The file type is invalid. Expected \"ANSI \"");
+                throw new ArgumentException("The file type is invalid. Expected \"ANSI \"", nameof(input));
             }
         }
 

@@ -9,7 +9,7 @@ namespace IdParser.Tests {
         [TestMethod]
         public void TestMA2009License() {
             var file = File.ReadAllText("MA License 2009.txt");
-            var idCard = IdParser.Parse(file, true);
+            var idCard = IdParser.Parse(file, Validation.None);
 
             Assert.AreEqual("ROBERT", idCard.FirstName);
             Assert.AreEqual("LOWNEY", idCard.MiddleName);
@@ -23,7 +23,7 @@ namespace IdParser.Tests {
         [TestMethod]
         public void TestMA2016License() {
             var file = File.ReadAllText("MA License 2016.txt");
-            var idCard = IdParser.Parse(file, true);
+            var idCard = IdParser.Parse(file, Validation.None);
 
             Assert.AreEqual("MORRIS", idCard.FirstName);
             Assert.AreEqual("T", idCard.MiddleName);
@@ -125,7 +125,7 @@ namespace IdParser.Tests {
         [TestMethod]
         public void TestCTLicense() {
             var file = File.ReadAllText("CT License.txt");
-            var idCard = IdParser.Parse(file, true);
+            var idCard = IdParser.Parse(file, Validation.None);
 
             Assert.AreEqual("ADULT", idCard.FirstName);
             Assert.AreEqual("A", idCard.MiddleName);
@@ -156,7 +156,7 @@ namespace IdParser.Tests {
         [TestMethod]
         public void TestNonStandardDataElementSeparator() {
             var file = File.ReadAllText("MA License Piped.txt");
-            var idCard = IdParser.Parse(file, true);
+            var idCard = IdParser.Parse(file, Validation.None);
 
             Assert.AreEqual("S65807412", idCard.IdNumber);
             Assert.AreEqual("123 MAIN STREET", idCard.StreetLine1);
