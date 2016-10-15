@@ -1,6 +1,11 @@
 ﻿using System.ComponentModel;
 
 namespace IdParser {
+    public enum Validation {
+        None,
+        Strict
+    }
+
     public enum Version : byte {
         PreStandard = 0,
         Aamva2000 = 1,

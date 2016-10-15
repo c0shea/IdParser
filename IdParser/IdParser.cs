@@ -10,16 +10,43 @@ namespace IdParser {
         private const char ExpectedCarriageReturn = (char)13;
 
         /// <summary>
-        /// Validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
+        /// OBSOLETE - Validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
         /// <param name="rawPdf417Input">The string to parse the information out of</param>
         /// <param name="suppressValidation">
         /// If set to true, exceptions will not be thrown for elements that do not match
-        /// the AAMVA standardbut do not adversly affect parsing. When set to false
+        /// the AAMVA standard but do not adversely affect parsing. When set to false
         /// (the default if not specified), exceptions will be thrown for all validation errors.
         /// </param>
+        [Obsolete("Calling Parse with a bool to suppress validation is deprecated. Use the Parse method and specify the validation level via the Validation enum.")]
         public static IdentificationCard Parse(string rawPdf417Input, bool suppressValidation = false) {
-            if (!suppressValidation) {
+            if (suppressValidation) {
+                return Parse(rawPdf417Input, Validation.None);
+            }
+
+            return Parse(rawPdf417Input, Validation.Strict);
+        }
+
+        /// <summary>
+        /// Fully validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
+        /// </summary>
+        /// <param name="rawPdf417Input">The string to parse the information out of</param>
+        public static IdentificationCard Parse(string rawPdf417Input) {
+            return Parse(rawPdf417Input, Validation.Strict);
+        }
+
+        /// <summary>
+        /// Validates based on the validation level specified and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
+        /// </summary>
+        /// <param name="rawPdf417Input">The string to parse the information out of</param>
+        /// <param name="validationLevel">
+        /// Specifies the level of <see cref="Validation"/> that will be performed.
+        /// Strict validation will ensure the input fully conforms to the AAMVA standard.
+        /// No validation will be performed if none is specified and exceptions will not be thrown
+        /// for elements that do not match or do not adversely affect parsing.
+        /// </param>
+        public static IdentificationCard Parse(string rawPdf417Input, Validation validationLevel) {
+            if (validationLevel == Validation.Strict) {
                 ValidateFormat(rawPdf417Input);
             }
 
@@ -58,15 +85,15 @@ namespace IdParser {
             }
         }
 
-        private static byte ParseAamvaVersionNumber(string input) {
-            return Convert.ToByte(input.Substring(15, 2));
-        }
-
         /// <summary>
         /// Gets the AAMVA version of the input.
         /// </summary>
         /// <param name="input">The raw PDF417 barcode data</param>
         public static Version ParseAamvaVersion(string input) {
+            if (input == null || input.Length < 17) {
+                throw new ArgumentException("Input must not be null or less than 17 characters in order to parse the version.", nameof(input));
+            }
+
             var version = ParseAamvaVersionNumber(input);
 
             if (Enum.IsDefined(typeof(Version), version)) {
@@ -74,6 +101,10 @@ namespace IdParser {
             }
 
             return Version.Future;
+        }
+
+        private static byte ParseAamvaVersionNumber(string input) {
+            return Convert.ToByte(input.Substring(15, 2));
         }
 
         internal static char ParseDataElementSeparator(string input) {
