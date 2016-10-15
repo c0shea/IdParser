@@ -41,7 +41,17 @@ namespace IdParser {
                     LastName = names[0];
                     FirstName = names[1];
                     MiddleName = names[2];
+
                     break;
+
+                // AAMVA 2003-2005
+                case "DCT":
+                    var givenNames = data.Split(',', '$', ' ');
+                    FirstName = givenNames[0];
+                    MiddleName = givenNames.Length > 1 ? givenNames[1] : null;
+
+                    break;
+
                 case "DBA":
                     // TODO: This doesn't handle Canada's format correctly
                     if (AamvaVersionNumber == Version.Aamva2000) {
