@@ -44,6 +44,7 @@
     <Compile Include="AbbreviationAttribute.cs" />
     <Compile Include="DriversLicense.cs" />
     <Compile Include="DriversLicenseJurisdiction.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Height.cs" />
     <Compile Include="IdentificationCard.cs" />
     <Compile Include="IdParser.cs" />
