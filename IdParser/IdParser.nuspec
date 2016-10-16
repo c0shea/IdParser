@@ -11,8 +11,8 @@
     <iconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added support for AAMVA 2000</releaseNotes>
+    <releaseNotes>Fixed bugs in name and date parsing, improved country parsing, implemented IComparable and IEquatable for Height class, and deprecated old Parse method.</releaseNotes>
     <copyright>Copyright 2016</copyright>
-    <tags>Drivers License Identification Parser PDF417</tags>
+    <tags>Drivers License Identification Parser PDF417 AAMVA</tags>
   </metadata>
 </package>
