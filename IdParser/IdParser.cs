@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+#if !NET20
 using System.Linq;
+#endif
 
 namespace IdParser {
     public static class IdParser {
@@ -94,13 +96,16 @@ namespace IdParser {
         // HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
         // which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
         private static string RemoveIncorrectCarriageReturns(string input) {
-            if (input.Length < 5) {
-                return input;
-            }
-            
-            var replacedString = input.Replace(ExpectedCarriageReturn.ToString(), string.Empty);
+            var crLf = ExpectedCarriageReturn.ToString() + ExpectedLineFeed.ToString();
+            var doesInputContainCrLf = input.IndexOf(crLf, StringComparison.Ordinal) >= 0;
 
-            return replacedString.Substring(0, 3) + ExpectedCarriageReturn + replacedString.Substring(4);
+            if (doesInputContainCrLf) {
+                var replacedString = input.Replace(ExpectedCarriageReturn.ToString(), string.Empty);
+
+                return replacedString.Substring(0, 3) + ExpectedCarriageReturn + replacedString.Substring(4);
+            }
+
+            return input;
         }
 
         /// <summary>
@@ -182,7 +187,11 @@ namespace IdParser {
                 offset = Convert.ToInt32(input.Substring(23, 4));
             }
 
+#if NET20
+            var records = new List<string>(input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries));
+#else
             var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
+#endif
             var firstRecord = records[0].Substring(0, 2);
             if (firstRecord == "DL" || firstRecord == "ID") {
                 records[0] = records[0].Substring(2);
@@ -191,6 +200,32 @@ namespace IdParser {
             return records;
         }
 
+        // Extension methods are not supported in .NET 2.0
+#if NET20
+        public static string GetDescription(Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+
+            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+
+        public static string GetAbbreviation(Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+
+            var attribute = Attribute.GetCustomAttribute(field, typeof(AbbreviationAttribute)) as AbbreviationAttribute;
+
+            return attribute == null ? value.ToString() : attribute.Abbreviation;
+        }
+
+        public static Country GetCountry(Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+
+            var attribute = Attribute.GetCustomAttribute(field, typeof(CountryAttribute)) as CountryAttribute;
+
+            return attribute == null ? Country.Unknown : attribute.Country;
+        }
+#else
         public static string GetDescription(this Enum value) {
             var field = value.GetType().GetField(value.ToString());
 
@@ -214,5 +249,6 @@ namespace IdParser {
 
             return attribute == null ? Country.Unknown : attribute.Country;
         }
+#endif
     }
 }

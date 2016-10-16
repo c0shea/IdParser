@@ -10,7 +10,11 @@ namespace IdParser {
             AamvaVersionNumber = version;
 
             // The country is needed before we parse the subfile records so that dates can be interpreted correctly
+#if NET20
+            Country = country == Country.Unknown ? IdParser.GetCountry(IssuerIdentificationNumber) : country;
+#else
             Country = country == Country.Unknown ? IssuerIdentificationNumber.GetCountry() : country;
+#endif
 
             if (version == Version.Aamva2000) {
                 JurisdictionVersionNumber = 0;
