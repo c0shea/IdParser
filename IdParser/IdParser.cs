@@ -49,6 +49,9 @@ namespace IdParser {
             if (validationLevel == Validation.Strict) {
                 ValidateFormat(rawPdf417Input);
             }
+            else {
+                rawPdf417Input = RemoveIncorrectCarriageReturns(rawPdf417Input);
+            }
 
             var version = ParseAamvaVersion(rawPdf417Input);
             var subfileRecords = GetSubfileRecords(version, rawPdf417Input);
@@ -86,6 +89,18 @@ namespace IdParser {
             if (input.Substring(4, 5) != "ANSI ") {
                 throw new ArgumentException("The file type is invalid. Expected \"ANSI \"", nameof(input));
             }
+        }
+
+        // HID keyboard emulation (and some other methods) tend to replace the \n with \r\n
+        // which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
+        private static string RemoveIncorrectCarriageReturns(string input) {
+            if (input.Length < 5) {
+                return input;
+            }
+            
+            var replacedString = input.Replace(ExpectedCarriageReturn.ToString(), string.Empty);
+
+            return replacedString.Substring(0, 3) + ExpectedCarriageReturn + replacedString.Substring(4);
         }
 
         /// <summary>
