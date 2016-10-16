@@ -4,10 +4,13 @@ using System.Globalization;
 
 namespace IdParser {
     public class IdentificationCard {
-        internal IdentificationCard(Version version, string input, List<string> subfileRecords) {
+        internal IdentificationCard(Version version, Country country, string input, List<string> subfileRecords) {
             // D.12.3 Header
             IssuerIdentificationNumber = (IssuerIdentificationNumber)Convert.ToInt32(input.Substring(9, 6));
             AamvaVersionNumber = version;
+
+            // The country is needed before we parse the subfile records so that dates can be interpreted correctly
+            Country = country == Country.Unknown ? IssuerIdentificationNumber.GetCountry() : country;
 
             if (version == Version.Aamva2000) {
                 JurisdictionVersionNumber = 0;
@@ -53,8 +56,7 @@ namespace IdParser {
                     break;
 
                 case "DBA":
-                    // TODO: This doesn't handle Canada's format correctly
-                    if (AamvaVersionNumber == Version.Aamva2000) {
+                    if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
                         ExpirationDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                     }
                     else {
@@ -73,7 +75,7 @@ namespace IdParser {
                     break;
                 case "DBD":
                     if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000) {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
                             IssueDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
                         else {
@@ -84,7 +86,7 @@ namespace IdParser {
                     break;
                 case "DBB":
                     if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000) {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
                             DateOfBirth = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
                         else {
@@ -119,15 +121,6 @@ namespace IdParser {
                     break;
                 case "DCF":
                     DocumentDiscriminator = data;
-                    break;
-                case "DCG":
-                    if (data == "USA") {
-                        Country = Country.USA;
-                    }
-                    else {
-                        Country = Country.Canada;
-                    }
-
                     break;
                 case "DDE":
                     if (data == "T") {
@@ -214,7 +207,7 @@ namespace IdParser {
                     break;
                 case "DDB":
                     if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000) {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
                             RevisionDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
                         else {
@@ -240,19 +233,34 @@ namespace IdParser {
                     break;
                 case "DDH":
                     if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (Country == Country.Canada) {
+                            Under18Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
                 case "DDI":
                     if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (Country == Country.Canada) {
+                            Under19Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
                 case "DDJ":
                     if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        if (Country == Country.Canada) {
+                            Under21Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
+                        }
+                        else {
+                            Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
+                        }
                     }
 
                     break;
@@ -300,7 +308,7 @@ namespace IdParser {
         public string PostalCode { get; set; }
 
         public string FormattedPostalCode => Country == Country.USA && PostalCode.Length > 5 ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}" : PostalCode;
-        public string Address => StreetLine2 == null ? $"{StreetLine1}\n{City}, {JurisdictionCode} {FormattedPostalCode}" : 
+        public string Address => StreetLine2 == null ? $"{StreetLine1}\n{City}, {JurisdictionCode} {FormattedPostalCode}" :
                                                        $"{StreetLine1}\n{StreetLine2}\n{City}, {JurisdictionCode} {FormattedPostalCode}";
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }

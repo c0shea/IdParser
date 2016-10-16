@@ -51,12 +51,15 @@ namespace IdParser {
             }
 
             var version = ParseAamvaVersion(rawPdf417Input);
+            var subfileRecords = GetSubfileRecords(version, rawPdf417Input);
+            var country = ParseCountry(version, subfileRecords);
+
 
             if (ParseSubfileType(version, rawPdf417Input) == "DL") {
-                return new DriversLicense(version, rawPdf417Input, GetSubfileRecords(version, rawPdf417Input));
+                return new DriversLicense(version, country, rawPdf417Input, subfileRecords);
             }
 
-            return new IdentificationCard(version, rawPdf417Input, GetSubfileRecords(version, rawPdf417Input));
+            return new IdentificationCard(version, country, rawPdf417Input, subfileRecords);
         }
 
         private static void ValidateFormat(string input) {
@@ -127,6 +130,33 @@ namespace IdParser {
             return input.Substring(21, 2);
         }
 
+        /// <summary>
+        /// Parses the country based on the DCG subfile record. The <see cref="IdentificationCard"/>
+        /// construcutor attempts to determine the correct country based on the IIN if the country is unknown.
+        /// </summary>
+        private static Country ParseCountry(Version version, List<string> subfileRecords) {
+            // Country is not a subfile record in the AAMVA 2000 standard
+            if (version == Version.Aamva2000) {
+                return Country.Unknown;
+            }
+
+            foreach (var subfileRecord in subfileRecords) {
+                var elementId = subfileRecord.Substring(0, 3);
+                var data = subfileRecord.Substring(3).Trim();
+
+                if (elementId == "DCG") {
+                    if (data == "USA") {
+                        return Country.USA;
+                    }
+                    if (data == "CAN" || data == "CDN") {
+                        return Country.Canada;
+                    }
+                }
+            }
+
+            return Country.Unknown;
+        }
+
         private static List<string> GetSubfileRecords(Version version, string input) {
             int offset = 0;
 
@@ -160,6 +190,14 @@ namespace IdParser {
             var attribute = Attribute.GetCustomAttribute(field, typeof(AbbreviationAttribute)) as AbbreviationAttribute;
 
             return attribute == null ? value.ToString() : attribute.Abbreviation;
+        }
+
+        public static Country GetCountry(this Enum value) {
+            var field = value.GetType().GetField(value.ToString());
+
+            var attribute = Attribute.GetCustomAttribute(field, typeof(CountryAttribute)) as CountryAttribute;
+
+            return attribute == null ? Country.Unknown : attribute.Country;
         }
     }
 }
