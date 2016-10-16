@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.PointOfService;
+using Newtonsoft.Json;
 
 namespace IdParser.Client {
     public partial class Main : Form {
@@ -141,13 +142,34 @@ namespace IdParser.Client {
             txtScanData.Text = data;
             lblSymbology.Text = symbology.ToString().ToUpper();
 
-            if (symbology == BarCodeSymbology.Pdf417 && data.Contains("@"))
-            {
-                SetStatus(Level.Info, "Parsing ID");
+            if (symbology == BarCodeSymbology.Pdf417 && data.Contains("@")) {
+                ParseScanData(data);
+            }
+            else {
+                ClearParsedId();
             }
 
             _scanner.DataEventEnabled = true;
             SetStatus(Level.Success, "Ready");
+        }
+
+        private void ParseScanData(string input) {
+            SetStatus(Level.Info, "Parsing ID");
+            var id = IdParser.Parse(input, Validation.None);
+
+            if (id is DriversLicense) {
+                lblIdType.Text = "Drivers License";
+            }
+            else {
+                lblIdType.Text = "Identification Card";
+            }
+
+            txtParsedId.Text = JsonConvert.SerializeObject(id, Formatting.Indented);
+        }
+
+        private void ClearParsedId() {
+            lblIdType.Text = string.Empty;
+            txtParsedId.Text = string.Empty;
         }
 
         private void btnSaveDataToFile_Click(object sender, EventArgs e) {
@@ -169,6 +191,20 @@ namespace IdParser.Client {
                 SetStatus(Level.Info, "Writing file");
                 File.WriteAllText(dialog.FileName, txtHidData.Text);
                 SetStatus(Level.Success, "Ready");
+            }
+        }
+
+        private void Main_Load(object sender, EventArgs e) {
+            txtLogicalName.Focus();
+        }
+
+        private void btnParse_Click(object sender, EventArgs e) {
+            if (txtHidData.Text.Contains("@")) {
+                File.WriteAllText(@"C:\users\connor\desktop\parsedsdf.txt", txtHidData.Text);
+                ParseScanData(txtHidData.Text);
+            }
+            else {
+                ClearParsedId();
             }
         }
     }

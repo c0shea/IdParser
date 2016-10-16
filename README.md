@@ -18,3 +18,15 @@ if (idCard is DriversLicense) {
 ### More Examples
 
 Take a look at the unit test project for more examples and usage.
+
+## Client
+
+The ```IdParser.Client``` project is a handy GUI application to help test and verify that an ID will be parsed correctly. The app works with both OPOS and HID keyboard emulation scanners.
+
+![](https://raw.githubusercontent.com/c0shea/IdParser/master/IdParser.Client.png)
+
+## FAQ
+
+* **I can't build ```IdParser.Client```. It's missing a required dependency.** You need to have ```Microsoft POS for .NET``` installed. The ```Microsoft.PointOfService``` dll is GAC'd and will allow you to build and run the client app. If you have POS for .NET version 1.12 installed, only the .NET 2.0 and 3.5 versions of the client will work with OPOS. You can still use the HID keyboard emulation in any .NET version of the client.
+
+* **The ```Height``` class has the wrong ```TotalInches``` or ```Centimeters```.** The AAMVA standard has no decimal places in the height subfile record. As a result, the conversion between inches and centimeters will be off.

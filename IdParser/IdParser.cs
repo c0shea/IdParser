@@ -91,7 +91,7 @@ namespace IdParser {
             }
         }
 
-        // HID keyboard emulation (and some other methods) tend to replace the \n with \r\n
+        // HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
         // which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
         private static string RemoveIncorrectCarriageReturns(string input) {
             if (input.Length < 5) {
