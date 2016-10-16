@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdParser", "IdParser\IdPars
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdParser.Tests", "IdParser.Tests\IdParser.Tests.csproj", "{8F0FFE69-6B8E-43AD-9E86-B2195ABE8A3D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdParser.Client", "IdParser.Client\IdParser.Client.csproj", "{FA949E77-9931-476C-BF93-DE61F5290CE7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8F0FFE69-6B8E-43AD-9E86-B2195ABE8A3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F0FFE69-6B8E-43AD-9E86-B2195ABE8A3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F0FFE69-6B8E-43AD-9E86-B2195ABE8A3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA949E77-9931-476C-BF93-DE61F5290CE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA949E77-9931-476C-BF93-DE61F5290CE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA949E77-9931-476C-BF93-DE61F5290CE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA949E77-9931-476C-BF93-DE61F5290CE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

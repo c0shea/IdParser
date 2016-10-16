@@ -14,3 +14,7 @@ if (idCard is DriversLicense) {
     Console.WriteLine(license.Jurisdiction.VehicleClass); // "C"
 }
 ```
+
+### More Examples
+
+Take a look at the unit test project for more examples and usage.
