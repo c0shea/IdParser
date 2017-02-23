@@ -184,6 +184,36 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
+        public void TestCTLicenseWebBrowser() {
+            var barcode = @"@
+AAMVA6360060101DL00290179DAACTLIC,ADULT,A
+DAG60 STATE ST
+DAIWETHERSFIELD
+DAJCT
+DAK061091896  
+DAQ990000001
+DARD   
+DASB         
+DAT     
+DBA20150101
+DBB19610101
+DBC2
+DBD20090223
+DAU506
+DAYBLU
+DBF00
+DBHY";
+
+            var idCard = IdParser.Parse(barcode, Validation.None);
+
+            Assert.IsNotNull(idCard);
+            Assert.AreEqual("ADULT", idCard.FirstName);
+            Assert.AreEqual("60 STATE ST", idCard.StreetLine1);
+            Assert.AreEqual("CT", idCard.JurisdictionCode);
+            Assert.AreEqual(new DateTime(1961, 01, 01), idCard.DateOfBirth);
+        }
+
+        [TestMethod]
         public void TestNonStandardDataElementSeparator() {
             var file = File.ReadAllText("MA License Piped.txt");
             var idCard = IdParser.Parse(file, Validation.None);

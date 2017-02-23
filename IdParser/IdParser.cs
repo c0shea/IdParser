@@ -51,7 +51,9 @@ namespace IdParser {
             if (validationLevel == Validation.Strict) {
                 ValidateFormat(rawPdf417Input);
             }
-            else {
+            else
+            {
+                rawPdf417Input = FixIncorrectHeader(rawPdf417Input);
                 rawPdf417Input = RemoveIncorrectCarriageReturns(rawPdf417Input);
             }
 
@@ -103,6 +105,20 @@ namespace IdParser {
                 var replacedString = input.Replace(ExpectedCarriageReturn.ToString(), string.Empty);
 
                 return replacedString.Substring(0, 3) + ExpectedCarriageReturn + replacedString.Substring(4);
+            }
+
+            return input;
+        }
+
+        private static string FixIncorrectHeader(string input)
+        {
+            if (input[0] == '@' &&
+                input[1] == ExpectedCarriageReturn &&
+                input[2] == ExpectedLineFeed &&
+                input[3] == ExpectedRecordSeparator &&
+                input[4] == 'A')
+            {
+                return input.Insert(4, ExpectedCarriageReturn.ToString() + ExpectedLineFeed);
             }
 
             return input;

@@ -200,7 +200,6 @@ namespace IdParser.Client {
 
         private void btnParse_Click(object sender, EventArgs e) {
             if (txtHidData.Text.Contains("@")) {
-                File.WriteAllText(@"C:\users\connor\desktop\parsedsdf.txt", txtHidData.Text);
                 ParseScanData(txtHidData.Text);
             }
             else {
