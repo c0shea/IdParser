@@ -69,13 +69,31 @@ namespace IdParser {
 
                     break;
                 case "DCS":
-                    LastName = data;
+                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                        LastName = null;
+                    }
+                    else {
+                        LastName = data;
+                    }
+
                     break;
                 case "DAC":
-                    FirstName = data;
+                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                        FirstName = null;
+                    }
+                    else {
+                        FirstName = data;
+                    }
+
                     break;
                 case "DAD":
-                    MiddleName = data;
+                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                        MiddleName = null;
+                    }
+                    else {
+                        MiddleName = data;
+                    }
+
                     break;
                 case "DBD":
                     if (data != string.Empty && data != "00000000") {

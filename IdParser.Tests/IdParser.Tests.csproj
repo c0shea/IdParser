@@ -111,6 +111,9 @@
     <Content Include="MA License 2016.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="MA License No Middle Name.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MA License Piped.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

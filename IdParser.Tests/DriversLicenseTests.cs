@@ -223,5 +223,17 @@ DBHY";
             Assert.AreEqual(Country.USA, idCard.Country);
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
         }
+
+        [TestMethod]
+        public void TestMALicenseWithNoMiddleName() {
+            var file = File.ReadAllText("MA License No Middle Name.txt");
+            var idCard = IdParser.Parse(file, Validation.None);
+
+            Assert.IsNotNull(idCard);
+            Assert.IsNull(idCard.MiddleName);
+            Assert.IsNotNull(idCard.FirstName);
+            Assert.AreEqual("TONY", idCard.FirstName);
+            Assert.AreEqual("ROBERT", idCard.LastName);
+        }
     }
 }
