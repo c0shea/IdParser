@@ -102,6 +102,9 @@
     <Compile Include="DriversLicenseTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CT License Web Browser.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="CT License.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
