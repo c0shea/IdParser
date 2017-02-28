@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2E20BF1-CDBC-4A70-A551-F017A0FC6D3F}"
 	ProjectSection(SolutionItems) = preProject
 		IdParser\IdParser.nuspec = IdParser\IdParser.nuspec
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
