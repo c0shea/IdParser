@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>IdParser</id>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
     <title>ID Parser</title>
     <authors>Connor O'Shea</authors>
     <owners>Connor O'Shea</owners>
@@ -11,7 +11,7 @@
     <iconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Parses AAMVA-compliant driver's licenses and ID cards</description>
-    <releaseNotes>Fixed a bug parsing names.</releaseNotes>
+    <releaseNotes>Fixed a bug when no middle name was present.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>Drivers License Identification Parser PDF417 AAMVA</tags>
   </metadata>
