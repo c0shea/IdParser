@@ -217,5 +217,18 @@ namespace IdParser.Tests {
             Assert.AreEqual("TONY", idCard.FirstName);
             Assert.AreEqual("ROBERT", idCard.LastName);
         }
+
+        [TestMethod]
+        public void TestCTLicenseNoMiddleName() {
+            var file = File.ReadAllText("CT License No Middle Name.txt");
+            var idCard = IdParser.Parse(file, Validation.None);
+
+            Assert.IsNotNull(idCard);
+            Assert.IsNotNull(idCard.FirstName);
+            Assert.IsNotNull(idCard.LastName);
+            Assert.IsNull(idCard.MiddleName);
+            Assert.AreEqual("WANG", idCard.LastName);
+            Assert.AreEqual("CHUNG", idCard.FirstName);
+        }
     }
 }

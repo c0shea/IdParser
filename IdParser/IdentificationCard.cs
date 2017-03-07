@@ -45,9 +45,9 @@ namespace IdParser {
                 // Required attributes
                 case "DAA":
                     var names = data.Split(',', '$');
-                    LastName = names[0];
-                    FirstName = names[1];
-                    MiddleName = names[2];
+                    LastName = names.Length > 0 ? names[0] : null;
+                    FirstName = names.Length > 1 ? names[1] : null;
+                    MiddleName = names.Length > 2 ? names[2] : null;
 
                     break;
 
