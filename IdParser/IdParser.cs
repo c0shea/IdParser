@@ -13,15 +13,6 @@ namespace IdParser
         private const char ExpectedCarriageReturn = (char)13;
 
         /// <summary>
-        /// Fully validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
-        /// </summary>
-        /// <param name="rawPdf417Input">The string to parse the information out of</param>
-        public static IdentificationCard Parse(string rawPdf417Input)
-        {
-            return Parse(rawPdf417Input, Validation.Strict);
-        }
-
-        /// <summary>
         /// Validates based on the validation level specified and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
         /// <param name="rawPdf417Input">The string to parse the information out of</param>
@@ -31,7 +22,7 @@ namespace IdParser
         /// No validation will be performed if none is specified and exceptions will not be thrown
         /// for elements that do not match or do not adversely affect parsing.
         /// </param>
-        public static IdentificationCard Parse(string rawPdf417Input, Validation validationLevel)
+        public static IdentificationCard Parse(string rawPdf417Input, Validation validationLevel = Validation.Strict)
         {
             if (validationLevel == Validation.Strict)
             {
