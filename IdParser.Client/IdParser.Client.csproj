@@ -207,12 +207,6 @@
   <ItemGroup>
     <Content Include="ID Parser Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IdParser\IdParser.csproj">
-      <Project>{342dba23-d9ad-4a5f-91b9-ebb08107c903}</Project>
-      <Name>IdParser</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

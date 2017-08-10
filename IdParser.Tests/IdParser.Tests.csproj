@@ -133,12 +133,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IdParser\IdParser.csproj">
-      <Project>{342dba23-d9ad-4a5f-91b9-ebb08107c903}</Project>
-      <Name>IdParser</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

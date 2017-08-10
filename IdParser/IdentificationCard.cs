@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Text;
 
-namespace IdParser {
-    public class IdentificationCard {
-        internal IdentificationCard(Version version, Country country, string input, List<string> subfileRecords) {
+namespace IdParser
+{
+    public class IdentificationCard
+    {
+        internal IdentificationCard(Version version, Country country, string input, List<string> subfileRecords)
+        {
             // D.12.3 Header
             IssuerIdentificationNumber = (IssuerIdentificationNumber)Convert.ToInt32(input.Substring(9, 6));
             AamvaVersionNumber = version;
@@ -16,10 +19,12 @@ namespace IdParser {
             Country = country == Country.Unknown ? IssuerIdentificationNumber.GetCountry() : country;
 #endif
 
-            if (version == Version.Aamva2000) {
+            if (version == Version.Aamva2000)
+            {
                 JurisdictionVersionNumber = 0;
             }
-            else {
+            else
+            {
                 JurisdictionVersionNumber = Convert.ToByte(input.Substring(17, 2));
             }
 
@@ -29,19 +34,22 @@ namespace IdParser {
             ComplianceType = ComplianceType.None;
 
             // Data Elements
-            foreach (var record in subfileRecords) {
+            foreach (var record in subfileRecords)
+            {
                 ParseRecord(record);
             }
         }
 
-        private void ParseRecord(string subfileRecord) {
+        private void ParseRecord(string subfileRecord)
+        {
             if (subfileRecord.Length < 3)
                 return;
 
             var elementId = subfileRecord.Substring(0, 3);
             var data = subfileRecord.Substring(3).Trim();
 
-            switch (elementId) {
+            switch (elementId)
+            {
                 // Required attributes
                 case "DAA":
                     var names = data.Split(',', '$');
@@ -60,58 +68,72 @@ namespace IdParser {
                     break;
 
                 case "DBA":
-                    if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
+                    if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada)
+                    {
                         ExpirationDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                     }
-                    else {
+                    else
+                    {
                         ExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                     }
 
                     break;
                 case "DCS":
-                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                    if (data == "NONE" || data == "unavl" || data == "unavail")
+                    {
                         LastName = null;
                     }
-                    else {
+                    else
+                    {
                         LastName = data;
                     }
 
                     break;
                 case "DAC":
-                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                    if (data == "NONE" || data == "unavl" || data == "unavail")
+                    {
                         FirstName = null;
                     }
-                    else {
+                    else
+                    {
                         FirstName = data;
                     }
 
                     break;
                 case "DAD":
-                    if (data == "NONE" || data == "unavl" || data == "unavail") {
+                    if (data == "NONE" || data == "unavl" || data == "unavail")
+                    {
                         MiddleName = null;
                     }
-                    else {
+                    else
+                    {
                         MiddleName = data;
                     }
 
                     break;
                 case "DBD":
-                    if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000")
+                    {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada)
+                        {
                             IssueDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             IssueDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
 
                     break;
                 case "DBB":
-                    if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000")
+                    {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada)
+                        {
                             DateOfBirth = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             DateOfBirth = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
@@ -145,37 +167,46 @@ namespace IdParser {
                     DocumentDiscriminator = data;
                     break;
                 case "DDE":
-                    if (data == "T") {
+                    if (data == "T")
+                    {
                         WasLastNameTruncated = true;
                     }
-                    else if (data == "N") {
+                    else if (data == "N")
+                    {
                         WasLastNameTruncated = false;
                     }
-                    else {
+                    else
+                    {
                         WasLastNameTruncated = null;
                     }
 
                     break;
                 case "DDF":
-                    if (data == "T") {
+                    if (data == "T")
+                    {
                         WasFirstNameTruncated = true;
                     }
-                    else if (data == "N") {
+                    else if (data == "N")
+                    {
                         WasFirstNameTruncated = false;
                     }
-                    else {
+                    else
+                    {
                         WasFirstNameTruncated = null;
                     }
 
                     break;
                 case "DDG":
-                    if (data == "T") {
+                    if (data == "T")
+                    {
                         WasMiddleNameTruncated = true;
                     }
-                    else if (data == "N") {
+                    else if (data == "N")
+                    {
                         WasMiddleNameTruncated = false;
                     }
-                    else {
+                    else
+                    {
                         WasMiddleNameTruncated = null;
                     }
 
@@ -216,33 +247,41 @@ namespace IdParser {
                     Ethnicity = data;
                     break;
                 case "DDA":
-                    if (data == "M") {
+                    if (data == "M")
+                    {
                         ComplianceType = ComplianceType.MateriallyCompliant;
                     }
-                    else if (data == "F") {
+                    else if (data == "F")
+                    {
                         ComplianceType = ComplianceType.FullyCompliant;
                     }
-                    else if (data == "N") {
+                    else if (data == "N")
+                    {
                         ComplianceType = ComplianceType.NonCompliant;
                     }
 
                     break;
                 case "DDB":
-                    if (data != string.Empty && data != "00000000") {
-                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000")
+                    {
+                        if (AamvaVersionNumber == Version.Aamva2000 || Country == Country.Canada)
+                        {
                             RevisionDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             RevisionDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
 
                     break;
                 case "DDD":
-                    if (data == "1") {
+                    if (data == "1")
+                    {
                         HasTemporaryLawfulStatus = true;
                     }
-                    else {
+                    else
+                    {
                         HasTemporaryLawfulStatus = false;
                     }
 
@@ -254,33 +293,42 @@ namespace IdParser {
                     WeightInKilograms = Convert.ToInt16(data);
                     break;
                 case "DDH":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        if (Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    {
+                        if (Country == Country.Canada)
+                        {
                             Under18Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             Under18Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
 
                     break;
                 case "DDI":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        if (Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    {
+                        if (Country == Country.Canada)
+                        {
                             Under19Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             Under19Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
 
                     break;
                 case "DDJ":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        if (Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    {
+                        if (Country == Country.Canada)
+                        {
                             Under21Until = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             Under21Until = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }
@@ -288,7 +336,8 @@ namespace IdParser {
                     break;
                 case "DBH":
                     if (AamvaVersionNumber == Version.Aamva2000 &&
-                        IssuerIdentificationNumber == IssuerIdentificationNumber.Connecticut) {
+                        IssuerIdentificationNumber == IssuerIdentificationNumber.Connecticut)
+                    {
                         IsOrganDonor = data == "Y";
                     }
 
@@ -302,7 +351,8 @@ namespace IdParser {
 
                     break;
                 default:
-                    if (elementId.Substring(0, 1) == "Z" && !AdditionalJurisdictionElements.ContainsKey(elementId)) {
+                    if (elementId.Substring(0, 1) == "Z" && !AdditionalJurisdictionElements.ContainsKey(elementId))
+                    {
                         AdditionalJurisdictionElements.Add(elementId, data);
                     }
 
@@ -331,7 +381,7 @@ namespace IdParser {
 
         public string FormattedPostalCode => Country == Country.USA && PostalCode.Length > 5 ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}" : PostalCode;
         public string Address => StreetLine2 == null ? $"{StreetLine1}\n{City}, {JurisdictionCode} {FormattedPostalCode}" :
-                                                       $"{StreetLine1}\n{StreetLine2}\n{City}, {JurisdictionCode} {FormattedPostalCode}";
+            $"{StreetLine1}\n{StreetLine2}\n{City}, {JurisdictionCode} {FormattedPostalCode}";
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }
         public Country Country { get; set; }

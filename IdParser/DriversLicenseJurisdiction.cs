@@ -1,5 +1,11 @@
-﻿namespace IdParser {
-    public class DriversLicenseJurisdiction {
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace IdParser
+{
+    public class DriversLicenseJurisdiction
+    {
         public string VehicleClass { get; set; }
         public string RestrictionCodes { get; set; }
         public string EndorsementCodes { get; set; }

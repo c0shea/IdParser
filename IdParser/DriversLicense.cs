@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 
-namespace IdParser {
-    public class DriversLicense : IdentificationCard {
-        internal DriversLicense(Version version, Country country, string input, List<string> subfileRecords) : base(version, country, input, subfileRecords) {
+namespace IdParser
+{
+    public class DriversLicense : IdentificationCard
+    {
+        internal DriversLicense(Version version, Country country, string input, List<string> subfileRecords) : base(version, country, input, subfileRecords)
+        {
             Jurisdiction = new DriversLicenseJurisdiction();
 
-            foreach (var record in subfileRecords) {
+            foreach (var record in subfileRecords)
+            {
                 ParseRecord(record);
             }
         }
 
-        private void ParseRecord(string subfileRecord) {
+        private void ParseRecord(string subfileRecord)
+        {
             if (subfileRecord.Length < 3)
                 return;
 
             var elementId = subfileRecord.Substring(0, 3);
             var data = subfileRecord.Substring(3).Trim();
 
-            switch (elementId) {
+            switch (elementId)
+            {
                 // Required attributes
                 // AAMVA 2000
                 case "DAR":
@@ -60,11 +67,14 @@ namespace IdParser {
                     Jurisdiction.RestrictionCodeDescription = data;
                     break;
                 case "DDC":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000) {
-                        if (Country == Country.Canada) {
+                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    {
+                        if (Country == Country.Canada)
+                        {
                             HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
                         }
-                        else {
+                        else
+                        {
                             HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
                         }
                     }

@@ -1,12 +1,13 @@
-﻿using System.ComponentModel;
-
-namespace IdParser {
-    public enum Validation {
+﻿namespace IdParser
+{
+    public enum Validation
+    {
         None,
         Strict
     }
 
-    public enum Version : byte {
+    public enum Version : byte
+    {
         PreStandard = 0,
         Aamva2000 = 1,
         Aamva2003 = 2,
@@ -19,7 +20,8 @@ namespace IdParser {
         Future = 99
     }
 
-    public enum IssuerIdentificationNumber {
+    public enum IssuerIdentificationNumber
+    {
         [Country(Country.USA)]
         [Abbreviation("AL")]
         Alabama = 636033,
@@ -240,19 +242,22 @@ namespace IdParser {
         Yukon = 604429
     }
 
-    public enum Sex : byte {
+    public enum Sex : byte
+    {
         Male = 1,
         Female = 2
     }
 
-    public enum Country {
+    public enum Country
+    {
         USA,
         Canada,
         Mexico,
         Unknown
     }
 
-    public enum WeightRange {
+    public enum WeightRange
+    {
         [Description("None")]
         None = -1,
         [Description("Up to 70 lbs (31 kg)")]
@@ -277,7 +282,8 @@ namespace IdParser {
         LbsGreaterThan320 = 9
     }
 
-    public enum ComplianceType {
+    public enum ComplianceType
+    {
         [Description("None")]
         None,
         [Description("Materially Compliant")]
