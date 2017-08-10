@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using IdParser.Attributes;
 
 namespace IdParser
@@ -51,32 +52,37 @@ namespace IdParser
         {
             if (input.Length < 31)
             {
-                throw new ArgumentException("The input is missing required header elements and is not a valid AAMVA format.", nameof(input));
+                throw new ArgumentException($"The input is missing required header elements and is not a valid AAMVA format. Expected at least 31 characters. Received {input.Length}.", nameof(input));
             }
 
-            if (input.Substring(0, 1) != "@")
+            var complianceIndicator = ParseComplianceIndicator(input);
+            if (complianceIndicator != "@")
             {
-                throw new ArgumentException("The compliance indicator is invalid. Expected 0x40.", nameof(input));
+                throw new ArgumentException($"The compliance indicator is invalid. Expected '0x40'. Received '{complianceIndicator.ConvertToHex()}'.", nameof(input));
             }
 
-            if (ParseDataElementSeparator(input) != ExpectedLineFeed)
+            var dataElementSeparator = ParseDataElementSeparator(input);
+            if (dataElementSeparator != ExpectedLineFeed)
             {
-                throw new ArgumentException("The data element separator is invalid. Expected 0x0A.", nameof(input));
+                throw new ArgumentException($"The data element separator is invalid. Expected '0x0A'. Received '{dataElementSeparator.ConvertToHex()}'.", nameof(input));
             }
 
-            if (ParseRecordSeparator(input) != ExpectedRecordSeparator)
+            var recordSeparator = ParseRecordSeparator(input);
+            if (recordSeparator != ExpectedRecordSeparator)
             {
-                throw new ArgumentException("The record separator is wrong. Expected 0x1E.", nameof(input));
+                throw new ArgumentException($"The record separator is invalid. Expected '0x1E'. Received '{recordSeparator.ConvertToHex()}'.", nameof(input));
             }
 
-            if (ParseSegmentTerminator(input) != ExpectedCarriageReturn)
+            var segmentTerminator = ParseSegmentTerminator(input);
+            if (segmentTerminator != ExpectedCarriageReturn)
             {
-                throw new ArgumentException("The segment terminator is wrong. Expected 0x0D.", nameof(input));
+                throw new ArgumentException($"The segment terminator is invalid. Expected '0x0D'. Received '{segmentTerminator.ConvertToHex()}'.", nameof(input));
             }
 
-            if (input.Substring(4, 5) != "ANSI ")
+            var fileType = ParseFileType(input);
+            if (fileType != "ANSI ")
             {
-                throw new ArgumentException("The file type is invalid. Expected \"ANSI \"", nameof(input));
+                throw new ArgumentException($"The file type is invalid. Expected 'ANSI '. Received '{fileType.ConvertToHex()}'.", nameof(input));
             }
         }
 
@@ -130,6 +136,16 @@ namespace IdParser
             }
 
             return Version.Future;
+        }
+
+        private static string ParseComplianceIndicator(string input)
+        {
+            return input.Substring(0, 1);
+        }
+
+        private static string ParseFileType(string input)
+        {
+            return input.Substring(4, 5);
         }
 
         private static byte ParseAamvaVersionNumber(string input)
@@ -241,6 +257,20 @@ namespace IdParser
             var attribute = field.GetCustomAttribute<CountryAttribute>();
 
             return attribute?.Country ?? Country.Unknown;
+        }
+
+        private static string ConvertToHex(this string value)
+        {
+            var hex = BitConverter.ToString(Encoding.UTF8.GetBytes(value));
+
+            hex = "0x" + hex.Replace("-", "");
+
+            return hex;
+        }
+
+        private static string ConvertToHex(this char value)
+        {
+            return "0x" + BitConverter.ToString(Encoding.UTF8.GetBytes(new[] { value }));
         }
     }
 }
