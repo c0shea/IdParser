@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdParser
+namespace IdParser.Attributes
 {
     /// <summary>
     /// Specifies an abbreviated display value for the target.

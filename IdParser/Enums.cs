@@ -1,4 +1,6 @@
-﻿namespace IdParser
+﻿using IdParser.Attributes;
+
+namespace IdParser
 {
     public enum Validation
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IdParser
+namespace IdParser.Attributes
 {
     /// <summary>
     /// Specifies a country display value for the target.
