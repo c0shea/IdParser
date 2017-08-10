@@ -11,26 +11,6 @@ namespace IdParser
         private const char ExpectedCarriageReturn = (char)13;
 
         /// <summary>
-        /// OBSOLETE - Validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
-        /// </summary>
-        /// <param name="rawPdf417Input">The string to parse the information out of</param>
-        /// <param name="suppressValidation">
-        /// If set to true, exceptions will not be thrown for elements that do not match
-        /// the AAMVA standard but do not adversely affect parsing. When set to false
-        /// (the default if not specified), exceptions will be thrown for all validation errors.
-        /// </param>
-        [Obsolete("Calling Parse with a bool to suppress validation is deprecated. Use the Parse method and specify the validation level via the Validation enum.")]
-        public static IdentificationCard Parse(string rawPdf417Input, bool suppressValidation = false)
-        {
-            if (suppressValidation)
-            {
-                return Parse(rawPdf417Input, Validation.None);
-            }
-
-            return Parse(rawPdf417Input, Validation.Strict);
-        }
-
-        /// <summary>
         /// Fully validates and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
         /// <param name="rawPdf417Input">The string to parse the information out of</param>
