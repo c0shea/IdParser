@@ -79,11 +79,8 @@ namespace IdParser.Tests {
             Assert.AreEqual("MAURY", idCard.LastName);
             Assert.AreEqual(new DateTime(1958, 07, 15), idCard.DateOfBirth);
 
-#if NET20
-            Assert.AreEqual("VA", IdParser.GetAbbreviation(idCard.IssuerIdentificationNumber));
-#else
             Assert.AreEqual("VA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-#endif
+
             Assert.AreEqual(new DateTime(2009, 08, 14), idCard.IssueDate);
             Assert.AreEqual(new DateTime(2017, 08, 14), idCard.ExpirationDate);
             Assert.AreEqual(Country.USA, idCard.Country);
@@ -114,13 +111,9 @@ namespace IdParser.Tests {
             Assert.AreEqual("ANYTOWN", idCard.City);
             Assert.AreEqual("303340000", idCard.PostalCode);
 
-#if NET20
-            Assert.AreEqual("Georgia", IdParser.GetDescription(idCard.IssuerIdentificationNumber));
-            Assert.AreEqual("GA", IdParser.GetAbbreviation(idCard.IssuerIdentificationNumber));
-#else
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
             Assert.AreEqual("GA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-#endif
+
             Assert.AreEqual(new DateTime(2006, 07, 01), idCard.IssueDate);
             Assert.AreEqual(Country.USA, idCard.Country);
 
@@ -151,11 +144,8 @@ namespace IdParser.Tests {
             Assert.AreEqual("WETHERSFIELD", idCard.City);
             Assert.AreEqual("061091896", idCard.PostalCode);
 
-#if NET20
-            Assert.AreEqual("CT", IdParser.GetAbbreviation(idCard.IssuerIdentificationNumber));
-#else
             Assert.AreEqual("CT", idCard.IssuerIdentificationNumber.GetAbbreviation());
-#endif
+
             Assert.AreEqual("990000001", idCard.IdNumber);
             Assert.AreEqual(new DateTime(2015, 01, 01), idCard.ExpirationDate);
             Assert.AreEqual(Country.USA, idCard.Country);

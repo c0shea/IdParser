@@ -173,7 +173,7 @@ namespace IdParser
 
         /// <summary>
         /// Parses the country based on the DCG subfile record. The <see cref="IdentificationCard"/>
-        /// construcutor attempts to determine the correct country based on the IIN if the country is unknown.
+        /// constructor attempts to determine the correct country based on the IIN if the country is unknown.
         /// </summary>
         private static Country ParseCountry(Version version, List<string> subfileRecords)
         {
@@ -217,12 +217,9 @@ namespace IdParser
                 offset = Convert.ToInt32(input.Substring(23, 4));
             }
 
-#if NET20
-            var records = new List<string>(input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries));
-#else
             var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
-#endif
             var firstRecord = records[0].Substring(0, 2);
+
             if (firstRecord == "DL" || firstRecord == "ID")
             {
                 records[0] = records[0].Substring(2);
