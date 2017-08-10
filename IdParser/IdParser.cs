@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace IdParser
@@ -258,7 +259,7 @@ namespace IdParser
 #else
         public static string GetDescription(this Enum value)
         {
-            var field = value.GetType().GetField(value.ToString());
+            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
 
             var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
 
