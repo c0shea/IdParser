@@ -231,37 +231,10 @@ namespace IdParser
             return records;
         }
 
-        // Extension methods are not supported in .NET 2.0
-#if NET20
-        public static string GetDescription(Enum value) {
-            var field = value.GetType().GetField(value.ToString());
-
-            var attribute = Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
-
-            return attribute == null ? value.ToString() : attribute.Description;
-        }
-
-        public static string GetAbbreviation(Enum value) {
-            var field = value.GetType().GetField(value.ToString());
-
-            var attribute = Attribute.GetCustomAttribute(field, typeof(AbbreviationAttribute)) as AbbreviationAttribute;
-
-            return attribute == null ? value.ToString() : attribute.Abbreviation;
-        }
-
-        public static Country GetCountry(Enum value) {
-            var field = value.GetType().GetField(value.ToString());
-
-            var attribute = Attribute.GetCustomAttribute(field, typeof(CountryAttribute)) as CountryAttribute;
-
-            return attribute == null ? Country.Unknown : attribute.Country;
-        }
-#else
         public static string GetDescription(this Enum value)
         {
             var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-
-            var attribute = null as DescriptionAttribute;//Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) as DescriptionAttribute;
+            var attribute = field.GetCustomAttribute<DescriptionAttribute>();
 
             return attribute == null ? value.ToString() : attribute.Description;
         }
@@ -269,8 +242,7 @@ namespace IdParser
         public static string GetAbbreviation(this Enum value)
         {
             var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-
-            var attribute = null as AbbreviationAttribute;//Attribute.GetCustomAttribute(field, typeof(AbbreviationAttribute)) as AbbreviationAttribute;
+            var attribute = field.GetCustomAttribute<AbbreviationAttribute>();
 
             return attribute == null ? value.ToString() : attribute.Abbreviation;
         }
@@ -278,11 +250,9 @@ namespace IdParser
         public static Country GetCountry(this Enum value)
         {
             var field = value.GetType().GetTypeInfo().GetField(value.ToString());
+            var attribute = field.GetCustomAttribute<CountryAttribute>();
 
-            var attribute = null as CountryAttribute;//Attribute.GetCustomAttribute(field, typeof(CountryAttribute)) as CountryAttribute;
-
-            return attribute == null ? Country.Unknown : attribute.Country;
+            return attribute?.Country ?? Country.Unknown;
         }
-#endif
     }
 }
