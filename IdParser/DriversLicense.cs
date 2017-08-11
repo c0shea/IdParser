@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 
 namespace IdParser
 {
     public class DriversLicense : IdentificationCard
     {
+        public DriversLicenseJurisdiction Jurisdiction { get; set; }
+
+        // Optional elements
+        public string StandardVehicleClassification { get; set; }
+        public string StandardEndorsementCode { get; set; }
+        public string StandardRestrictionCode { get; set; }
+        public DateTime? HazmatEndorsementExpirationDate { get; set; }
+
         internal DriversLicense(Version version, Country country, string input, List<string> subfileRecords) : base(version, country, input, subfileRecords)
         {
             Jurisdiction = new DriversLicenseJurisdiction();
@@ -68,26 +75,11 @@ namespace IdParser
                 case "DDC":
                     if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
                     {
-                        if (Country == Country.Canada)
-                        {
-                            HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "yyyyMMdd", CultureInfo.CurrentCulture);
-                        }
-                        else
-                        {
-                            HazmatEndorsementExpirationDate = DateTime.ParseExact(data, "MMddyyyy", CultureInfo.CurrentCulture);
-                        }
+                        HazmatEndorsementExpirationDate = Country.ParseDate(AamvaVersionNumber, data);
                     }
 
                     break;
             }
         }
-
-        public DriversLicenseJurisdiction Jurisdiction { get; set; }
-
-        // Optional elements
-        public string StandardVehicleClassification { get; set; }
-        public string StandardEndorsementCode { get; set; }
-        public string StandardRestrictionCode { get; set; }
-        public DateTime? HazmatEndorsementExpirationDate { get; set; }
     }
 }
