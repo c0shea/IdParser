@@ -73,7 +73,7 @@ namespace IdParser
                     Jurisdiction.RestrictionCodeDescription = data;
                     break;
                 case "DDC":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    if (DateHasValue(data) && AamvaVersionNumber >= Version.Aamva2000)
                     {
                         HazmatEndorsementExpirationDate = Country.ParseDate(AamvaVersionNumber, data);
                     }

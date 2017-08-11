@@ -120,35 +120,35 @@ namespace IdParser
 
                     break;
                 case "DCS":
-                    if (ElementHasValue(data))
+                    if (NameHasValue(data))
                     {
                         LastName = data;
                     }
                     
                     break;
                 case "DAC":
-                    if (ElementHasValue(data))
+                    if (NameHasValue(data))
                     {
                         FirstName = data;
                     }
                     
                     break;
                 case "DAD":
-                    if (ElementHasValue(data))
+                    if (NameHasValue(data))
                     {
                         MiddleName = data;
                     }
                     
                     break;
                 case "DBD":
-                    if (data != string.Empty && data != "00000000")
+                    if (DateHasValue(data))
                     {
                         IssueDate = Country.ParseDate(AamvaVersionNumber, data);
                     }
 
                     break;
                 case "DBB":
-                    if (data != string.Empty && data != "00000000")
+                    if (DateHasValue(data))
                     {
                         DateOfBirth = Country.ParseDate(AamvaVersionNumber, data);
                     }
@@ -277,7 +277,7 @@ namespace IdParser
 
                     break;
                 case "DDB":
-                    if (data != string.Empty && data != "00000000")
+                    if (DateHasValue(data))
                     {
                         RevisionDate = Country.ParseDate(AamvaVersionNumber, data);
                     }
@@ -301,21 +301,21 @@ namespace IdParser
                     WeightInKilograms = Convert.ToInt16(data);
                     break;
                 case "DDH":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    if (DateHasValue(data) && AamvaVersionNumber >= Version.Aamva2000)
                     {
                         Under18Until = Country.ParseDate(AamvaVersionNumber, data);
                     }
 
                     break;
                 case "DDI":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    if (DateHasValue(data) && AamvaVersionNumber >= Version.Aamva2000)
                     {
                         Under19Until = Country.ParseDate(AamvaVersionNumber, data);
                     }
 
                     break;
                 case "DDJ":
-                    if (data != string.Empty && data != "00000000" && AamvaVersionNumber >= Version.Aamva2000)
+                    if (DateHasValue(data) && AamvaVersionNumber >= Version.Aamva2000)
                     {
                         Under21Until = Country.ParseDate(AamvaVersionNumber, data);
                     }
@@ -347,7 +347,12 @@ namespace IdParser
             }
         }
 
-        private bool ElementHasValue(string data)
+        protected bool DateHasValue(string data)
+        {
+            return data != "" && data != "00000000";
+        }
+
+        private bool NameHasValue(string data)
         {
             return data != "NONE" && data != "unavl" && data != "unavail";
         }
