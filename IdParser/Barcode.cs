@@ -9,9 +9,11 @@ namespace IdParser
 {
     public static class Barcode
     {
-        private const char ExpectedLineFeed = (char)10;
-        private const char ExpectedRecordSeparator = (char)30;
-        private const char ExpectedCarriageReturn = (char)13;
+        private const char ExpectedComplianceIndicator = (char) 64;
+        private const char ExpectedDataElementSeparator = (char) 10;
+        private const char ExpectedRecordSeparator = (char) 30;
+        private const char ExpectedSegmentTerminator = (char) 13;
+        private const string ExpectedFileType = "ANSI ";
 
         /// <summary>
         /// Parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
@@ -109,33 +111,33 @@ namespace IdParser
             }
 
             var complianceIndicator = ParseComplianceIndicator(input);
-            if (complianceIndicator != "@")
+            if (complianceIndicator != ExpectedComplianceIndicator)
             {
-                throw new ArgumentException($"The compliance indicator is invalid. Expected '0x40'. Received '{complianceIndicator.ConvertToHex()}'.", nameof(input));
+                throw new ArgumentException($"The compliance indicator is invalid. Expected '{ExpectedComplianceIndicator.ConvertToHex()}'. Received '{complianceIndicator.ConvertToHex()}'.", nameof(input));
             }
 
             var dataElementSeparator = ParseDataElementSeparator(input);
-            if (dataElementSeparator != ExpectedLineFeed)
+            if (dataElementSeparator != ExpectedDataElementSeparator)
             {
-                throw new ArgumentException($"The data element separator is invalid. Expected '0x0A'. Received '{dataElementSeparator.ConvertToHex()}'.", nameof(input));
+                throw new ArgumentException($"The data element separator is invalid. Expected '{ExpectedDataElementSeparator.ConvertToHex()}'. Received '{dataElementSeparator.ConvertToHex()}'.", nameof(input));
             }
 
             var recordSeparator = ParseRecordSeparator(input);
             if (recordSeparator != ExpectedRecordSeparator)
             {
-                throw new ArgumentException($"The record separator is invalid. Expected '0x1E'. Received '{recordSeparator.ConvertToHex()}'.", nameof(input));
+                throw new ArgumentException($"The record separator is invalid. Expected '{ExpectedRecordSeparator.ConvertToHex()}'. Received '{recordSeparator.ConvertToHex()}'.", nameof(input));
             }
 
             var segmentTerminator = ParseSegmentTerminator(input);
-            if (segmentTerminator != ExpectedCarriageReturn)
+            if (segmentTerminator != ExpectedSegmentTerminator)
             {
-                throw new ArgumentException($"The segment terminator is invalid. Expected '0x0D'. Received '{segmentTerminator.ConvertToHex()}'.", nameof(input));
+                throw new ArgumentException($"The segment terminator is invalid. Expected '{ExpectedSegmentTerminator.ConvertToHex()}'. Received '{segmentTerminator.ConvertToHex()}'.", nameof(input));
             }
 
             var fileType = ParseFileType(input);
-            if (fileType != "ANSI ")
+            if (fileType != ExpectedFileType)
             {
-                throw new ArgumentException($"The file type is invalid. Expected 'ANSI '. Received '{fileType.ConvertToHex()}'.", nameof(input));
+                throw new ArgumentException($"The file type is invalid. Expected '{ExpectedFileType}'. Received '{fileType.ConvertToHex()}'.", nameof(input));
             }
         }
 
@@ -145,14 +147,14 @@ namespace IdParser
         /// </summary>
         private static string RemoveIncorrectCarriageReturns(string input)
         {
-            var crLf = ExpectedCarriageReturn.ToString() + ExpectedLineFeed;
+            var crLf = ExpectedSegmentTerminator.ToString() + ExpectedDataElementSeparator;
             var doesInputContainCrLf = input.IndexOf(crLf, StringComparison.Ordinal) >= 0;
 
             if (doesInputContainCrLf)
             {
-                var replacedString = input.Replace(ExpectedCarriageReturn.ToString(), string.Empty);
+                var replacedString = input.Replace(ExpectedSegmentTerminator.ToString(), string.Empty);
 
-                return replacedString.Substring(0, 3) + ExpectedCarriageReturn + replacedString.Substring(4);
+                return replacedString.Substring(0, 3) + ExpectedSegmentTerminator + replacedString.Substring(4);
             }
 
             return input;
@@ -167,20 +169,20 @@ namespace IdParser
         private static string FixIncorrectHeader(string input)
         {
             if (input[0] == '@' &&
-                input[1] == ExpectedCarriageReturn &&
-                input[2] == ExpectedLineFeed &&
+                input[1] == ExpectedSegmentTerminator &&
+                input[2] == ExpectedDataElementSeparator &&
                 input[3] == ExpectedRecordSeparator &&
                 input[4] == 'A')
             {
-                return input.Insert(4, ExpectedCarriageReturn.ToString() + ExpectedLineFeed);
+                return input.Insert(4, ExpectedSegmentTerminator.ToString() + ExpectedDataElementSeparator);
             }
 
             return input;
         }
 
-        private static string ParseComplianceIndicator(string input)
+        private static char ParseComplianceIndicator(string input)
         {
-            return input.Substring(0, 1);
+            return input.Substring(0, 1)[0];
         }
 
         private static string ParseFileType(string input)
