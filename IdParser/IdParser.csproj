@@ -17,6 +17,7 @@
     <FileVersion>3.0.0.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <SignAssembly>False</SignAssembly>
+    <RootNamespace>IdParser</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

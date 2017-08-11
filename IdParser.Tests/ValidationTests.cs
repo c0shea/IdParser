@@ -9,13 +9,13 @@ namespace IdParser.Tests
         [TestMethod]
         public void InvalidLengthTest()
         {
-            Assert.ThrowsException<ArgumentException>(() => IdParser.Parse("ABC123"));
+            Assert.ThrowsException<ArgumentException>(() => Barcode.Parse("ABC123"));
         }
 
         [TestMethod]
         public void InvalidComplianceIndicatorTest()
         {
-            Assert.ThrowsException<ArgumentException>(() => IdParser.Parse(new string('A', 32)));
+            Assert.ThrowsException<ArgumentException>(() => Barcode.Parse(new string('A', 32)));
         }
     }
 }

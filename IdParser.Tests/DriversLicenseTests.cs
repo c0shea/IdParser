@@ -3,13 +3,16 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IdParser.Tests {
+namespace IdParser.Tests
+{
     [TestClass]
-    public class DriversLicenseTests {
+    public class DriversLicenseTests
+    {
         [TestMethod]
-        public void TestMA2009License() {
+        public void TestMA2009License()
+        {
             var file = File.ReadAllText("MA License 2009.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.AreEqual("ROBERT", idCard.FirstName);
             Assert.AreEqual("LOWNEY", idCard.MiddleName);
@@ -22,9 +25,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestMA2016License() {
+        public void TestMA2016License()
+        {
             var file = File.ReadAllText("MA License 2016.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.AreEqual("MORRIS", idCard.FirstName);
             Assert.AreEqual("T", idCard.MiddleName);
@@ -40,7 +44,8 @@ namespace IdParser.Tests {
             Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
             Assert.AreEqual("02133-0000", idCard.FormattedPostalCode);
 
-            if (idCard is DriversLicense) {
+            if (idCard is DriversLicense)
+            {
                 var license = (DriversLicense)idCard;
 
                 Assert.AreEqual("D", license.Jurisdiction.VehicleClass);
@@ -49,15 +54,16 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestNYLicense() {
+        public void TestNYLicense()
+        {
             var file = File.ReadAllText("NY License.txt");
-            var license = IdParser.Parse(file);
+            var license = Barcode.Parse(file);
 
             Assert.AreEqual("M", license.FirstName);
             Assert.AreEqual("Motorist", license.MiddleName);
             Assert.AreEqual("Michael", license.LastName);
             Assert.AreEqual(new DateTime(2013, 08, 31), license.DateOfBirth);
-            
+
             Assert.AreEqual("New York", license.IssuerIdentificationNumber.GetDescription());
             Assert.AreEqual("NY", license.IssuerIdentificationNumber.GetAbbreviation());
 
@@ -70,9 +76,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestVALicense() {
+        public void TestVALicense()
+        {
             var file = File.ReadAllText("VA License.txt");
-            var idCard = IdParser.Parse(file);
+            var idCard = Barcode.Parse(file);
 
             Assert.AreEqual("JUSTIN", idCard.FirstName);
             Assert.AreEqual("WILLIAM", idCard.MiddleName);
@@ -89,7 +96,8 @@ namespace IdParser.Tests {
             Assert.AreEqual("STAUNTON", idCard.City);
             Assert.AreEqual("244010000", idCard.PostalCode);
 
-            if (idCard is DriversLicense) {
+            if (idCard is DriversLicense)
+            {
                 var license = (DriversLicense)idCard;
 
                 Assert.AreEqual("158X9", license.Jurisdiction.RestrictionCodes);
@@ -97,9 +105,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestGALicense() {
+        public void TestGALicense()
+        {
             var file = File.ReadAllText("GA License.txt");
-            var idCard = IdParser.Parse(file);
+            var idCard = Barcode.Parse(file);
 
             Assert.AreEqual("JANICE", idCard.FirstName);
             Assert.IsNull(idCard.MiddleName);
@@ -117,7 +126,8 @@ namespace IdParser.Tests {
             Assert.AreEqual(new DateTime(2006, 07, 01), idCard.IssueDate);
             Assert.AreEqual(Country.USA, idCard.Country);
 
-            if (idCard is DriversLicense) {
+            if (idCard is DriversLicense)
+            {
                 var license = (DriversLicense)idCard;
 
                 Assert.AreEqual("NONE", license.Jurisdiction.RestrictionCodes);
@@ -127,9 +137,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestCTLicense() {
+        public void TestCTLicense()
+        {
             var file = File.ReadAllText("CT License.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.AreEqual("ADULT", idCard.FirstName);
             Assert.AreEqual("A", idCard.MiddleName);
@@ -150,7 +161,8 @@ namespace IdParser.Tests {
             Assert.AreEqual(new DateTime(2015, 01, 01), idCard.ExpirationDate);
             Assert.AreEqual(Country.USA, idCard.Country);
 
-            if (idCard is DriversLicense) {
+            if (idCard is DriversLicense)
+            {
                 var license = (DriversLicense)idCard;
 
                 Assert.AreEqual("D", license.Jurisdiction.VehicleClass);
@@ -159,9 +171,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestCTLicenseWebBrowser() {
+        public void TestCTLicenseWebBrowser()
+        {
             var file = File.ReadAllText("CT License Web Browser.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.IsNotNull(idCard);
             Assert.AreEqual("ADULT", idCard.FirstName);
@@ -171,9 +184,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestNonStandardDataElementSeparator() {
+        public void TestNonStandardDataElementSeparator()
+        {
             var file = File.ReadAllText("MA License Piped.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.AreEqual("S65807412", idCard.IdNumber);
             Assert.AreEqual("123 MAIN STREET", idCard.StreetLine1);
@@ -182,9 +196,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestMALicenseWithNoMiddleName() {
+        public void TestMALicenseWithNoMiddleName()
+        {
             var file = File.ReadAllText("MA License No Middle Name.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.IsNotNull(idCard);
             Assert.IsNull(idCard.MiddleName);
@@ -194,9 +209,10 @@ namespace IdParser.Tests {
         }
 
         [TestMethod]
-        public void TestCTLicenseNoMiddleName() {
+        public void TestCTLicenseNoMiddleName()
+        {
             var file = File.ReadAllText("CT License No Middle Name.txt");
-            var idCard = IdParser.Parse(file, Validation.None);
+            var idCard = Barcode.Parse(file, Validation.None);
 
             Assert.IsNotNull(idCard);
             Assert.IsNotNull(idCard.FirstName);

@@ -7,14 +7,14 @@ using IdParser.Attributes;
 
 namespace IdParser
 {
-    public static class IdParser
+    public static class Barcode
     {
         private const char ExpectedLineFeed = (char)10;
         private const char ExpectedRecordSeparator = (char)30;
         private const char ExpectedCarriageReturn = (char)13;
 
         /// <summary>
-        /// Validates based on the validation level specified and parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
+        /// Parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
         /// </summary>
         /// <param name="rawPdf417Input">The string to parse the information out of</param>
         /// <param name="validationLevel">
@@ -38,14 +38,67 @@ namespace IdParser
             var version = ParseAamvaVersion(rawPdf417Input);
             var subfileRecords = GetSubfileRecords(version, rawPdf417Input);
             var country = ParseCountry(version, subfileRecords);
-
-
+            
             if (ParseSubfileType(version, rawPdf417Input) == "DL")
             {
                 return new DriversLicense(version, country, rawPdf417Input, subfileRecords);
             }
 
             return new IdentificationCard(version, country, rawPdf417Input, subfileRecords);
+        }
+
+        /// <summary>
+        /// Gets the AAMVA version of the input.
+        /// </summary>
+        /// <param name="input">The raw PDF417 barcode data</param>
+        public static Version ParseAamvaVersion(string input)
+        {
+            if (input == null || input.Length < 17)
+            {
+                throw new ArgumentException("Input must not be null or less than 17 characters in order to parse the version.", nameof(input));
+            }
+
+            var version = ParseAamvaVersionNumber(input);
+
+            if (Enum.IsDefined(typeof(Version), version))
+            {
+                return (Version)version;
+            }
+
+            return Version.Future;
+        }
+
+        /// <summary>
+        /// Gets the value of the <see cref="DescriptionAttribute"/> on the <see cref="Enum"/>.
+        /// </summary>
+        public static string GetDescription(this Enum value)
+        {
+            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
+            var attribute = field.GetCustomAttribute<DescriptionAttribute>();
+
+            return attribute == null ? value.ToString() : attribute.Description;
+        }
+
+        /// <summary>
+        /// Gets the value of the <see cref="AbbreviationAttribute"/> on the <see cref="Enum"/>.
+        /// </summary>
+        public static string GetAbbreviation(this Enum value)
+        {
+            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
+            var attribute = field.GetCustomAttribute<AbbreviationAttribute>();
+
+            return attribute == null ? value.ToString() : attribute.Abbreviation;
+        }
+
+        /// <summary>
+        /// Gets the value of the <see cref="CountryAttribute"/> on the <see cref="Enum"/>.
+        /// </summary>
+        public static Country GetCountry(this Enum value)
+        {
+            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
+            var attribute = field.GetCustomAttribute<CountryAttribute>();
+
+            return attribute?.Country ?? Country.Unknown;
         }
 
         private static void ValidateFormat(string input)
@@ -86,11 +139,13 @@ namespace IdParser
             }
         }
 
-        // HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
-        // which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
+        /// <summary>
+        /// HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
+        /// which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
+        /// </summary>
         private static string RemoveIncorrectCarriageReturns(string input)
         {
-            var crLf = ExpectedCarriageReturn.ToString() + ExpectedLineFeed.ToString();
+            var crLf = ExpectedCarriageReturn.ToString() + ExpectedLineFeed;
             var doesInputContainCrLf = input.IndexOf(crLf, StringComparison.Ordinal) >= 0;
 
             if (doesInputContainCrLf)
@@ -103,6 +158,12 @@ namespace IdParser
             return input;
         }
 
+        /// <summary>
+        /// HID keyboard emulation, especially entered via a web browser, tends to mutilate the header.
+        /// As long as part of the header is correct, this will fix the rest of it to make it parse-able.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static string FixIncorrectHeader(string input)
         {
             if (input[0] == '@' &&
@@ -115,27 +176,6 @@ namespace IdParser
             }
 
             return input;
-        }
-
-        /// <summary>
-        /// Gets the AAMVA version of the input.
-        /// </summary>
-        /// <param name="input">The raw PDF417 barcode data</param>
-        public static Version ParseAamvaVersion(string input)
-        {
-            if (input == null || input.Length < 17)
-            {
-                throw new ArgumentException("Input must not be null or less than 17 characters in order to parse the version.", nameof(input));
-            }
-
-            var version = ParseAamvaVersionNumber(input);
-
-            if (Enum.IsDefined(typeof(Version), version))
-            {
-                return (Version)version;
-            }
-
-            return Version.Future;
         }
 
         private static string ParseComplianceIndicator(string input)
@@ -153,17 +193,17 @@ namespace IdParser
             return Convert.ToByte(input.Substring(15, 2));
         }
 
-        internal static char ParseDataElementSeparator(string input)
+        private static char ParseDataElementSeparator(string input)
         {
             return input.Substring(1, 1)[0];
         }
 
-        internal static char ParseRecordSeparator(string input)
+        private static char ParseRecordSeparator(string input)
         {
             return input.Substring(2, 1)[0];
         }
 
-        internal static char ParseSegmentTerminator(string input)
+        private static char ParseSegmentTerminator(string input)
         {
             return input.Substring(3, 1)[0];
         }
@@ -234,31 +274,7 @@ namespace IdParser
 
             return records;
         }
-
-        public static string GetDescription(this Enum value)
-        {
-            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-            var attribute = field.GetCustomAttribute<DescriptionAttribute>();
-
-            return attribute == null ? value.ToString() : attribute.Description;
-        }
-
-        public static string GetAbbreviation(this Enum value)
-        {
-            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-            var attribute = field.GetCustomAttribute<AbbreviationAttribute>();
-
-            return attribute == null ? value.ToString() : attribute.Abbreviation;
-        }
-
-        public static Country GetCountry(this Enum value)
-        {
-            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-            var attribute = field.GetCustomAttribute<CountryAttribute>();
-
-            return attribute?.Country ?? Country.Unknown;
-        }
-
+        
         private static string ConvertToHex(this string value)
         {
             var hex = BitConverter.ToString(Encoding.UTF8.GetBytes(value));
