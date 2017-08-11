@@ -120,37 +120,25 @@ namespace IdParser
 
                     break;
                 case "DCS":
-                    if (data == "NONE" || data == "unavl" || data == "unavail")
-                    {
-                        LastName = null;
-                    }
-                    else
+                    if (ElementHasValue(data))
                     {
                         LastName = data;
                     }
-
+                    
                     break;
                 case "DAC":
-                    if (data == "NONE" || data == "unavl" || data == "unavail")
-                    {
-                        FirstName = null;
-                    }
-                    else
+                    if (ElementHasValue(data))
                     {
                         FirstName = data;
                     }
-
+                    
                     break;
                 case "DAD":
-                    if (data == "NONE" || data == "unavl" || data == "unavail")
-                    {
-                        MiddleName = null;
-                    }
-                    else
+                    if (ElementHasValue(data))
                     {
                         MiddleName = data;
                     }
-
+                    
                     break;
                 case "DBD":
                     if (data != string.Empty && data != "00000000")
@@ -357,6 +345,11 @@ namespace IdParser
 
                     break;
             }
+        }
+
+        private bool ElementHasValue(string data)
+        {
+            return data != "NONE" && data != "unavl" && data != "unavail";
         }
     }
 }
