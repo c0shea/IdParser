@@ -170,19 +170,26 @@ namespace IdParser.Client
 
         private void ParseScanData(string input)
         {
-            SetStatus(Level.Info, "Parsing ID");
-            var id = Barcode.Parse(input, Validation.None);
-
-            if (id is DriversLicense)
+            try
             {
-                lblIdType.Text = "Drivers License";
-            }
-            else
-            {
-                lblIdType.Text = "Identification Card";
-            }
+                SetStatus(Level.Info, "Parsing ID");
+                var id = Barcode.Parse(input, Validation.None);
 
-            txtParsedId.Text = JsonConvert.SerializeObject(id, Formatting.Indented);
+                if (id is DriversLicense)
+                {
+                    lblIdType.Text = "Drivers License";
+                }
+                else
+                {
+                    lblIdType.Text = "Identification Card";
+                }
+
+                txtParsedId.Text = JsonConvert.SerializeObject(id, Formatting.Indented);
+            }
+            catch (Exception ex)
+            {
+                txtParsedId.Text = $"Failed to Parse ID.{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex.StackTrace}";
+            }
         }
 
         private void ClearParsedId()
