@@ -39,11 +39,9 @@ will be parsed correctly. The app works with both OPOS and HID keyboard emulatio
 ## FAQ
 
 * **I can't build ```IdParser.Client```. It's missing a required dependency.**
-  You need to have [Microsoft POS for .NET](https://www.microsoft.com/en-us/download/details.aspx?id=5355)
+  You need to have [Microsoft POS for .NET](https://www.microsoft.com/en-us/download/details.aspx?id=55758&WT.mc_id=rss_alldownloads_all)
   installed. The ```Microsoft.PointOfService``` dll is GAC'd and will allow you to build and run
-  the client app. If you have POS for .NET version 1.12 installed, only the .NET 2.0 and 3.5 versions of
-  the client will work with OPOS. You can still use the HID keyboard emulation in any .NET version of
-  the client.
+  the client app.
 
 * **The ```Height``` class has the wrong ```TotalInches``` or ```Centimeters```.**
   The AAMVA standard has no decimal places in the height subfile record.

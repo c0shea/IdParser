@@ -7,11 +7,12 @@ namespace IdParser
 {
     public static class Barcode
     {
-        private const char ExpectedComplianceIndicator = (char) 64;
-        private const char ExpectedDataElementSeparator = (char) 10;
-        private const char ExpectedRecordSeparator = (char) 30;
-        private const char ExpectedSegmentTerminator = (char) 13;
-        private const string ExpectedFileType = "ANSI ";
+        internal const char ExpectedComplianceIndicator = (char) 64;
+        internal const char ExpectedDataElementSeparator = (char) 10;
+        internal const char ExpectedRecordSeparator = (char) 30;
+        internal const char ExpectedSegmentTerminator = (char) 13;
+        internal const string ExpectedFileType = "ANSI ";
+        internal static string ExpectedHeader => $"@{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedRecordSeparator}{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedFileType}";
 
         /// <summary>
         /// Parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
@@ -25,14 +26,20 @@ namespace IdParser
         /// </param>
         public static IdentificationCard Parse(string rawPdf417Input, Validation validationLevel = Validation.Strict)
         {
+            if (rawPdf417Input.Length < 31)
+            {
+                throw new ArgumentException($"The input is missing required header elements and is not a valid AAMVA format. Expected at least 31 characters. Received {rawPdf417Input.Length}.", nameof(rawPdf417Input));
+            }
+
             if (validationLevel == Validation.Strict)
             {
                 ValidateFormat(rawPdf417Input);
             }
             else
             {
-                rawPdf417Input = FixIncorrectHeader(rawPdf417Input);
-                rawPdf417Input = RemoveIncorrectCarriageReturns(rawPdf417Input);
+                rawPdf417Input = rawPdf417Input.RemoveInvalidCharactersFromHeader()
+                                               .FixIncorrectHeader()
+                                               .RemoveIncorrectCarriageReturns();
             }
 
             var version = ParseAamvaVersion(rawPdf417Input);
@@ -70,11 +77,6 @@ namespace IdParser
 
         private static void ValidateFormat(string input)
         {
-            if (input.Length < 31)
-            {
-                throw new ArgumentException($"The input is missing required header elements and is not a valid AAMVA format. Expected at least 31 characters. Received {input.Length}.", nameof(input));
-            }
-
             var complianceIndicator = ParseComplianceIndicator(input);
             if (complianceIndicator != ExpectedComplianceIndicator)
             {
@@ -104,45 +106,6 @@ namespace IdParser
             {
                 throw new ArgumentException($"The file type is invalid. Expected '{ExpectedFileType}'. Received '{fileType.ConvertToHex()}'.", nameof(input));
             }
-        }
-
-        /// <summary>
-        /// HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
-        /// which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
-        /// </summary>
-        private static string RemoveIncorrectCarriageReturns(string input)
-        {
-            var crLf = ExpectedSegmentTerminator.ToString() + ExpectedDataElementSeparator;
-            var doesInputContainCrLf = input.IndexOf(crLf, StringComparison.Ordinal) >= 0;
-
-            if (doesInputContainCrLf)
-            {
-                var replacedString = input.Replace(ExpectedSegmentTerminator.ToString(), string.Empty);
-
-                return replacedString.Substring(0, 3) + ExpectedSegmentTerminator + replacedString.Substring(4);
-            }
-
-            return input;
-        }
-
-        /// <summary>
-        /// HID keyboard emulation, especially entered via a web browser, tends to mutilate the header.
-        /// As long as part of the header is correct, this will fix the rest of it to make it parse-able.
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        private static string FixIncorrectHeader(string input)
-        {
-            if (input[0] == '@' &&
-                input[1] == ExpectedSegmentTerminator &&
-                input[2] == ExpectedDataElementSeparator &&
-                input[3] == ExpectedRecordSeparator &&
-                input[4] == 'A')
-            {
-                return input.Insert(4, ExpectedSegmentTerminator.ToString() + ExpectedDataElementSeparator);
-            }
-
-            return input;
         }
 
         private static char ParseComplianceIndicator(string input)

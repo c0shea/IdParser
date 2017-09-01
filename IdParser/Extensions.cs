@@ -42,14 +42,24 @@ namespace IdParser
 
         internal static DateTime ParseDate(this Country country, Version version, string value)
         {
-            var format = "MMddyyyy";
+            var usaFormat = "MMddyyyy";
+            var canadaFormat = "yyyyMMdd";
+            bool tryCanadaFormatFirst = country == Country.Canada || version == Version.Aamva2000;
 
-            if (country == Country.Canada || version == Version.Aamva2000)
+            // Some jurisdictions, like Wyoming (version 2009), don't follow the standard and use the wrong date format.
+            // In an attempt to parse the ID successfully, attempt to parse using both formats if the first attempt fails.
+            // Hopefully between the two one will work.
+            if (DateTime.TryParseExact(value, tryCanadaFormatFirst ? canadaFormat : usaFormat, CultureInfo.CurrentCulture, DateTimeStyles.AllowWhiteSpaces, out var firstAttemptResult))
             {
-                format = "yyyyMMdd";
+                return firstAttemptResult;
             }
 
-            return DateTime.ParseExact(value, format, CultureInfo.CurrentCulture, DateTimeStyles.AllowWhiteSpaces);
+            if (DateTime.TryParseExact(value, !tryCanadaFormatFirst ? canadaFormat : usaFormat, CultureInfo.CurrentCulture, DateTimeStyles.AllowWhiteSpaces, out var secondAttemptResult))
+            {
+                return secondAttemptResult;
+            }
+
+            throw new ArgumentException($"Failed to parse the date '{value}' for country '{country}' using version '{version}'.", nameof(value));
         }
     }
 }
