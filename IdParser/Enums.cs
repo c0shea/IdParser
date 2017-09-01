@@ -174,7 +174,7 @@ namespace IdParser
         NewBrunswick = 636017,
 
         [Country(Country.USA)]
-        [Abbreviation("ND")]
+        [Abbreviation("NH")]
         [Description("New Hampshire")]
         NewHampshire = 636039,
 
