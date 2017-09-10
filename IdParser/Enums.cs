@@ -372,4 +372,68 @@ namespace IdParser
         [Description("Non-Compliant")]
         NonCompliant
     }
+
+    public enum EyeColor
+    {
+        [Abbreviation("UNK")]
+        Unknown,
+
+        [Abbreviation("BLK")]
+        Black,
+
+        [Abbreviation("BLU")]
+        Blue,
+
+        [Abbreviation("BRO")]
+        Brown,
+
+        [Abbreviation("DIC")]
+        Dichromatic,
+
+        [Abbreviation("GRY")]
+        Gray,
+
+        [Abbreviation("GRN")]
+        Green,
+
+        [Abbreviation("HAZ")]
+        Hazel,
+
+        [Abbreviation("MAR")]
+        Maroon,
+
+        [Abbreviation("PNK")]
+        Pink
+    }
+
+    public enum HairColor
+    {
+        [Abbreviation("UNK")]
+        Unknown,
+
+        [Abbreviation("BAL")]
+        Bald,
+
+        [Abbreviation("BLK")]
+        Black,
+
+        [Abbreviation("BLN")]
+        Blond,
+
+        [Abbreviation("BRO")]
+        Brown,
+
+        [Abbreviation("GRY")]
+        Grey,
+
+        [Abbreviation("RED")]
+        [Description("Red/Auburn")]
+        RedAuburn,
+
+        [Abbreviation("SDY")]
+        Sandy,
+
+        [Abbreviation("WHI")]
+        White
+    }
 }
