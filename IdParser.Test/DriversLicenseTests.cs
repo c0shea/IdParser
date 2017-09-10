@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace IdParser.Tests
+namespace IdParser.Test
 {
     [TestClass]
     public class DriversLicenseTests
