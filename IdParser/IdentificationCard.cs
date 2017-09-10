@@ -158,7 +158,19 @@ namespace IdParser
 
                     break;
                 case "DBC":
-                    Sex = (Sex)Convert.ToInt32(data);
+                    if (byte.TryParse(data, out var numericSex))
+                    {
+                        Sex = (Sex) numericSex;
+                    }
+                    else if (data.Equals("M", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Sex = Sex.Male;
+                    }
+                    else if (data.Equals("F", StringComparison.OrdinalIgnoreCase))
+                    {
+                        Sex = Sex.Female;
+                    }
+                    
                     break;
                 case "DAY":
                     EyeColor = data == "UNK" ? null : data;

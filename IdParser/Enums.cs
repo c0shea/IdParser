@@ -313,8 +313,10 @@ namespace IdParser
 
     public enum Sex : byte
     {
+        Unknown = 0,
         Male = 1,
-        Female = 2
+        Female = 2,
+        NotSpecified = 9
     }
 
     public enum Country

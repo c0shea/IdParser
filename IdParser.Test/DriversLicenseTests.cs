@@ -254,5 +254,44 @@ namespace IdParser.Test
             Assert.AreEqual("WANG", idCard.LastName);
             Assert.AreEqual("CHUNG", idCard.FirstName);
         }
+
+        [TestMethod]
+        public void TestMOLicense()
+        {
+            var file = File.ReadAllText("MO License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            Assert.IsNotNull(idCard);
+
+            Assert.AreEqual("FirstNameTest", idCard.FirstName);
+            Assert.AreEqual(" ", idCard.MiddleName);
+            Assert.AreEqual("LastNameTest", idCard.LastName);
+
+            Assert.AreEqual("123 ABC TEST ADDRESS 2ND FL", idCard.StreetLine1);
+            Assert.AreEqual("ST LOUIS", idCard.City);
+            Assert.AreEqual("MO", idCard.IssuerIdentificationNumber.GetAbbreviation());
+            Assert.AreEqual(Country.USA, idCard.Country);
+
+            Assert.AreEqual(new DateTime(2017, 08, 09), idCard.DateOfBirth);
+            Assert.AreEqual(Sex.Male, idCard.Sex);
+            Assert.AreEqual("BRO", idCard.EyeColor);
+            Assert.AreEqual(68, idCard.Height.TotalInches);
+            Assert.AreEqual((short)155, idCard.WeightInPounds);
+
+            Assert.AreEqual("X100097001", idCard.IdNumber);
+            Assert.AreEqual(Version.Aamva2000, idCard.AamvaVersionNumber);
+            Assert.AreEqual(new DateTime(2011, 06, 30), idCard.IssueDate);
+            Assert.AreEqual(new DateTime(2018, 02, 04), idCard.ExpirationDate);
+
+            Assert.AreEqual("MAST LOUIS CITY", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
+            Assert.AreEqual("112001810097", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
+
+            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
+
+            if (idCard is DriversLicense license)
+            {
+                Assert.AreEqual("F", license.Jurisdiction.VehicleClass);
+            }
+        }
     }
 }
