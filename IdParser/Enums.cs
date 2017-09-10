@@ -321,9 +321,17 @@ namespace IdParser
 
     public enum Country
     {
+        [Description("United States of America")]
+        [Abbreviation("US")]
+        // ReSharper disable once InconsistentNaming
         USA,
+
+        [Abbreviation("CA")]
         Canada,
+
+        [Abbreviation("MX")]
         Mexico,
+
         Unknown
     }
 
