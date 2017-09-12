@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>3.0.2-beta</Version>
+    <Version>3.0.2</Version>
     <Authors>Connor O'Shea</Authors>
     <Company />
     <Product>ID Parser</Product>
