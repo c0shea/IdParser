@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace IdParser
 {
@@ -188,7 +189,9 @@ namespace IdParser
                     JurisdictionCode = data;
                     break;
                 case "DAK":
-                    PostalCode = data;
+                    PostalCode = data == null
+                                 ? null
+                                 : new Regex(@"[^\w\d]").Replace(data, "").Replace("00000", "");
                     break;
                 case "DAQ":
                     IdNumber = data;
