@@ -61,5 +61,10 @@ namespace IdParser
 
             throw new ArgumentException($"Failed to parse the date '{value}' for country '{country}' using version '{version}'.", nameof(value));
         }
+
+        internal static string ReplaceEmptyWithNull(this string data)
+        {
+            return string.IsNullOrEmpty(data) ? null : data;
+        }
     }
 }

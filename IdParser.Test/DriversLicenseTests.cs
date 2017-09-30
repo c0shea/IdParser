@@ -264,7 +264,7 @@ namespace IdParser.Test
             Assert.IsNotNull(idCard);
 
             Assert.AreEqual("FirstNameTest", idCard.FirstName);
-            Assert.AreEqual(" ", idCard.MiddleName);
+            Assert.IsNull(idCard.MiddleName);
             Assert.AreEqual("LastNameTest", idCard.LastName);
 
             Assert.AreEqual("123 ABC TEST ADDRESS 2ND FL", idCard.StreetLine1);
@@ -291,6 +291,46 @@ namespace IdParser.Test
             if (idCard is DriversLicense license)
             {
                 Assert.AreEqual("F", license.Jurisdiction.VehicleClass);
+            }
+        }
+
+        [TestMethod]
+        public void TestFLLicense()
+        {
+            var file = File.ReadAllText("FL License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            Assert.IsNotNull(idCard);
+
+            Assert.AreEqual("JOEY", idCard.FirstName);
+            Assert.AreEqual("MIDLAND", idCard.MiddleName);
+            Assert.AreEqual("TESTER", idCard.LastName);
+
+            Assert.AreEqual("1234 PARK ST LOT 504", idCard.StreetLine1);
+            Assert.AreEqual("KEY WEST", idCard.City);
+            Assert.AreEqual("FL", idCard.IssuerIdentificationNumber.GetAbbreviation());
+            Assert.AreEqual("FL", idCard.JurisdictionCode);
+            Assert.AreEqual("330400504", idCard.PostalCode);
+            Assert.AreEqual("33040-0504", idCard.FormattedPostalCode);
+            Assert.AreEqual(Country.USA, idCard.Country);
+
+            Assert.AreEqual(new DateTime(1941, 05, 09), idCard.DateOfBirth);
+            Assert.AreEqual(Sex.Male, idCard.Sex);
+            Assert.AreEqual(73, idCard.Height.TotalInches);
+            Assert.AreEqual(WeightRange.None, idCard.WeightRange);
+
+            Assert.AreEqual("H574712510891", idCard.IdNumber);
+            Assert.AreEqual(Version.Aamva2000, idCard.AamvaVersionNumber);
+            Assert.AreEqual(new DateTime(2014, 05, 01), idCard.IssueDate);
+            Assert.AreEqual(new DateTime(2022, 03, 09), idCard.ExpirationDate);
+            
+            Assert.AreEqual(5, idCard.AdditionalJurisdictionElements.Count);
+            Assert.AreEqual("FA", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZFZ").Value);
+
+            if (idCard is DriversLicense license)
+            {
+                Assert.AreEqual("A", license.Jurisdiction.RestrictionCodes);
+                Assert.AreEqual("E", license.Jurisdiction.VehicleClass);
             }
         }
     }

@@ -105,17 +105,17 @@ namespace IdParser
                 // Required attributes
                 case "DAA":
                     var names = data.Split(',', '$');
-                    LastName = names.Length > 0 ? names[0].Trim() : null;
-                    FirstName = names.Length > 1 ? names[1].Trim() : null;
-                    MiddleName = names.Length > 2 ? names[2].Trim() : null;
+                    LastName = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
+                    FirstName = names.Length > 1 ? names[1].Trim().ReplaceEmptyWithNull() : null;
+                    MiddleName = names.Length > 2 ? names[2].Trim().ReplaceEmptyWithNull() : null;
 
                     break;
 
                 // AAMVA 2003-2005
                 case "DCT":
                     var givenNames = data.Split(',', '$', ' ');
-                    FirstName = givenNames[0];
-                    MiddleName = givenNames.Length > 1 ? givenNames[1] : null;
+                    FirstName = givenNames[0].Trim();
+                    MiddleName = givenNames.Length > 1 ? givenNames[1].Trim().ReplaceEmptyWithNull() : null;
 
                     break;
 
