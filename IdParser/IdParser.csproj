@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Authors>Connor O'Shea</Authors>
     <Company />
     <Product>ID Parser</Product>
@@ -14,19 +14,19 @@
     <PackageIconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</PackageIconUrl>
     <PackageTags>Drivers License Identification Card Parser PDF417 AAMVA Standard</PackageTags>
     <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.2.0</FileVersion>
+    <FileVersion>3.0.3.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <SignAssembly>False</SignAssembly>
     <RootNamespace>IdParser</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard1.5\IdParser.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\IdParser.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard1.5\IdParser.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\IdParser.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
 
