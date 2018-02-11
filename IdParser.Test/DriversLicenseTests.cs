@@ -48,7 +48,7 @@ namespace IdParser.Test
             Assert.AreEqual("24 BEACON STREET", idCard.StreetLine1);
             Assert.AreEqual("BOSTON", idCard.City);
             Assert.AreEqual("MA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-            Assert.AreEqual("02133-0000", idCard.FormattedPostalCode);
+            Assert.AreEqual("02133", idCard.FormattedPostalCode);
             Assert.AreEqual(Country.USA, idCard.Country);
 
             Assert.AreEqual(new DateTime(1971, 12, 31), idCard.DateOfBirth);
@@ -124,7 +124,7 @@ namespace IdParser.Test
 
             Assert.AreEqual("17 FIRST STREET", idCard.StreetLine1);
             Assert.AreEqual("STAUNTON", idCard.City);
-            Assert.AreEqual("244010000", idCard.PostalCode);
+            Assert.AreEqual("24401", idCard.PostalCode);
 
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
 
@@ -148,7 +148,7 @@ namespace IdParser.Test
 
             Assert.AreEqual("123 NORTH STATE ST.", idCard.StreetLine1);
             Assert.AreEqual("ANYTOWN", idCard.City);
-            Assert.AreEqual("303340000", idCard.PostalCode);
+            Assert.AreEqual("30334", idCard.PostalCode);
 
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
             Assert.AreEqual("GA", idCard.IssuerIdentificationNumber.GetAbbreviation());
@@ -350,8 +350,8 @@ namespace IdParser.Test
             Assert.AreEqual("SOMETOWN", idCard.City);
             Assert.AreEqual("NH", idCard.IssuerIdentificationNumber.GetAbbreviation());
             Assert.AreEqual("NH", idCard.JurisdictionCode);
-            Assert.AreEqual("012340000", idCard.PostalCode);
-            Assert.AreEqual("01234-0000", idCard.FormattedPostalCode);
+            Assert.AreEqual("01234", idCard.PostalCode);
+            Assert.AreEqual("01234", idCard.FormattedPostalCode);
             Assert.AreEqual(Country.USA, idCard.Country);
 
             Assert.AreEqual(new DateTime(1977, 11, 06), idCard.DateOfBirth);

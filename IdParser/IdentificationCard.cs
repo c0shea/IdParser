@@ -191,7 +191,7 @@ namespace IdParser
                 case "DAK":
                     PostalCode = data == null
                                  ? null
-                                 : new Regex(@"[^\w\d]").Replace(data, "").Replace("00000", "");
+                                 : new Regex(@"[^\w\d]").Replace(data, "").Replace("0000", "");
                     break;
                 case "DAQ":
                     IdNumber = data;
