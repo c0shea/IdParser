@@ -333,5 +333,36 @@ namespace IdParser.Test
                 Assert.AreEqual("E", license.Jurisdiction.VehicleClass);
             }
         }
+
+        [TestMethod]
+        public void TestNHLicense()
+        {
+            var file = File.ReadAllText("NH License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            Assert.IsNotNull(idCard);
+
+            Assert.AreEqual("DONNIE", idCard.FirstName);
+            Assert.AreEqual("G", idCard.MiddleName);
+            Assert.AreEqual("TESTER", idCard.LastName);
+
+            Assert.AreEqual("802 WILLIAMS ST", idCard.StreetLine1);
+            Assert.AreEqual("SOMETOWN", idCard.City);
+            Assert.AreEqual("NH", idCard.IssuerIdentificationNumber.GetAbbreviation());
+            Assert.AreEqual("NH", idCard.JurisdictionCode);
+            Assert.AreEqual("012340000", idCard.PostalCode);
+            Assert.AreEqual("01234-0000", idCard.FormattedPostalCode);
+            Assert.AreEqual(Country.USA, idCard.Country);
+
+            Assert.AreEqual(new DateTime(1977, 11, 06), idCard.DateOfBirth);
+            Assert.AreEqual(Sex.Male, idCard.Sex);
+            Assert.AreEqual(69, idCard.Height.TotalInches);
+            Assert.AreEqual(WeightRange.None, idCard.WeightRange);
+
+            Assert.AreEqual("NHI17128755", idCard.IdNumber);
+            Assert.AreEqual(Version.Aamva2013, idCard.AamvaVersionNumber);
+            Assert.AreEqual(new DateTime(2017, 12, 19), idCard.IssueDate);
+            Assert.AreEqual(new DateTime(2022, 11, 06), idCard.ExpirationDate);
+        }
     }
 }
