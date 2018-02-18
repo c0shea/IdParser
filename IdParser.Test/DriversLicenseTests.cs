@@ -11,56 +11,84 @@ namespace IdParser.Test
         [TestMethod]
         public void TestMA2009License()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "ROBERT",
+                MiddleName = "LOWNEY",
+                LastName = "SMITH",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                StreetLine1 = "123 MAIN STREET",
+                City = "BOSTON",
+                JurisdictionCode = "MA",
+                PostalCode = "021080",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1977, 07, 07),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2009, "072 IN"),
+
+                IdNumber = "S65807412",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2016, 06, 29),
+                ExpirationDate = new DateTime(2020, 07, 07),
+                RevisionDate = new DateTime(2009, 07, 15),
+
+                WeightRange = WeightRange.None,
+            };
+
             var file = File.ReadAllText("MA License 2009.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.AreEqual("ROBERT", idCard.FirstName);
-            Assert.AreEqual("LOWNEY", idCard.MiddleName);
-            Assert.AreEqual("SMITH", idCard.LastName);
+            AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("123 MAIN STREET", idCard.StreetLine1);
-            Assert.AreEqual("BOSTON", idCard.City);
-            Assert.AreEqual("MA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-            Assert.AreEqual(Country.USA, idCard.Country);
-
-            Assert.AreEqual(new DateTime(1977, 07, 07), idCard.DateOfBirth);
-            Assert.AreEqual(Sex.Male, idCard.Sex);
-            Assert.IsNull(idCard.EyeColor);
-            Assert.AreEqual(6, idCard.Height.Feet);
-            Assert.AreEqual(0, idCard.Height.Inches);
-            
-            Assert.AreEqual("S65807412", idCard.IdNumber);
-            Assert.AreEqual(Version.Aamva2009, idCard.AamvaVersionNumber);
-            Assert.AreEqual(new DateTime(2016, 06, 29), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2020, 07, 07), idCard.ExpirationDate);
+            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
         [TestMethod]
         public void TestMA2016License()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "MORRIS",
+                MiddleName = "T",
+                LastName = "SAMPLE",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                StreetLine1 = "24 BEACON STREET",
+                City = "BOSTON",
+                JurisdictionCode = "MA",
+                PostalCode = "02133",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1971, 12, 31),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2013, "062 IN"),
+
+                IdNumber = "S12345678",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2016, 08, 09),
+                ExpirationDate = new DateTime(2021, 08, 16),
+                RevisionDate = new DateTime(2016, 02, 22),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("MA License 2016.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.AreEqual("MORRIS", idCard.FirstName);
-            Assert.AreEqual("T", idCard.MiddleName);
-            Assert.AreEqual("SAMPLE", idCard.LastName);
-            
-            Assert.AreEqual("24 BEACON STREET", idCard.StreetLine1);
-            Assert.AreEqual("BOSTON", idCard.City);
-            Assert.AreEqual("MA", idCard.IssuerIdentificationNumber.GetAbbreviation());
+            AssertIdCard(expected, idCard);
+
             Assert.AreEqual("02133", idCard.FormattedPostalCode);
-            Assert.AreEqual(Country.USA, idCard.Country);
-
-            Assert.AreEqual(new DateTime(1971, 12, 31), idCard.DateOfBirth);
-            Assert.AreEqual(Sex.Male, idCard.Sex);
-            Assert.AreEqual(62, idCard.Height.TotalInches);
-            Assert.IsFalse(idCard.IsOrganDonor);
-            Assert.IsFalse(idCard.IsVeteran);
-
-            Assert.AreEqual("S12345678", idCard.IdNumber);
-            Assert.AreEqual(Version.Aamva2013, idCard.AamvaVersionNumber);
-            Assert.AreEqual(new DateTime(2016, 08, 09), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2021, 08, 16), idCard.ExpirationDate);
+            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.AreEqual("08102016 REV 02222016", idCard.DocumentDiscriminator);
             Assert.AreEqual("12345S123456780612", idCard.InventoryControlNumber);
@@ -79,52 +107,122 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestMALicenseWithNoMiddleName()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "TONY",
+                LastName = "ROBERT",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                StreetLine1 = "123 MAIN STREET",
+                City = "BOSTON",
+                JurisdictionCode = "MA",
+                PostalCode = "021080",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1977, 07, 07),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2009, "072 IN"),
+
+                IdNumber = "S65807412",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2016, 06, 29),
+                ExpirationDate = new DateTime(2020, 07, 07),
+                RevisionDate = new DateTime(2009, 07, 15),
+
+                WeightRange = WeightRange.None
+            };
+
+            var file = File.ReadAllText("MA License No Middle Name.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestNYLicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "M",
+                MiddleName = "Motorist",
+                LastName = "Michael",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                StreetLine1 = "2345 ANYWHERE STREET",
+                City = "YOUR CITY",
+                JurisdictionCode = "NY",
+                PostalCode = "12345",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(2013, 08, 31),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2012, "064 in"),
+                EyeColor = "BRO",
+
+                IdNumber = "NONE",
+                AamvaVersionNumber = Version.Aamva2012,
+
+                IssueDate = new DateTime(2013, 08, 31),
+                ExpirationDate = new DateTime(2013, 08, 31),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("NY License.txt");
             var license = Barcode.Parse(file);
 
-            Assert.AreEqual("M", license.FirstName);
-            Assert.AreEqual("Motorist", license.MiddleName);
-            Assert.AreEqual("Michael", license.LastName);
+            AssertIdCard(expected, license);
             
-            Assert.AreEqual("2345 ANYWHERE STREET", license.StreetLine1);
-            Assert.AreEqual("YOUR CITY", license.City);
             Assert.AreEqual("New York", license.IssuerIdentificationNumber.GetDescription());
-            Assert.AreEqual("NY", license.IssuerIdentificationNumber.GetAbbreviation());
-
-            Assert.AreEqual(new DateTime(2013, 08, 31), license.DateOfBirth);
-            Assert.AreEqual(Sex.Male, license.Sex);
-            Assert.AreEqual("BRO", license.EyeColor);
-
-            Assert.AreEqual(new DateTime(2013, 08, 31), license.IssueDate);
-            Assert.AreEqual(new DateTime(2013, 08, 31), license.ExpirationDate);
-            Assert.AreEqual(Country.USA, license.Country);
-
-            Assert.AreEqual("2345 ANYWHERE STREET", license.StreetLine1);
-            Assert.AreEqual("YOUR CITY", license.City);
         }
 
         [TestMethod]
         public void TestVALicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "JUSTIN",
+                MiddleName = "WILLIAM",
+                LastName = "MAURY",
+
+                StreetLine1 = "17 FIRST STREET",
+                City = "STAUNTON",
+                JurisdictionCode = "VA",
+                PostalCode = "24401",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1958, 07, 15),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2005, "075 IN"),
+                EyeColor = "BRO",
+
+                IdNumber = "T16700185",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2009, 08, 14),
+                ExpirationDate = new DateTime(2017, 08, 14),
+                RevisionDate = new DateTime(2008, 12, 10),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("VA License.txt");
             var idCard = Barcode.Parse(file);
 
-            Assert.AreEqual("JUSTIN", idCard.FirstName);
-            Assert.AreEqual("WILLIAM", idCard.MiddleName);
-            Assert.AreEqual("MAURY", idCard.LastName);
-            Assert.AreEqual(new DateTime(1958, 07, 15), idCard.DateOfBirth);
+            AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("VA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-
-            Assert.AreEqual(new DateTime(2009, 08, 14), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2017, 08, 14), idCard.ExpirationDate);
-            Assert.AreEqual(Country.USA, idCard.Country);
-
-            Assert.AreEqual("17 FIRST STREET", idCard.StreetLine1);
-            Assert.AreEqual("STAUNTON", idCard.City);
-            Assert.AreEqual("24401", idCard.PostalCode);
+            Assert.AreEqual("Virginia", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
 
@@ -137,24 +235,38 @@ namespace IdParser.Test
         [TestMethod]
         public void TestGALicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "JANICE",
+                LastName = "SAMPLE",
+
+                StreetLine1 = "123 NORTH STATE ST.",
+                City = "ANYTOWN",
+                JurisdictionCode = "GA",
+                PostalCode = "30334",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1957, 07, 01),
+                Sex = Sex.Female,
+                Height = new Height(Version.Aamva2005, "064 in"),
+                EyeColor = "BLU",
+
+                IdNumber = "100000001",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2006, 07, 01),
+                ExpirationDate = new DateTime(2013, 02, 01),
+
+                WeightRange = WeightRange.Lbs101To130
+            };
+
             var file = File.ReadAllText("GA License.txt");
             var idCard = Barcode.Parse(file);
 
-            Assert.AreEqual("JANICE", idCard.FirstName);
-            Assert.IsNull(idCard.MiddleName);
-            Assert.AreEqual("SAMPLE", idCard.LastName);
+            AssertIdCard(expected, idCard);
+
             Assert.AreEqual("PH.D.", idCard.NameSuffix);
-            Assert.AreEqual(new DateTime(1957, 07, 01), idCard.DateOfBirth);
-
-            Assert.AreEqual("123 NORTH STATE ST.", idCard.StreetLine1);
-            Assert.AreEqual("ANYTOWN", idCard.City);
-            Assert.AreEqual("30334", idCard.PostalCode);
-
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
-            Assert.AreEqual("GA", idCard.IssuerIdentificationNumber.GetAbbreviation());
-
-            Assert.AreEqual(new DateTime(2006, 07, 01), idCard.IssueDate);
-            Assert.AreEqual(Country.USA, idCard.Country);
 
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
 
@@ -169,27 +281,40 @@ namespace IdParser.Test
         [TestMethod]
         public void TestCTLicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "ADULT",
+                MiddleName = "A",
+                LastName = "CTLIC",
+
+                StreetLine1 = "60 STATE ST",
+                City = "WETHERSFIELD",
+                JurisdictionCode = "CT",
+                PostalCode = "061091896",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1961, 01, 01),
+                Sex = Sex.Female,
+                Height = new Height(Version.Aamva2000, "506"),
+                EyeColor = "BLU",
+
+                IdNumber = "990000001",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2009, 02, 23),
+                ExpirationDate = new DateTime(2015, 01, 01),
+
+                WeightRange = WeightRange.None,
+
+                IsOrganDonor = true
+            };
+
             var file = File.ReadAllText("CT License.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.AreEqual("ADULT", idCard.FirstName);
-            Assert.AreEqual("A", idCard.MiddleName);
-            Assert.AreEqual("CTLIC", idCard.LastName);
-            Assert.AreEqual(new DateTime(1961, 01, 01), idCard.DateOfBirth);
+            AssertIdCard(expected, idCard);
 
-            Assert.AreEqual(new Height(Version.Aamva2013, "066 in"), idCard.Height);
-            Assert.AreEqual("BLU", idCard.EyeColor);
-            Assert.IsTrue(idCard.IsOrganDonor);
-
-            Assert.AreEqual("60 STATE ST", idCard.StreetLine1);
-            Assert.AreEqual("WETHERSFIELD", idCard.City);
-            Assert.AreEqual("061091896", idCard.PostalCode);
-
-            Assert.AreEqual("CT", idCard.IssuerIdentificationNumber.GetAbbreviation());
-
-            Assert.AreEqual("990000001", idCard.IdNumber);
-            Assert.AreEqual(new DateTime(2015, 01, 01), idCard.ExpirationDate);
-            Assert.AreEqual(Country.USA, idCard.Country);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
 
@@ -203,85 +328,113 @@ namespace IdParser.Test
         [TestMethod]
         public void TestCTLicenseWebBrowser()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "ADULT",
+                MiddleName = "A",
+                LastName = "CTLIC",
+
+                StreetLine1 = "60 STATE ST",
+                City = "WETHERSFIELD",
+                JurisdictionCode = "CT",
+                PostalCode = "061091896",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1961, 01, 01),
+                Sex = Sex.Female,
+                Height = new Height(Version.Aamva2000, "506"),
+                EyeColor = "BLU",
+
+                IdNumber = "990000001",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2009, 02, 23),
+                ExpirationDate = new DateTime(2015, 01, 01),
+
+                WeightRange = WeightRange.None,
+
+                IsOrganDonor = true
+            };
+
             var file = File.ReadAllText("CT License Web Browser.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.IsNotNull(idCard);
-            Assert.AreEqual("ADULT", idCard.FirstName);
-            Assert.AreEqual("60 STATE ST", idCard.StreetLine1);
-            Assert.AreEqual("CT", idCard.JurisdictionCode);
-            Assert.AreEqual(new DateTime(1961, 01, 01), idCard.DateOfBirth);
-        }
+            AssertIdCard(expected, idCard);
 
-        // This test is broken because of the fixes applied when validation is set to none.
-        // At this point, I don't think it's worth it to allow non-standard data element and record separators.
-        [Ignore]
-        [TestMethod]
-        public void TestNonStandardDataElementSeparator()
-        {
-            var file = File.ReadAllText("MA License Piped.txt");
-            var idCard = Barcode.Parse(file, Validation.None);
-
-            Assert.AreEqual("S65807412", idCard.IdNumber);
-            Assert.AreEqual("123 MAIN STREET", idCard.StreetLine1);
-            Assert.AreEqual(Country.USA, idCard.Country);
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
-        }
-
-        [TestMethod]
-        public void TestMALicenseWithNoMiddleName()
-        {
-            var file = File.ReadAllText("MA License No Middle Name.txt");
-            var idCard = Barcode.Parse(file, Validation.None);
-
-            Assert.IsNotNull(idCard);
-            Assert.IsNull(idCard.MiddleName);
-            Assert.IsNotNull(idCard.FirstName);
-            Assert.AreEqual("TONY", idCard.FirstName);
-            Assert.AreEqual("ROBERT", idCard.LastName);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
         [TestMethod]
         public void TestCTLicenseNoMiddleName()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "CHUNG",
+                LastName = "WANG",
+
+                StreetLine1 = "123 SIDE ST",
+                City = "WATERBURY",
+                JurisdictionCode = "CT",
+                PostalCode = "067081897",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1949, 03, 03),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2000, "508"),
+                EyeColor = "BRO",
+
+                IdNumber = "035032278",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2017, 01, 19),
+                ExpirationDate = new DateTime(2023, 03, 03),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("CT License No Middle Name.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.IsNotNull(idCard);
-            Assert.IsNotNull(idCard.FirstName);
-            Assert.IsNotNull(idCard.LastName);
-            Assert.IsNull(idCard.MiddleName);
-            Assert.AreEqual("WANG", idCard.LastName);
-            Assert.AreEqual("CHUNG", idCard.FirstName);
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
         [TestMethod]
         public void TestMOLicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "FirstNameTest",
+                LastName = "LastNameTest",
+
+                StreetLine1 = "123 ABC TEST ADDRESS 2ND FL",
+                City = "ST LOUIS",
+                JurisdictionCode = "MO",
+                PostalCode = "633011",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(2017, 08, 09),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2000, "508"),
+                EyeColor = "BRO",
+
+                IdNumber = "X100097001",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2011, 06, 30),
+                ExpirationDate = new DateTime(2018, 02, 04),
+
+                WeightRange = WeightRange.None,
+                WeightInPounds = 155
+            };
+
             var file = File.ReadAllText("MO License.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.IsNotNull(idCard);
+            AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("FirstNameTest", idCard.FirstName);
-            Assert.IsNull(idCard.MiddleName);
-            Assert.AreEqual("LastNameTest", idCard.LastName);
-
-            Assert.AreEqual("123 ABC TEST ADDRESS 2ND FL", idCard.StreetLine1);
-            Assert.AreEqual("ST LOUIS", idCard.City);
-            Assert.AreEqual("MO", idCard.IssuerIdentificationNumber.GetAbbreviation());
-            Assert.AreEqual(Country.USA, idCard.Country);
-
-            Assert.AreEqual(new DateTime(2017, 08, 09), idCard.DateOfBirth);
-            Assert.AreEqual(Sex.Male, idCard.Sex);
-            Assert.AreEqual("BRO", idCard.EyeColor);
-            Assert.AreEqual(68, idCard.Height.TotalInches);
-            Assert.AreEqual((short)155, idCard.WeightInPounds);
-
-            Assert.AreEqual("X100097001", idCard.IdNumber);
-            Assert.AreEqual(Version.Aamva2000, idCard.AamvaVersionNumber);
-            Assert.AreEqual(new DateTime(2011, 06, 30), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2018, 02, 04), idCard.ExpirationDate);
+            Assert.AreEqual("Missouri", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.AreEqual("MAST LOUIS CITY", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
             Assert.AreEqual("112001810097", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
@@ -297,33 +450,39 @@ namespace IdParser.Test
         [TestMethod]
         public void TestFLLicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "JOEY",
+                MiddleName = "MIDLAND",
+                LastName = "TESTER",
+
+                StreetLine1 = "1234 PARK ST LOT 504",
+                City = "KEY WEST",
+                JurisdictionCode = "FL",
+                PostalCode = "330400504",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1941, 05, 09),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2000, "601"),
+
+                IdNumber = "H574712510891",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2014, 05, 01),
+                ExpirationDate = new DateTime(2022, 03, 09),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("FL License.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.IsNotNull(idCard);
-
-            Assert.AreEqual("JOEY", idCard.FirstName);
-            Assert.AreEqual("MIDLAND", idCard.MiddleName);
-            Assert.AreEqual("TESTER", idCard.LastName);
-
-            Assert.AreEqual("1234 PARK ST LOT 504", idCard.StreetLine1);
-            Assert.AreEqual("KEY WEST", idCard.City);
-            Assert.AreEqual("FL", idCard.IssuerIdentificationNumber.GetAbbreviation());
-            Assert.AreEqual("FL", idCard.JurisdictionCode);
-            Assert.AreEqual("330400504", idCard.PostalCode);
-            Assert.AreEqual("33040-0504", idCard.FormattedPostalCode);
-            Assert.AreEqual(Country.USA, idCard.Country);
-
-            Assert.AreEqual(new DateTime(1941, 05, 09), idCard.DateOfBirth);
-            Assert.AreEqual(Sex.Male, idCard.Sex);
-            Assert.AreEqual(73, idCard.Height.TotalInches);
-            Assert.AreEqual(WeightRange.None, idCard.WeightRange);
-
-            Assert.AreEqual("H574712510891", idCard.IdNumber);
-            Assert.AreEqual(Version.Aamva2000, idCard.AamvaVersionNumber);
-            Assert.AreEqual(new DateTime(2014, 05, 01), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2022, 03, 09), idCard.ExpirationDate);
+            AssertIdCard(expected, idCard);
             
+            Assert.AreEqual("33040-0504", idCard.FormattedPostalCode);
+            Assert.AreEqual("Florida", idCard.IssuerIdentificationNumber.GetDescription());
+
             Assert.AreEqual(5, idCard.AdditionalJurisdictionElements.Count);
             Assert.AreEqual("FA", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZFZ").Value);
 
@@ -337,32 +496,91 @@ namespace IdParser.Test
         [TestMethod]
         public void TestNHLicense()
         {
+            var expected = new DriversLicense
+            {
+                FirstName = "DONNIE",
+                MiddleName = "G",
+                LastName = "TESTER",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                City = "SOMETOWN",
+                StreetLine1 = "802 WILLIAMS ST",
+                JurisdictionCode = "NH",
+                PostalCode = "01234",
+                Country = Country.USA,
+
+                DateOfBirth = new DateTime(1977, 11, 06),
+                Sex = Sex.Male,
+                Height = new Height(Version.Aamva2013, "069 IN"),
+                EyeColor = "GRN",
+
+                IdNumber = "NHI17128755",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2017, 12, 19),
+                ExpirationDate = new DateTime(2022, 11, 06),
+                RevisionDate = new DateTime(2016, 06, 09),
+
+                WeightRange = WeightRange.None
+            };
+
             var file = File.ReadAllText("NH License.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.IsNotNull(idCard);
+            AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("DONNIE", idCard.FirstName);
-            Assert.AreEqual("G", idCard.MiddleName);
-            Assert.AreEqual("TESTER", idCard.LastName);
-
-            Assert.AreEqual("802 WILLIAMS ST", idCard.StreetLine1);
-            Assert.AreEqual("SOMETOWN", idCard.City);
-            Assert.AreEqual("NH", idCard.IssuerIdentificationNumber.GetAbbreviation());
-            Assert.AreEqual("NH", idCard.JurisdictionCode);
-            Assert.AreEqual("01234", idCard.PostalCode);
             Assert.AreEqual("01234", idCard.FormattedPostalCode);
-            Assert.AreEqual(Country.USA, idCard.Country);
+            Assert.AreEqual("New Hampshire", idCard.IssuerIdentificationNumber.GetDescription());
+        }
 
-            Assert.AreEqual(new DateTime(1977, 11, 06), idCard.DateOfBirth);
-            Assert.AreEqual(Sex.Male, idCard.Sex);
-            Assert.AreEqual(69, idCard.Height.TotalInches);
-            Assert.AreEqual(WeightRange.None, idCard.WeightRange);
+        private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
+        {
+            Assert.IsNotNull(actual);
 
-            Assert.AreEqual("NHI17128755", idCard.IdNumber);
-            Assert.AreEqual(Version.Aamva2013, idCard.AamvaVersionNumber);
-            Assert.AreEqual(new DateTime(2017, 12, 19), idCard.IssueDate);
-            Assert.AreEqual(new DateTime(2022, 11, 06), idCard.ExpirationDate);
+            Assert.AreEqual(expected.FirstName, actual.FirstName, nameof(actual.FirstName));
+            Assert.AreEqual(expected.MiddleName, actual.MiddleName, nameof(actual.MiddleName));
+            Assert.AreEqual(expected.LastName, actual.LastName, nameof(actual.LastName));
+
+            Assert.AreEqual(expected.WasFirstNameTruncated, actual.WasFirstNameTruncated, nameof(actual.WasFirstNameTruncated));
+            Assert.AreEqual(expected.WasMiddleNameTruncated, actual.WasMiddleNameTruncated, nameof(actual.WasMiddleNameTruncated));
+            Assert.AreEqual(expected.WasLastNameTruncated, actual.WasLastNameTruncated, nameof(actual.WasLastNameTruncated));
+
+            Assert.AreEqual(expected.City, actual.City, nameof(actual.City));
+            Assert.AreEqual(expected.StreetLine1, actual.StreetLine1, nameof(actual.StreetLine1));
+            Assert.AreEqual(expected.StreetLine2, actual.StreetLine2, nameof(actual.StreetLine2));
+            Assert.AreEqual(expected.JurisdictionCode, actual.JurisdictionCode, nameof(actual.JurisdictionCode));
+            Assert.AreEqual(expected.JurisdictionCode, actual.IssuerIdentificationNumber.GetAbbreviation(), nameof(actual.IssuerIdentificationNumber));
+            Assert.AreEqual(expected.PostalCode, actual.PostalCode, nameof(actual.PostalCode));
+            Assert.AreEqual(expected.Country, actual.Country, nameof(actual.Country));
+
+            Assert.AreEqual(expected.DateOfBirth, actual.DateOfBirth, nameof(actual.DateOfBirth));
+            Assert.AreEqual(expected.Sex, actual.Sex, nameof(actual.Sex));
+            Assert.AreEqual(expected.Height, actual.Height);
+            Assert.AreEqual(expected.EyeColor, actual.EyeColor, nameof(actual.EyeColor));
+            Assert.AreEqual(expected.HairColor, actual.HairColor, nameof(actual.HairColor));
+
+            Assert.AreEqual(expected.IdNumber, actual.IdNumber, nameof(actual.IdNumber));
+            Assert.AreEqual(expected.AamvaVersionNumber, actual.AamvaVersionNumber, nameof(actual.AamvaVersionNumber));
+
+            Assert.AreEqual(expected.IssueDate, actual.IssueDate, nameof(actual.IssueDate));
+            Assert.AreEqual(expected.ExpirationDate, actual.ExpirationDate, nameof(actual.ExpirationDate));
+            Assert.AreEqual(expected.RevisionDate, actual.RevisionDate, nameof(actual.RevisionDate));
+
+            Assert.AreEqual(expected.WeightRange, actual.WeightRange, nameof(actual.WeightRange));
+            Assert.AreEqual(expected.WeightInPounds, actual.WeightInPounds, nameof(actual.WeightInPounds));
+            Assert.AreEqual(expected.WeightInKilograms, actual.WeightInKilograms, nameof(actual.WeightInKilograms));
+
+            Assert.AreEqual(expected.Under18Until, actual.Under18Until, nameof(actual.Under18Until));
+            Assert.AreEqual(expected.Under19Until, actual.Under19Until, nameof(actual.Under19Until));
+            Assert.AreEqual(expected.Under21Until, actual.Under21Until, nameof(actual.Under21Until));
+
+            Assert.AreEqual(expected.IsOrganDonor, actual.IsOrganDonor, nameof(actual.IsOrganDonor));
+            Assert.AreEqual(expected.IsVeteran, actual.IsVeteran, nameof(actual.IsVeteran));
+
+            //Assert.AreEqual(expected., actual.);
         }
     }
 }

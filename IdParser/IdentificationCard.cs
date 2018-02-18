@@ -62,6 +62,11 @@ namespace IdParser
         public bool IsVeteran { get; set; }
         public Dictionary<string, string> AdditionalJurisdictionElements { get; set; }
 
+        internal IdentificationCard()
+        {
+
+        }
+
         internal IdentificationCard(Version version, Country country, string input, List<string> subfileRecords)
         {
             // D.12.3 Header

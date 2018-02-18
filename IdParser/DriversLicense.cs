@@ -13,6 +13,11 @@ namespace IdParser
         public string StandardRestrictionCode { get; set; }
         public DateTime? HazmatEndorsementExpirationDate { get; set; }
 
+        internal DriversLicense()
+        {
+
+        }
+
         internal DriversLicense(Version version, Country country, string input, List<string> subfileRecords) : base(version, country, input, subfileRecords)
         {
             Jurisdiction = new DriversLicenseJurisdiction();
