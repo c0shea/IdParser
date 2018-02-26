@@ -24,7 +24,7 @@ namespace IdParser
         public string JurisdictionCode { get; set; }
         public string PostalCode { get; set; }
 
-        public string FormattedPostalCode => Country == Country.USA && PostalCode.Length > 5
+        public string FormattedPostalCode => Country == Country.Usa && PostalCode.Length > 5
                                              ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}"
                                              : PostalCode;
         public string Address => StreetLine2 == null

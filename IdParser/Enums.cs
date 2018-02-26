@@ -25,24 +25,24 @@ namespace IdParser
 
     public enum IssuerIdentificationNumber
     {
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("AL")]
         Alabama = 636033,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("AK")]
         Alaska = 636059,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("AS")]
         [Description("American Samoa")]
         AmericanSamoa = 604427,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("AZ")]
         Arizona = 636026,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("AR")]
         Arkansas = 636026,
 
@@ -51,7 +51,7 @@ namespace IdParser
         [Description("British Columbia")]
         BritishColumbia = 636028,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("CA")]
         California = 636014,
 
@@ -59,36 +59,36 @@ namespace IdParser
         [Abbreviation("COA")]
         Coahuila = 636056,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("CO")]
         Colorado = 636020,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("CT")]
         Connecticut = 636006,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("DC")]
         [Description("District of Columbia")]
         DistrictOfColumbia = 636043,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("DE")]
         Delaware = 636011,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("FL")]
         Florida = 636010,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("GA")]
         Georgia = 636055,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("GU")]
         Guam = 636019,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("HI")]
         Hawaii = 636047,
 
@@ -96,35 +96,35 @@ namespace IdParser
         [Abbreviation("HID")]
         Hidalgo = 636057,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("ID")]
         Idaho = 636050,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("IL")]
         Illinois = 636035,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("IN")]
         Indiana = 636037,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("IA")]
         Iowa = 636018,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("KS")]
         Kansas = 636022,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("KY")]
         Kentucky = 636046,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("LA")]
         Louisiana = 636007,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("ME")]
         Maine = 636041,
 
@@ -132,39 +132,39 @@ namespace IdParser
         [Abbreviation("MB")]
         Manitoba = 636048,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MD")]
         Maryland = 636003,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MA")]
         Massachusetts = 636002,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MI")]
         Michigan = 636032,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MN")]
         Minnesota = 636038,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MS")]
         Mississippi = 636051,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MO")]
         Missouri = 636030,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("MT")]
         Montana = 636008,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NE")]
         Nebraska = 636054,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NV")]
         Nevada = 636049,
 
@@ -173,22 +173,22 @@ namespace IdParser
         [Description("New Brunswick")]
         NewBrunswick = 636017,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NH")]
         [Description("New Hampshire")]
         NewHampshire = 636039,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NJ")]
         [Description("New Jersey")]
         NewJersey = 636036,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NM")]
         [Description("New Mexico")]
         NewMexico = 636009,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NY")]
         [Description("New York")]
         NewYork = 636001,
@@ -197,12 +197,12 @@ namespace IdParser
         [Abbreviation("NL")]
         Newfoundland = 636016,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("NC")]
         [Description("North Carolina")]
         NorthCarolina = 636004,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("ND")]
         [Description("North Dakota")]
         NorthDakota = 636034,
@@ -212,11 +212,11 @@ namespace IdParser
         [Description("Nova Scotia")]
         NovaScotia = 636013,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("OH")]
         Ohio = 636023,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("OK")]
         Oklahoma = 636058,
 
@@ -224,11 +224,11 @@ namespace IdParser
         [Abbreviation("ON")]
         Ontario = 636012,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("OR")]
         Oregon = 636029,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("PA")]
         Pennsylvania = 636025,
 
@@ -241,7 +241,7 @@ namespace IdParser
         [Abbreviation("QC")]
         Quebec = 604428,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("RI")]
         [Description("Rhode Island")]
         RhodeIsland = 636052,
@@ -250,59 +250,59 @@ namespace IdParser
         [Abbreviation("SK")]
         Saskatchewan = 636044,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("SC")]
         [Description("South Carolina")]
         SouthCarolina = 636005,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("SD")]
         [Description("South Dakota")]
         SouthDakota = 636042,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("TN")]
         Tennessee = 636053,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Description("US State Department")]
         UsStateDepartment = 636027,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("TX")]
         Texas = 636015,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("VI")]
         [Description("US Virgin Islands")]
         UsVirginIslands = 636062,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("UT")]
         Utah = 636040,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("VT")]
         Vermont = 636024,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("VA")]
         Virginia = 636000,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("WA")]
         Washington = 636045,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("WV")]
         [Description("West Virginia")]
         WestVirginia = 636061,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("WI")]
         Wisconsin = 636031,
 
-        [Country(Country.USA)]
+        [Country(Country.Usa)]
         [Abbreviation("WY")]
         Wyoming = 636060,
 
@@ -323,7 +323,7 @@ namespace IdParser
     {
         [Description("United States of America")]
         [Abbreviation("US")]
-        USA,
+        Usa,
 
         [Abbreviation("CA")]
         Canada,

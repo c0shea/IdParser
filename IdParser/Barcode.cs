@@ -168,7 +168,7 @@ namespace IdParser
                 {
                     if (data == "USA")
                     {
-                        return Country.USA;
+                        return Country.Usa;
                     }
                     if (data == "CAN" || data == "CDN")
                     {

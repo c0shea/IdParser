@@ -25,7 +25,7 @@ namespace IdParser.Test
                 City = "BOSTON",
                 JurisdictionCode = "MA",
                 PostalCode = "021080",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
@@ -66,7 +66,7 @@ namespace IdParser.Test
                 City = "BOSTON",
                 JurisdictionCode = "MA",
                 PostalCode = "02133",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1971, 12, 31),
                 Sex = Sex.Male,
@@ -122,7 +122,7 @@ namespace IdParser.Test
                 City = "BOSTON",
                 JurisdictionCode = "MA",
                 PostalCode = "021080",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
@@ -163,7 +163,7 @@ namespace IdParser.Test
                 City = "YOUR CITY",
                 JurisdictionCode = "NY",
                 PostalCode = "12345",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(2013, 08, 31),
                 Sex = Sex.Male,
@@ -200,7 +200,7 @@ namespace IdParser.Test
                 City = "STAUNTON",
                 JurisdictionCode = "VA",
                 PostalCode = "24401",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1958, 07, 15),
                 Sex = Sex.Male,
@@ -244,7 +244,7 @@ namespace IdParser.Test
                 City = "ANYTOWN",
                 JurisdictionCode = "GA",
                 PostalCode = "30334",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1957, 07, 01),
                 Sex = Sex.Female,
@@ -291,7 +291,7 @@ namespace IdParser.Test
                 City = "WETHERSFIELD",
                 JurisdictionCode = "CT",
                 PostalCode = "061091896",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
@@ -338,7 +338,7 @@ namespace IdParser.Test
                 City = "WETHERSFIELD",
                 JurisdictionCode = "CT",
                 PostalCode = "061091896",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
@@ -376,7 +376,7 @@ namespace IdParser.Test
                 City = "WATERBURY",
                 JurisdictionCode = "CT",
                 PostalCode = "067081897",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1949, 03, 03),
                 Sex = Sex.Male,
@@ -412,7 +412,7 @@ namespace IdParser.Test
                 City = "ST LOUIS",
                 JurisdictionCode = "MO",
                 PostalCode = "633011",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(2017, 08, 09),
                 Sex = Sex.Male,
@@ -460,7 +460,7 @@ namespace IdParser.Test
                 City = "KEY WEST",
                 JurisdictionCode = "FL",
                 PostalCode = "330400504",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1941, 05, 09),
                 Sex = Sex.Male,
@@ -510,7 +510,7 @@ namespace IdParser.Test
                 StreetLine1 = "802 WILLIAMS ST",
                 JurisdictionCode = "NH",
                 PostalCode = "01234",
-                Country = Country.USA,
+                Country = Country.Usa,
 
                 DateOfBirth = new DateTime(1977, 11, 06),
                 Sex = Sex.Male,
