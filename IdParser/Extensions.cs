@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Text;
 using IdParser.Attributes;
 
 namespace IdParser
@@ -70,6 +71,20 @@ namespace IdParser
         internal static string ReplaceEmptyWithNull(this string data)
         {
             return string.IsNullOrEmpty(data) ? null : data;
+        }
+
+        internal static string ConvertToHex(this string value)
+        {
+            var hex = BitConverter.ToString(Encoding.UTF8.GetBytes(value));
+
+            hex = "0x" + hex.Replace("-", "");
+
+            return hex;
+        }
+
+        internal static string ConvertToHex(this char value)
+        {
+            return "0x" + BitConverter.ToString(Encoding.UTF8.GetBytes(new[] { value }));
         }
     }
 }

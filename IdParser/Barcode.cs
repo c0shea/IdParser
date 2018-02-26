@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using IdParser.Attributes;
+using IdParser.Parsers;
 
 namespace IdParser
 {
     public static class Barcode
     {
-        internal const char ExpectedComplianceIndicator = (char) 64;
-        internal const char ExpectedDataElementSeparator = (char) 10;
-        internal const char ExpectedRecordSeparator = (char) 30;
-        internal const char ExpectedSegmentTerminator = (char) 13;
+        internal const char ExpectedComplianceIndicator = (char)64;
+        internal const char ExpectedDataElementSeparator = (char)10;
+        internal const char ExpectedRecordSeparator = (char)30;
+        internal const char ExpectedSegmentTerminator = (char)13;
         internal const string ExpectedFileType = "ANSI ";
         internal static string ExpectedHeader => $"@{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedRecordSeparator}{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedFileType}";
 
@@ -45,20 +47,37 @@ namespace IdParser
             var version = ParseAamvaVersion(rawPdf417Input);
             var subfileRecords = GetSubfileRecords(version, rawPdf417Input);
             var country = ParseCountry(version, subfileRecords);
-            
-            if (ParseSubfileType(version, rawPdf417Input) == "DL")
-            {
-                return new DriversLicense(version, country, rawPdf417Input, subfileRecords);
-            }
+            var idCard = GetIdCardInstance(version, rawPdf417Input);
 
-            return new IdentificationCard(version, country, rawPdf417Input, subfileRecords);
+            PopulateIdCard(idCard, version, country, subfileRecords);
+
+            return idCard;
+        }
+
+        private static IdentificationCard GetIdCardInstance(Version version, string rawPdf417Input)
+        {
+            var idCard = ParseSubfileType(version, rawPdf417Input) == "DL"
+                ? new DriversLicense()
+                : new IdentificationCard();
+
+            idCard.IssuerIdentificationNumber = (IssuerIdentificationNumber)Convert.ToInt32(rawPdf417Input.Substring(9, 6));
+            idCard.AamvaVersionNumber = version;
+            idCard.JurisdictionVersionNumber = version == Version.Aamva2000
+                ? (byte)0
+                : Convert.ToByte(rawPdf417Input.Substring(17, 2));
+
+            // TODO: Remove these once the enums are made nullable
+            idCard.WeightRange = WeightRange.None;
+            idCard.ComplianceType = ComplianceType.None;
+
+            return idCard;
         }
 
         /// <summary>
         /// Gets the AAMVA version of the input.
         /// </summary>
         /// <param name="input">The raw PDF417 barcode data</param>
-        public static Version ParseAamvaVersion(string input)
+        private static Version ParseAamvaVersion(string input)
         {
             if (input == null || input.Length < 17)
             {
@@ -108,36 +127,16 @@ namespace IdParser
             }
         }
 
-        private static char ParseComplianceIndicator(string input)
-        {
-            return input.Substring(0, 1)[0];
-        }
+        private static char ParseComplianceIndicator(string input) => input.Substring(0, 1)[0];
+        private static string ParseFileType(string input) => input.Substring(4, 5);
+        private static byte ParseAamvaVersionNumber(string input) => Convert.ToByte(input.Substring(15, 2));
+        private static char ParseDataElementSeparator(string input) => input.Substring(1, 1)[0];
+        private static char ParseRecordSeparator(string input) => input.Substring(2, 1)[0];
+        private static char ParseSegmentTerminator(string input) => input.Substring(3, 1)[0];
 
-        private static string ParseFileType(string input)
-        {
-            return input.Substring(4, 5);
-        }
-
-        private static byte ParseAamvaVersionNumber(string input)
-        {
-            return Convert.ToByte(input.Substring(15, 2));
-        }
-
-        private static char ParseDataElementSeparator(string input)
-        {
-            return input.Substring(1, 1)[0];
-        }
-
-        private static char ParseRecordSeparator(string input)
-        {
-            return input.Substring(2, 1)[0];
-        }
-
-        private static char ParseSegmentTerminator(string input)
-        {
-            return input.Substring(3, 1)[0];
-        }
-
+        /// <summary>
+        /// Determines whether the barcode is an <see cref="IdentificationCard"/> or a <see cref="DriversLicense"/>.
+        /// </summary>
         private static string ParseSubfileType(Version version, string input)
         {
             if (version == Version.Aamva2000)
@@ -204,19 +203,57 @@ namespace IdParser
 
             return records;
         }
-        
-        private static string ConvertToHex(this string value)
+
+        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country country, List<string> subfileRecords)
         {
-            var hex = BitConverter.ToString(Encoding.UTF8.GetBytes(value));
+            foreach (var subfileRecord in subfileRecords)
+            {
+                if (subfileRecord.Length < 3)
+                {
+                    continue;
+                }
 
-            hex = "0x" + hex.Replace("-", "");
+                var elementId = subfileRecord.Substring(0, 3);
+                var data = subfileRecord.Substring(3).Trim();
 
-            return hex;
+                if (elementId.StartsWith("Z") && !idCard.AdditionalJurisdictionElements.ContainsKey(elementId))
+                {
+                    idCard.AdditionalJurisdictionElements.Add(elementId, data);
+                    continue;
+                }
+
+                var parser = CreateParserInstance(elementId, version, country, idCard);
+                parser?.ParseAndSet(data);
+            }
         }
 
-        private static string ConvertToHex(this char value)
+        private static AbstractParser CreateParserInstance(string elementId, Version version, Country country, IdentificationCard idCard)
         {
-            return "0x" + BitConverter.ToString(Encoding.UTF8.GetBytes(new[] { value }));
+            var type = GetParser(elementId);
+
+            if (type == null)
+            {
+                return null;
+            }
+
+            var instance = Activator.CreateInstance(type, idCard, version, country) as AbstractParser;
+
+            return instance;
+        }
+
+        private static Type GetParser(string elementId)
+        {
+            var types = from a in AppDomain.CurrentDomain.GetAssemblies()
+                        from t in a.GetTypes()
+                        where t.IsDefined(typeof(ParserAttribute), false)
+                        select t;
+
+            var parsers = from t in types
+                          from a in t.GetCustomAttributes(typeof(ParserAttribute), false)
+                          where ((ParserAttribute)a).ElementId == elementId
+                          select t;
+
+            return parsers.FirstOrDefault();
         }
     }
 }

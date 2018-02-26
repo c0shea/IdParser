@@ -323,7 +323,6 @@ namespace IdParser
     {
         [Description("United States of America")]
         [Abbreviation("US")]
-        // ReSharper disable once InconsistentNaming
         USA,
 
         [Abbreviation("CA")]
