@@ -8,9 +8,9 @@ namespace IdParser.Parsers
         protected IdentificationCard IdCard { get; }
         protected DriversLicense License => IdCard as DriversLicense ?? throw new InvalidOperationException("IdCard is of type IdentificationCard and not the expected DriversLicense type.");
         protected Version Version { get; }
-        protected Country Country { get; }
+        protected Country? Country { get; }
 
-        protected AbstractParser(IdentificationCard idCard, Version version, Country country)
+        protected AbstractParser(IdentificationCard idCard, Version version, Country? country)
         {
             IdCard = idCard;
             Version = version;
@@ -33,7 +33,7 @@ namespace IdParser.Parsers
         {
             const string usaFormat = "MMddyyyy";
             const string canadaFormat = "yyyyMMdd";
-            bool tryCanadaFormatFirst = Country == Country.Canada || Version == Version.Aamva2000;
+            bool tryCanadaFormatFirst = Country.HasValue && Country == IdParser.Country.Canada || Version == Version.Aamva2000;
 
             // Some jurisdictions, like New Hampshire (version 2013), don't follow the standard and have trailing
             // characters (like 'M') after the date in the same record. In an attempt to parse the date successfully,

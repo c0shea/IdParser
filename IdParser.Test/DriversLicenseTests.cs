@@ -36,9 +36,7 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2016, 06, 29),
                 ExpirationDate = new DateTime(2020, 07, 07),
-                RevisionDate = new DateTime(2009, 07, 15),
-
-                WeightRange = WeightRange.None,
+                RevisionDate = new DateTime(2009, 07, 15)
             };
 
             var file = File.ReadAllText("MA License 2009.txt");
@@ -77,9 +75,7 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2016, 08, 09),
                 ExpirationDate = new DateTime(2021, 08, 16),
-                RevisionDate = new DateTime(2016, 02, 22),
-
-                WeightRange = WeightRange.None
+                RevisionDate = new DateTime(2016, 02, 22)
             };
 
             var file = File.ReadAllText("MA License 2016.txt");
@@ -133,9 +129,7 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2016, 06, 29),
                 ExpirationDate = new DateTime(2020, 07, 07),
-                RevisionDate = new DateTime(2009, 07, 15),
-
-                WeightRange = WeightRange.None
+                RevisionDate = new DateTime(2009, 07, 15)
             };
 
             var file = File.ReadAllText("MA License No Middle Name.txt");
@@ -174,9 +168,7 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2012,
 
                 IssueDate = new DateTime(2013, 08, 31),
-                ExpirationDate = new DateTime(2013, 08, 31),
-
-                WeightRange = WeightRange.None
+                ExpirationDate = new DateTime(2013, 08, 31)
             };
 
             var file = File.ReadAllText("NY License.txt");
@@ -212,9 +204,7 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2009, 08, 14),
                 ExpirationDate = new DateTime(2017, 08, 14),
-                RevisionDate = new DateTime(2008, 12, 10),
-
-                WeightRange = WeightRange.None
+                RevisionDate = new DateTime(2008, 12, 10)
             };
 
             var file = File.ReadAllText("VA License.txt");
@@ -304,8 +294,6 @@ namespace IdParser.Test
                 IssueDate = new DateTime(2009, 02, 23),
                 ExpirationDate = new DateTime(2015, 01, 01),
 
-                WeightRange = WeightRange.None,
-
                 IsOrganDonor = true
             };
 
@@ -351,8 +339,6 @@ namespace IdParser.Test
                 IssueDate = new DateTime(2009, 02, 23),
                 ExpirationDate = new DateTime(2015, 01, 01),
 
-                WeightRange = WeightRange.None,
-
                 IsOrganDonor = true
             };
 
@@ -387,9 +373,7 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2000,
 
                 IssueDate = new DateTime(2017, 01, 19),
-                ExpirationDate = new DateTime(2023, 03, 03),
-
-                WeightRange = WeightRange.None
+                ExpirationDate = new DateTime(2023, 03, 03)
             };
 
             var file = File.ReadAllText("CT License No Middle Name.txt");
@@ -425,7 +409,6 @@ namespace IdParser.Test
                 IssueDate = new DateTime(2011, 06, 30),
                 ExpirationDate = new DateTime(2018, 02, 04),
 
-                WeightRange = WeightRange.None,
                 WeightInPounds = 155
             };
 
@@ -470,9 +453,7 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2000,
 
                 IssueDate = new DateTime(2014, 05, 01),
-                ExpirationDate = new DateTime(2022, 03, 09),
-
-                WeightRange = WeightRange.None
+                ExpirationDate = new DateTime(2022, 03, 09)
             };
 
             var file = File.ReadAllText("FL License.txt");
@@ -522,9 +503,7 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2017, 12, 19),
                 ExpirationDate = new DateTime(2022, 11, 06),
-                RevisionDate = new DateTime(2016, 06, 09),
-
-                WeightRange = WeightRange.None
+                RevisionDate = new DateTime(2016, 06, 09)
             };
 
             var file = File.ReadAllText("NH License.txt");

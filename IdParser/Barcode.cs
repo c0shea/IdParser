@@ -65,11 +65,7 @@ namespace IdParser
             idCard.JurisdictionVersionNumber = version == Version.Aamva2000
                 ? (byte)0
                 : Convert.ToByte(rawPdf417Input.Substring(17, 2));
-
-            // TODO: Remove these once the enums are made nullable
-            idCard.WeightRange = WeightRange.None;
-            idCard.ComplianceType = ComplianceType.None;
-
+            
             return idCard;
         }
 
@@ -151,12 +147,12 @@ namespace IdParser
         /// Parses the country based on the DCG subfile record. The <see cref="IdentificationCard"/>
         /// constructor attempts to determine the correct country based on the IIN if the country is unknown.
         /// </summary>
-        private static Country ParseCountry(Version version, List<string> subfileRecords)
+        private static Country? ParseCountry(Version version, List<string> subfileRecords)
         {
             // Country is not a subfile record in the AAMVA 2000 standard
             if (version == Version.Aamva2000)
             {
-                return Country.Unknown;
+                return null;
             }
 
             foreach (var subfileRecord in subfileRecords)
@@ -177,7 +173,7 @@ namespace IdParser
                 }
             }
 
-            return Country.Unknown;
+            return null;
         }
 
         private static List<string> GetSubfileRecords(Version version, string input)
@@ -204,7 +200,7 @@ namespace IdParser
             return records;
         }
 
-        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country country, List<string> subfileRecords)
+        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords)
         {
             foreach (var subfileRecord in subfileRecords)
             {
@@ -227,7 +223,7 @@ namespace IdParser
             }
         }
 
-        private static AbstractParser CreateParserInstance(string elementId, Version version, Country country, IdentificationCard idCard)
+        private static AbstractParser CreateParserInstance(string elementId, Version version, Country? country, IdentificationCard idCard)
         {
             var type = GetParser(elementId);
 

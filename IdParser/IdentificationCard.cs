@@ -47,9 +47,9 @@ namespace IdParser
         public string AliasFirstName { get; set; }
         public string AliasSuffix { get; set; }
         public string NameSuffix { get; set; }
-        public WeightRange WeightRange { get; set; }
+        public WeightRange? WeightRange { get; set; }
         public string Ethnicity { get; set; }
-        public ComplianceType ComplianceType { get; set; }
+        public ComplianceType? ComplianceType { get; set; }
         public DateTime? RevisionDate { get; set; }
         public bool HasTemporaryLawfulStatus { get; set; }
         public short? WeightInPounds { get; set; }
