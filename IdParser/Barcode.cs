@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using IdParser.Attributes;
 using IdParser.Parsers;
 
@@ -15,6 +14,14 @@ namespace IdParser
         internal const char ExpectedSegmentTerminator = (char)13;
         internal const string ExpectedFileType = "ANSI ";
         internal static string ExpectedHeader => $"@{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedRecordSeparator}{ExpectedSegmentTerminator}{ExpectedDataElementSeparator}{ExpectedFileType}";
+
+        private static readonly Lazy<Dictionary<string, Type>> Parsers = new Lazy<Dictionary<string, Type>>(() =>
+            typeof(ParserAttribute).Assembly.GetTypes()
+                                            .Where(t => t.IsDefined(typeof(ParserAttribute), false))
+                                            .ToDictionary(t => t.GetCustomAttributes(typeof(ParserAttribute), false)
+                                                                .Cast<ParserAttribute>()
+                                                                .Single().ElementId,
+                                                          t => t));
 
         /// <summary>
         /// Parses the raw input from the PDF417 barcode into an IdentificationCard or DriversLicense object.
@@ -225,9 +232,7 @@ namespace IdParser
 
         private static AbstractParser CreateParserInstance(string elementId, Version version, Country? country, IdentificationCard idCard)
         {
-            var type = GetParser(elementId);
-
-            if (type == null)
+            if (!Parsers.Value.TryGetValue(elementId, out var type))
             {
                 return null;
             }
@@ -235,21 +240,6 @@ namespace IdParser
             var instance = Activator.CreateInstance(type, idCard, version, country) as AbstractParser;
 
             return instance;
-        }
-
-        private static Type GetParser(string elementId)
-        {
-            var types = from a in AppDomain.CurrentDomain.GetAssemblies()
-                        from t in a.GetTypes()
-                        where t.IsDefined(typeof(ParserAttribute), false)
-                        select t;
-
-            var parsers = from t in types
-                          from a in t.GetCustomAttributes(typeof(ParserAttribute), false)
-                          where ((ParserAttribute)a).ElementId == elementId
-                          select t;
-
-            return parsers.FirstOrDefault();
         }
     }
 }
