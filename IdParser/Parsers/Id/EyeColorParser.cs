@@ -11,12 +11,84 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            if (input == "UNK")
+            if (string.IsNullOrEmpty(input) || input == "UNK")
             {
                 return;
             }
 
-            IdCard.EyeColor = input;
+            if (input.EqualsIgnoreCase(EyeColor.Black.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Black;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Blue.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Blue;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Brown.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Brown;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Dichromatic.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Dichromatic;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Gray.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Gray;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Green.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Green;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Hazel.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Hazel;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Maroon.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Maroon;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Pink.GetAbbreviation()))
+            {
+                IdCard.EyeColor = EyeColor.Pink;
+            }
+
+            else if (input.EqualsIgnoreCase(EyeColor.Black.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Black;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Blue.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Blue;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Brown.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Brown;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Dichromatic.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Dichromatic;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Gray.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Gray;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Green.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Green;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Hazel.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Hazel;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Maroon.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Maroon;
+            }
+            else if (input.EqualsIgnoreCase(EyeColor.Pink.ToString()))
+            {
+                IdCard.EyeColor = EyeColor.Pink;
+            }
         }
     }
 }

@@ -162,7 +162,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(2013, 08, 31),
                 Sex = Sex.Male,
                 Height = new Height(Version.Aamva2012, "064 in"),
-                EyeColor = "BRO",
+                EyeColor = EyeColor.Brown,
 
                 IdNumber = "NONE",
                 AamvaVersionNumber = Version.Aamva2012,
@@ -197,7 +197,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1958, 07, 15),
                 Sex = Sex.Male,
                 Height = new Height(Version.Aamva2005, "075 IN"),
-                EyeColor = "BRO",
+                EyeColor = EyeColor.Brown,
 
                 IdNumber = "T16700185",
                 AamvaVersionNumber = Version.Aamva2005,
@@ -239,7 +239,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1957, 07, 01),
                 Sex = Sex.Female,
                 Height = new Height(Version.Aamva2005, "064 in"),
-                EyeColor = "BLU",
+                EyeColor = EyeColor.Blue,
 
                 IdNumber = "100000001",
                 AamvaVersionNumber = Version.Aamva2005,
@@ -286,7 +286,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
                 Height = new Height(Version.Aamva2000, "506"),
-                EyeColor = "BLU",
+                EyeColor = EyeColor.Blue,
 
                 IdNumber = "990000001",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -331,7 +331,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
                 Height = new Height(Version.Aamva2000, "506"),
-                EyeColor = "BLU",
+                EyeColor = EyeColor.Blue,
 
                 IdNumber = "990000001",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -367,7 +367,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1949, 03, 03),
                 Sex = Sex.Male,
                 Height = new Height(Version.Aamva2000, "508"),
-                EyeColor = "BRO",
+                EyeColor = EyeColor.Brown,
 
                 IdNumber = "035032278",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -401,7 +401,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(2017, 08, 09),
                 Sex = Sex.Male,
                 Height = new Height(Version.Aamva2000, "508"),
-                EyeColor = "BRO",
+                EyeColor = EyeColor.Brown,
 
                 IdNumber = "X100097001",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -496,7 +496,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1977, 11, 06),
                 Sex = Sex.Male,
                 Height = new Height(Version.Aamva2013, "069 IN"),
-                EyeColor = "GRN",
+                EyeColor = EyeColor.Green,
 
                 IdNumber = "NHI17128755",
                 AamvaVersionNumber = Version.Aamva2013,
