@@ -12,10 +12,7 @@ namespace IdParser
         /// </summary>
         public static string GetDescription(this Enum value)
         {
-            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-            var attribute = field.GetCustomAttribute<DescriptionAttribute>();
-
-            return attribute == null ? value.ToString() : attribute.Description;
+            return value.GetAttributeValueOrDefault<DescriptionAttribute>(a => a.Description);
         }
 
         /// <summary>
@@ -23,12 +20,17 @@ namespace IdParser
         /// </summary>
         public static string GetAbbreviation(this Enum value)
         {
-            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
-            var attribute = field.GetCustomAttribute<AbbreviationAttribute>();
-
-            return attribute == null ? value.ToString() : attribute.Abbreviation;
+            return value.GetAttributeValueOrDefault<AbbreviationAttribute>(a => a.Abbreviation);
         }
-        
+
+        private static string GetAttributeValueOrDefault<T>(this Enum value, Func<T, string> property) where T : Attribute
+        {
+            var field = value.GetType().GetTypeInfo().GetField(value.ToString());
+            var attribute = field.GetCustomAttribute<T>();
+
+            return attribute == null ? value.ToString() : property(attribute);
+        }
+
         internal static string ReplaceEmptyWithNull(this string data)
         {
             return string.IsNullOrEmpty(data) ? null : data;
@@ -46,6 +48,11 @@ namespace IdParser
         internal static string ConvertToHex(this char value)
         {
             return "0x" + BitConverter.ToString(Encoding.UTF8.GetBytes(new[] { value }));
+        }
+
+        internal static bool EqualsIgnoreCase(this string source, string value)
+        {
+            return source.Equals(value, StringComparison.OrdinalIgnoreCase);
         }
     }
 }

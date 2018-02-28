@@ -39,7 +39,7 @@ namespace IdParser
 
         // D.12.5.2 Optional data elements
         public string StreetLine2 { get; set; }
-        public string HairColor { get; set; }
+        public HairColor HairColor { get; set; }
         public string PlaceOfBirth { get; set; }
         public string AuditInformation { get; set; }
         public string InventoryControlNumber { get; set; }

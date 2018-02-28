@@ -421,7 +421,7 @@ namespace IdParser
         Brown,
 
         [Abbreviation("GRY")]
-        Grey,
+        Gray,
 
         [Abbreviation("RED")]
         [Description("Red/Auburn")]

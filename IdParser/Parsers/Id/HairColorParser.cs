@@ -16,7 +16,71 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
-            IdCard.HairColor = input;
+            if (input.EqualsIgnoreCase(HairColor.Bald.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Bald;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Black.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Black;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Blond.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Blond;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Brown.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Brown;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Gray.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Gray;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.RedAuburn.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.RedAuburn;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Sandy.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.Sandy;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.White.GetAbbreviation()))
+            {
+                IdCard.HairColor = HairColor.White;
+            }
+
+            else if (input.EqualsIgnoreCase(HairColor.Bald.ToString()))
+            {
+                IdCard.HairColor = HairColor.Bald;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Black.ToString()))
+            {
+                IdCard.HairColor = HairColor.Black;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Blond.ToString()))
+            {
+                IdCard.HairColor = HairColor.Blond;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Brown.ToString()))
+            {
+                IdCard.HairColor = HairColor.Brown;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Gray.ToString()))
+            {
+                IdCard.HairColor = HairColor.Gray;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.RedAuburn.ToString()))
+            {
+                IdCard.HairColor = HairColor.RedAuburn;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.Sandy.ToString()))
+            {
+                IdCard.HairColor = HairColor.Sandy;
+            }
+            else if (input.EqualsIgnoreCase(HairColor.White.ToString()))
+            {
+                IdCard.HairColor = HairColor.White;
+            }
         }
     }
 }

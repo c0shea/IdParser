@@ -3,7 +3,8 @@
 ![Build Status](https://coshea.visualstudio.com/_apis/public/build/definitions/51c35e17-5e8a-4b8a-8c23-dabefcc52c57/5/badge)
 
 ID Parser can be used to parse AAMVA-compliant driver's licenses and ID cards into objects that you can
-work with. [More information on the versions of the AAMVA standard.](http://www.aamva.org/DL-ID-Card-Design-Standard/)
+work with. More information on the versions of the AAMVA standard can be found [here](http://www.aamva.org/DL-ID-Card-Design-Standard/).
+More information on the D20 Data Dictionary can be found [here](https://www.aamva.org/D20/).
 
 ## Usage
 
