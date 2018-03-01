@@ -6,88 +6,62 @@ namespace IdParser
     /// Represents the height of the person identified in the ID card.
     /// Heights are approximated when converting between Metric and Imperial units.
     /// </summary>
-    public class Height : IComparable<Height>, IEquatable<Height>
+    public struct Height : IComparable<Height>, IEquatable<Height>
     {
         private const double CentimetersPerInch = 2.54;
         private const byte InchesPerFoot = 12;
-        private readonly bool _isMetricInstantiated;
 
-        public byte Feet => (byte)(TotalInches / InchesPerFoot);
-        public byte Inches => (byte)(TotalInches - Feet * InchesPerFoot);
-        public byte TotalInches { get; }
-        public short Centimeters { get; }
+        private readonly double _centimeters;
+        private readonly bool _isMetric;
 
-        public Height(Version version, string input)
+        private Height(double centimeters, bool isMetric)
         {
-            if (input.ToLower().Contains("cm"))
-            {
-                _isMetricInstantiated = true;
-            }
+            _centimeters = centimeters;
+            _isMetric = isMetric;
+        }
 
-            if (version == Version.Aamva2000)
-            {
-                var feet = Convert.ToByte(input.Substring(0, 1));
-                var inches = Convert.ToByte(input.Substring(1, 2));
-                TotalInches = (byte)(InchesPerFoot * feet + inches);
-            }
-            else
-            {
-                if (input.Length > 3)
-                {
-                    var height = Convert.ToInt16(input.Substring(0, input.Length - 2));
+        public static Height FromMetric(double centimeters)
+        {
+            return new Height(centimeters, true);
+        }
 
-                    if (_isMetricInstantiated)
-                    {
-                        Centimeters = height;
-                        TotalInches = (byte)Math.Round(Centimeters / CentimetersPerInch, 0);
-                    }
-                    else
-                    {
-                        TotalInches = (byte)height;
-                        Centimeters = (short)Math.Round(TotalInches * CentimetersPerInch, 0);
-                    }
-                }
-            }
+        public static Height FromImperial(int feet, int inches)
+        {
+            return FromImperial(feet * InchesPerFoot + inches);
+        }
+
+        public static Height FromImperial(int inches)
+        {
+            return new Height(inches * CentimetersPerInch, false);
         }
 
         public override string ToString()
         {
-            if (_isMetricInstantiated)
+            if (_isMetric)
             {
-                return $"{Centimeters} cm";
+                return $"{_centimeters} cm";
             }
 
-            return $"{Feet}'{Inches}\"";
+            var totalInches = _centimeters / CentimetersPerInch;
+            var feet = (int) (totalInches / InchesPerFoot);
+
+            return $"{feet}'{totalInches - feet * InchesPerFoot}\"";
         }
+
+        #region IComparable
 
         public int CompareTo(Height other)
         {
-            if (TotalInches > other.TotalInches)
-            {
-                return -1;
-            }
-
-            if (TotalInches == other.TotalInches)
-            {
-                return 0;
-            }
-
-            return 1;
+            return _centimeters.CompareTo(other._centimeters);
         }
+
+        #endregion
+
+        #region IEquatable
 
         public bool Equals(Height other)
         {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return TotalInches == other.TotalInches;
+            return _centimeters.Equals(other._centimeters) && _isMetric == other._isMetric;
         }
 
         public override bool Equals(object obj)
@@ -97,32 +71,27 @@ namespace IdParser
                 return false;
             }
 
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != GetType())
-            {
-                return false;
-            }
-
-            return Equals((Height)obj);
-        }
-
-        public static bool operator ==(Height left, Height right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Height left, Height right)
-        {
-            return !Equals(left, right);
+            return obj is Height height && Equals(height);
         }
 
         public override int GetHashCode()
         {
-            return TotalInches.GetHashCode();
+            unchecked
+            {
+                return (_centimeters.GetHashCode() * 397) ^ _isMetric.GetHashCode();
+            }
         }
+
+        public static bool operator ==(Height left, Height right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Height left, Height right)
+        {
+            return !left.Equals(right);
+        }
+
+        #endregion
     }
 }

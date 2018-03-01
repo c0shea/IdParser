@@ -29,7 +29,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2009, "072 IN"),
+                Height = Height.FromImperial(72),
 
                 IdNumber = "S65807412",
                 AamvaVersionNumber = Version.Aamva2009,
@@ -68,7 +68,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1971, 12, 31),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2013, "062 IN"),
+                Height = Height.FromImperial(62),
 
                 IdNumber = "S12345678",
                 AamvaVersionNumber = Version.Aamva2013,
@@ -122,7 +122,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2009, "072 IN"),
+                Height = Height.FromImperial(72),
 
                 IdNumber = "S65807412",
                 AamvaVersionNumber = Version.Aamva2009,
@@ -161,7 +161,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(2013, 08, 31),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2012, "064 in"),
+                Height = Height.FromImperial(64),
                 EyeColor = EyeColor.Brown,
 
                 IdNumber = "NONE",
@@ -196,7 +196,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1958, 07, 15),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2005, "075 IN"),
+                Height = Height.FromImperial(75),
                 EyeColor = EyeColor.Brown,
 
                 IdNumber = "T16700185",
@@ -238,7 +238,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1957, 07, 01),
                 Sex = Sex.Female,
-                Height = new Height(Version.Aamva2005, "064 in"),
+                Height = Height.FromImperial(64),
                 EyeColor = EyeColor.Blue,
 
                 IdNumber = "100000001",
@@ -285,7 +285,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
-                Height = new Height(Version.Aamva2000, "506"),
+                Height = Height.FromImperial(5, 6),
                 EyeColor = EyeColor.Blue,
 
                 IdNumber = "990000001",
@@ -330,7 +330,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
-                Height = new Height(Version.Aamva2000, "506"),
+                Height = Height.FromImperial(5, 6),
                 EyeColor = EyeColor.Blue,
 
                 IdNumber = "990000001",
@@ -366,7 +366,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1949, 03, 03),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2000, "508"),
+                Height = Height.FromImperial(5, 8),
                 EyeColor = EyeColor.Brown,
 
                 IdNumber = "035032278",
@@ -400,7 +400,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(2017, 08, 09),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2000, "508"),
+                Height = Height.FromImperial(5, 8),
                 EyeColor = EyeColor.Brown,
 
                 IdNumber = "X100097001",
@@ -447,7 +447,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1941, 05, 09),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2000, "601"),
+                Height = Height.FromImperial(6, 1),
 
                 IdNumber = "H574712510891",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -495,7 +495,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1977, 11, 06),
                 Sex = Sex.Male,
-                Height = new Height(Version.Aamva2013, "069 IN"),
+                Height = Height.FromImperial(69),
                 EyeColor = EyeColor.Green,
 
                 IdNumber = "NHI17128755",

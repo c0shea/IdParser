@@ -20,8 +20,8 @@ var idCard = Barcode.Parse(barcode);
 Console.WriteLine(idCard.StreetLine1); // "123 NORTH STATE ST."
 Console.WriteLine(idCard.IssuerIdentificationNumber.GetDescription()); // "New York"
 
-if (idCard is DriversLicense) {
-    var license = (DriversLicense)idCard;
+if (idCard is DriversLicense license)
+{
     Console.WriteLine(license.Jurisdiction.VehicleClass); // "C"
 }
 ```
