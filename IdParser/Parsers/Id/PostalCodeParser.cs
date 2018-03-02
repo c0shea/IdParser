@@ -19,8 +19,8 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
-            IdCard.PostalCode = new Regex(NonAlphaNumericPattern).Replace(input, "")
-                                                                 .Replace("0000", "");
+            IdCard.Address.PostalCode = new Regex(NonAlphaNumericPattern).Replace(input, "")
+                                                                         .Replace("0000", "");
         }
     }
 }

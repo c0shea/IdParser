@@ -21,11 +21,14 @@ namespace IdParser.Test
                 WasMiddleNameTruncated = false,
                 WasLastNameTruncated = false,
 
-                StreetLine1 = "123 MAIN STREET",
-                City = "BOSTON",
-                JurisdictionCode = "MA",
-                PostalCode = "021080",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "123 MAIN STREET",
+                    City = "BOSTON",
+                    JurisdictionCode = "MA",
+                    PostalCode = "021080",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
@@ -60,11 +63,14 @@ namespace IdParser.Test
                 WasMiddleNameTruncated = false,
                 WasLastNameTruncated = false,
 
-                StreetLine1 = "24 BEACON STREET",
-                City = "BOSTON",
-                JurisdictionCode = "MA",
-                PostalCode = "02133",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "24 BEACON STREET",
+                    City = "BOSTON",
+                    JurisdictionCode = "MA",
+                    PostalCode = "02133",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1971, 12, 31),
                 Sex = Sex.Male,
@@ -83,7 +89,7 @@ namespace IdParser.Test
 
             AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("02133", idCard.FormattedPostalCode);
+            Assert.AreEqual("02133", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.AreEqual("08102016 REV 02222016", idCard.DocumentDiscriminator);
@@ -91,7 +97,7 @@ namespace IdParser.Test
 
             Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
             Assert.AreEqual("08102016", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
-            
+
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
 
             if (idCard is DriversLicense license)
@@ -114,11 +120,14 @@ namespace IdParser.Test
                 WasMiddleNameTruncated = false,
                 WasLastNameTruncated = false,
 
-                StreetLine1 = "123 MAIN STREET",
-                City = "BOSTON",
-                JurisdictionCode = "MA",
-                PostalCode = "021080",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "123 MAIN STREET",
+                    City = "BOSTON",
+                    JurisdictionCode = "MA",
+                    PostalCode = "021080",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1977, 07, 07),
                 Sex = Sex.Male,
@@ -153,11 +162,14 @@ namespace IdParser.Test
                 WasMiddleNameTruncated = false,
                 WasLastNameTruncated = false,
 
-                StreetLine1 = "2345 ANYWHERE STREET",
-                City = "YOUR CITY",
-                JurisdictionCode = "NY",
-                PostalCode = "12345",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "2345 ANYWHERE STREET",
+                    City = "YOUR CITY",
+                    JurisdictionCode = "NY",
+                    PostalCode = "12345",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(2013, 08, 31),
                 Sex = Sex.Male,
@@ -175,7 +187,7 @@ namespace IdParser.Test
             var license = Barcode.Parse(file);
 
             AssertIdCard(expected, license);
-            
+
             Assert.AreEqual("New York", license.IssuerIdentificationNumber.GetDescription());
         }
 
@@ -188,11 +200,14 @@ namespace IdParser.Test
                 MiddleName = "WILLIAM",
                 LastName = "MAURY",
 
-                StreetLine1 = "17 FIRST STREET",
-                City = "STAUNTON",
-                JurisdictionCode = "VA",
-                PostalCode = "24401",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "17 FIRST STREET",
+                    City = "STAUNTON",
+                    JurisdictionCode = "VA",
+                    PostalCode = "24401",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1958, 07, 15),
                 Sex = Sex.Male,
@@ -230,11 +245,14 @@ namespace IdParser.Test
                 FirstName = "JANICE",
                 LastName = "SAMPLE",
 
-                StreetLine1 = "123 NORTH STATE ST.",
-                City = "ANYTOWN",
-                JurisdictionCode = "GA",
-                PostalCode = "30334",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "123 NORTH STATE ST.",
+                    City = "ANYTOWN",
+                    JurisdictionCode = "GA",
+                    PostalCode = "30334",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1957, 07, 01),
                 Sex = Sex.Female,
@@ -277,11 +295,14 @@ namespace IdParser.Test
                 MiddleName = "A",
                 LastName = "CTLIC",
 
-                StreetLine1 = "60 STATE ST",
-                City = "WETHERSFIELD",
-                JurisdictionCode = "CT",
-                PostalCode = "061091896",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "60 STATE ST",
+                    City = "WETHERSFIELD",
+                    JurisdictionCode = "CT",
+                    PostalCode = "061091896",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
@@ -322,11 +343,14 @@ namespace IdParser.Test
                 MiddleName = "A",
                 LastName = "CTLIC",
 
-                StreetLine1 = "60 STATE ST",
-                City = "WETHERSFIELD",
-                JurisdictionCode = "CT",
-                PostalCode = "061091896",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "60 STATE ST",
+                    City = "WETHERSFIELD",
+                    JurisdictionCode = "CT",
+                    PostalCode = "061091896",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1961, 01, 01),
                 Sex = Sex.Female,
@@ -358,11 +382,14 @@ namespace IdParser.Test
                 FirstName = "CHUNG",
                 LastName = "WANG",
 
-                StreetLine1 = "123 SIDE ST",
-                City = "WATERBURY",
-                JurisdictionCode = "CT",
-                PostalCode = "067081897",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "123 SIDE ST",
+                    City = "WATERBURY",
+                    JurisdictionCode = "CT",
+                    PostalCode = "067081897",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1949, 03, 03),
                 Sex = Sex.Male,
@@ -392,11 +419,14 @@ namespace IdParser.Test
                 FirstName = "FirstNameTest",
                 LastName = "LastNameTest",
 
-                StreetLine1 = "123 ABC TEST ADDRESS 2ND FL",
-                City = "ST LOUIS",
-                JurisdictionCode = "MO",
-                PostalCode = "633011",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "123 ABC TEST ADDRESS 2ND FL",
+                    City = "ST LOUIS",
+                    JurisdictionCode = "MO",
+                    PostalCode = "633011",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(2017, 08, 09),
                 Sex = Sex.Male,
@@ -439,11 +469,14 @@ namespace IdParser.Test
                 MiddleName = "MIDLAND",
                 LastName = "TESTER",
 
-                StreetLine1 = "1234 PARK ST LOT 504",
-                City = "KEY WEST",
-                JurisdictionCode = "FL",
-                PostalCode = "330400504",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    StreetLine1 = "1234 PARK ST LOT 504",
+                    City = "KEY WEST",
+                    JurisdictionCode = "FL",
+                    PostalCode = "330400504",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1941, 05, 09),
                 Sex = Sex.Male,
@@ -460,8 +493,8 @@ namespace IdParser.Test
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
-            
-            Assert.AreEqual("33040-0504", idCard.FormattedPostalCode);
+
+            Assert.AreEqual("33040-0504", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Florida", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.AreEqual(5, idCard.AdditionalJurisdictionElements.Count);
@@ -487,11 +520,14 @@ namespace IdParser.Test
                 WasMiddleNameTruncated = false,
                 WasLastNameTruncated = false,
 
-                City = "SOMETOWN",
-                StreetLine1 = "802 WILLIAMS ST",
-                JurisdictionCode = "NH",
-                PostalCode = "01234",
-                Country = Country.Usa,
+                Address = new Address
+                {
+                    City = "SOMETOWN",
+                    StreetLine1 = "802 WILLIAMS ST",
+                    JurisdictionCode = "NH",
+                    PostalCode = "01234",
+                    Country = Country.Usa
+                },
 
                 DateOfBirth = new DateTime(1977, 11, 06),
                 Sex = Sex.Male,
@@ -511,8 +547,47 @@ namespace IdParser.Test
 
             AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("01234", idCard.FormattedPostalCode);
+            Assert.AreEqual("01234", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("New Hampshire", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestTXLicense()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "ROBERTO",
+                LastName = "GONSALVES",
+
+                Address = new Address
+                {
+                    StreetLine1 = "1254 FIRST",
+                    City = "EL PASO",
+                    JurisdictionCode = "TX",
+                    PostalCode = "79936",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1993, 10, 24),
+                Sex = Sex.Male,
+                Height = Height.FromImperial(65),
+                EyeColor = EyeColor.Brown,
+                HairColor = HairColor.Brown,
+
+                IdNumber = "37110073",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2014, 10, 25),
+                ExpirationDate = new DateTime(2019, 10, 24)
+            };
+
+            var file = File.ReadAllText("TX License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("79936", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Texas", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
@@ -527,13 +602,13 @@ namespace IdParser.Test
             Assert.AreEqual(expected.WasMiddleNameTruncated, actual.WasMiddleNameTruncated, nameof(actual.WasMiddleNameTruncated));
             Assert.AreEqual(expected.WasLastNameTruncated, actual.WasLastNameTruncated, nameof(actual.WasLastNameTruncated));
 
-            Assert.AreEqual(expected.City, actual.City, nameof(actual.City));
-            Assert.AreEqual(expected.StreetLine1, actual.StreetLine1, nameof(actual.StreetLine1));
-            Assert.AreEqual(expected.StreetLine2, actual.StreetLine2, nameof(actual.StreetLine2));
-            Assert.AreEqual(expected.JurisdictionCode, actual.JurisdictionCode, nameof(actual.JurisdictionCode));
-            Assert.AreEqual(expected.JurisdictionCode, actual.IssuerIdentificationNumber.GetAbbreviation(), nameof(actual.IssuerIdentificationNumber));
-            Assert.AreEqual(expected.PostalCode, actual.PostalCode, nameof(actual.PostalCode));
-            Assert.AreEqual(expected.Country, actual.Country, nameof(actual.Country));
+            Assert.AreEqual(expected.Address.City, actual.Address.City, nameof(actual.Address.City));
+            Assert.AreEqual(expected.Address.StreetLine1, actual.Address.StreetLine1, nameof(actual.Address.StreetLine1));
+            Assert.AreEqual(expected.Address.StreetLine2, actual.Address.StreetLine2, nameof(actual.Address.StreetLine2));
+            Assert.AreEqual(expected.Address.JurisdictionCode, actual.Address.JurisdictionCode, nameof(actual.Address.JurisdictionCode));
+            Assert.AreEqual(expected.Address.JurisdictionCode, actual.IssuerIdentificationNumber.GetAbbreviation(), nameof(actual.IssuerIdentificationNumber));
+            Assert.AreEqual(expected.Address.PostalCode, actual.Address.PostalCode, nameof(actual.Address.PostalCode));
+            Assert.AreEqual(expected.Address.Country, actual.Address.Country, nameof(actual.Address.Country));
 
             Assert.AreEqual(expected.DateOfBirth, actual.DateOfBirth, nameof(actual.DateOfBirth));
             Assert.AreEqual(expected.Sex, actual.Sex, nameof(actual.Sex));

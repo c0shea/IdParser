@@ -18,27 +18,16 @@ namespace IdParser
         public Sex Sex { get; set; }
         public EyeColor EyeColor { get; set; }
         public Height Height { get; set; }
-        public string StreetLine1 { get; set; }
 
-        public string City { get; set; }
-        public string JurisdictionCode { get; set; }
-        public string PostalCode { get; set; }
+        public Address Address { get; set; } = new Address();
 
-        public string FormattedPostalCode => Country == Country.Usa && PostalCode.Length > 5
-                                             ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}"
-                                             : PostalCode;
-        public string Address => StreetLine2 == null
-                                 ? $"{StreetLine1}{Environment.NewLine}{City}, {JurisdictionCode} {FormattedPostalCode}"
-                                 : $"{StreetLine1}{Environment.NewLine}{StreetLine2}{Environment.NewLine}{City}, {JurisdictionCode} {FormattedPostalCode}";
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }
-        public Country Country { get; set; }
+        
         public bool? WasLastNameTruncated { get; set; }
         public bool? WasFirstNameTruncated { get; set; }
         public bool? WasMiddleNameTruncated { get; set; }
 
-        // D.12.5.2 Optional data elements
-        public string StreetLine2 { get; set; }
         public HairColor HairColor { get; set; }
         public string PlaceOfBirth { get; set; }
         public string AuditInformation { get; set; }

@@ -16,7 +16,7 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
-            IdCard.StreetLine2 = input;
+            IdCard.Address.StreetLine2 = input;
         }
     }
 }
