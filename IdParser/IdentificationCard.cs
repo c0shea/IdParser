@@ -28,7 +28,7 @@ namespace IdParser
         public bool? WasFirstNameTruncated { get; set; }
         public bool? WasMiddleNameTruncated { get; set; }
 
-        public HairColor HairColor { get; set; }
+        public HairColor? HairColor { get; set; }
         public string PlaceOfBirth { get; set; }
         public string AuditInformation { get; set; }
         public string InventoryControlNumber { get; set; }
