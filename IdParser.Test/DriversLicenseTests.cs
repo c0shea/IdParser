@@ -629,6 +629,51 @@ namespace IdParser.Test
             Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestPA2016License()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "CAPTAIN",
+                MiddleName = "JACK",
+                LastName = "MORGAN",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                Address = new Address
+                {
+                    StreetLine1 = "1725 SLOUGH AVE",
+                    StreetLine2 = "APT 4",
+                    City = "SCRANTON",
+                    JurisdictionCode = "PA",
+                    PostalCode = "18503",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1960, 05, 22),
+                Sex = Sex.Male,
+                Height = Height.FromImperial(71),
+                EyeColor = EyeColor.Brown,
+
+                IdNumber = "25881776",
+                AamvaVersionNumber = Version.Aamva2016,
+
+                IssueDate = new DateTime(2017, 11, 28),
+                ExpirationDate = new DateTime(2021, 05, 23),
+                RevisionDate = new DateTime(2016, 06, 07)
+            };
+
+            var file = File.ReadAllText("PA License 2016.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("18503", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(actual);
