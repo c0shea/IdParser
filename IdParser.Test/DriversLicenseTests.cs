@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+// ReSharper disable InconsistentNaming
 
 namespace IdParser.Test
 {
@@ -244,6 +245,7 @@ namespace IdParser.Test
             {
                 FirstName = "JANICE",
                 LastName = "SAMPLE",
+                NameSuffix = "PH.D.",
 
                 Address = new Address
                 {
@@ -400,7 +402,9 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2000,
 
                 IssueDate = new DateTime(2017, 01, 19),
-                ExpirationDate = new DateTime(2023, 03, 03)
+                ExpirationDate = new DateTime(2023, 03, 03),
+
+                IsOrganDonor = false
             };
 
             var file = File.ReadAllText("CT License No Middle Name.txt");
@@ -617,7 +621,9 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2000,
 
                 IssueDate = new DateTime(2016, 01, 04),
-                ExpirationDate = new DateTime(2020, 02, 03)
+                ExpirationDate = new DateTime(2020, 02, 03),
+
+                IsOrganDonor = true
             };
 
             var file = File.ReadAllText("PA License.txt");
@@ -721,6 +727,50 @@ namespace IdParser.Test
             Assert.AreEqual("Rhode Island", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestNJLicense()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "MELISSA",
+                MiddleName = "R",
+                LastName = "FOX",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                Address = new Address
+                {
+                    StreetLine1 = "1435 AUBURN AVE",
+                    City = "VERNON",
+                    JurisdictionCode = "NJ",
+                    PostalCode = "074182554",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1983, 02, 04),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(62),
+                EyeColor = EyeColor.Green,
+
+                IdNumber = "P62472647457903",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2015, 02, 28),
+                ExpirationDate = new DateTime(2019, 02, 28),
+                RevisionDate = new DateTime(2010, 07, 23)
+            };
+
+            var file = File.ReadAllText("NJ License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("07418-2554", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("New Jersey", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(actual);
@@ -728,6 +778,7 @@ namespace IdParser.Test
             Assert.AreEqual(expected.FirstName, actual.FirstName, nameof(actual.FirstName));
             Assert.AreEqual(expected.MiddleName, actual.MiddleName, nameof(actual.MiddleName));
             Assert.AreEqual(expected.LastName, actual.LastName, nameof(actual.LastName));
+            Assert.AreEqual(expected.NameSuffix, actual.NameSuffix, nameof(actual.NameSuffix));
 
             Assert.AreEqual(expected.WasFirstNameTruncated, actual.WasFirstNameTruncated, nameof(actual.WasFirstNameTruncated));
             Assert.AreEqual(expected.WasMiddleNameTruncated, actual.WasMiddleNameTruncated, nameof(actual.WasMiddleNameTruncated));

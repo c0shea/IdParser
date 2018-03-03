@@ -40,14 +40,14 @@ namespace IdParser
         public string Ethnicity { get; set; }
         public ComplianceType? ComplianceType { get; set; }
         public DateTime? RevisionDate { get; set; }
-        public bool HasTemporaryLawfulStatus { get; set; }
+        public bool? HasTemporaryLawfulStatus { get; set; }
         public short? WeightInPounds { get; set; }
         public short? WeightInKilograms { get; set; }
         public DateTime? Under18Until { get; set; }
         public DateTime? Under19Until { get; set; }
         public DateTime? Under21Until { get; set; }
-        public bool IsOrganDonor { get; set; }
-        public bool IsVeteran { get; set; }
+        public bool? IsOrganDonor { get; set; }
+        public bool? IsVeteran { get; set; }
         public Dictionary<string, string> AdditionalJurisdictionElements { get; } = new Dictionary<string, string>();
     }
 }
