@@ -11,7 +11,7 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            if (string.IsNullOrEmpty(input) || input == "UNK")
+            if (string.IsNullOrEmpty(input) || input.EqualsIgnoreCase("UNK"))
             {
                 return;
             }

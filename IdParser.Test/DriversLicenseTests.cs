@@ -771,6 +771,51 @@ namespace IdParser.Test
             Assert.AreEqual("New Jersey", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestNCLicense()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "RICK",
+                MiddleName = "SANTIAGO",
+                LastName = "MORALES MARTIZ",
+
+                WasFirstNameTruncated = false,
+                WasMiddleNameTruncated = false,
+                WasLastNameTruncated = false,
+
+                Address = new Address
+                {
+                    StreetLine1 = "1440 BROWN TER",
+                    City = "FAYETTEVILLE",
+                    JurisdictionCode = "NC",
+                    PostalCode = "283041234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1986, 06, 12),
+                Sex = Sex.Male,
+                Height = Height.FromImperial(69),
+                EyeColor = EyeColor.Brown,
+                HairColor = HairColor.Black,
+
+                IdNumber = "00004985690",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2017, 11, 16),
+                ExpirationDate = new DateTime(2025, 06, 12),
+                RevisionDate = new DateTime(2014, 10, 24)
+            };
+
+            var file = File.ReadAllText("NC License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("28304-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("North Carolina", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(actual);
@@ -797,6 +842,7 @@ namespace IdParser.Test
             Assert.AreEqual(expected.Height, actual.Height);
             Assert.AreEqual(expected.EyeColor, actual.EyeColor, nameof(actual.EyeColor));
             Assert.AreEqual(expected.HairColor, actual.HairColor, nameof(actual.HairColor));
+            Assert.AreEqual(expected.Ethnicity, actual.Ethnicity, nameof(actual.Ethnicity));
 
             Assert.AreEqual(expected.IdNumber, actual.IdNumber, nameof(actual.IdNumber));
             Assert.AreEqual(expected.AamvaVersionNumber, actual.AamvaVersionNumber, nameof(actual.AamvaVersionNumber));

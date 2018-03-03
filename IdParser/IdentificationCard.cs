@@ -37,7 +37,7 @@ namespace IdParser
         public string AliasSuffix { get; set; }
         public string NameSuffix { get; set; }
         public WeightRange? WeightRange { get; set; }
-        public string Ethnicity { get; set; }
+        public Ethnicity? Ethnicity { get; set; }
         public ComplianceType? ComplianceType { get; set; }
         public DateTime? RevisionDate { get; set; }
         public bool? HasTemporaryLawfulStatus { get; set; }
