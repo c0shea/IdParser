@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -235,7 +236,10 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2009, 08, 14),
                 ExpirationDate = new DateTime(2017, 08, 14),
-                RevisionDate = new DateTime(2008, 12, 10)
+                RevisionDate = new DateTime(2008, 12, 10),
+
+                HasTemporaryLawfulStatus = false,
+                ComplianceType = ComplianceType.NonCompliant
             };
 
             var file = File.ReadAllText("VA License.txt");
@@ -576,7 +580,9 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2017, 12, 19),
                 ExpirationDate = new DateTime(2022, 11, 06),
-                RevisionDate = new DateTime(2016, 06, 09)
+                RevisionDate = new DateTime(2016, 06, 09),
+
+                ComplianceType = ComplianceType.NonCompliant
             };
 
             var file = File.ReadAllText("NH License.txt");
@@ -807,7 +813,9 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2015, 02, 28),
                 ExpirationDate = new DateTime(2019, 02, 28),
-                RevisionDate = new DateTime(2010, 07, 23)
+                RevisionDate = new DateTime(2010, 07, 23),
+
+                HasTemporaryLawfulStatus = false
             };
 
             var file = File.ReadAllText("NJ License.txt");
@@ -855,7 +863,9 @@ namespace IdParser.Test
 
                 IssueDate = new DateTime(2017, 11, 16),
                 ExpirationDate = new DateTime(2025, 06, 12),
-                RevisionDate = new DateTime(2014, 10, 24)
+                RevisionDate = new DateTime(2014, 10, 24),
+
+                ComplianceType = ComplianceType.NonCompliant
             };
 
             var file = File.ReadAllText("NC License.txt");
@@ -952,6 +962,8 @@ namespace IdParser.Test
             Assert.AreEqual(expected.Under19Until, actual.Under19Until, nameof(actual.Under19Until));
             Assert.AreEqual(expected.Under21Until, actual.Under21Until, nameof(actual.Under21Until));
 
+            Assert.AreEqual(expected.ComplianceType, actual.ComplianceType, nameof(actual.ComplianceType));
+            Assert.AreEqual(expected.HasTemporaryLawfulStatus, actual.HasTemporaryLawfulStatus, nameof(actual.HasTemporaryLawfulStatus));
             Assert.AreEqual(expected.IsOrganDonor, actual.IsOrganDonor, nameof(actual.IsOrganDonor));
             Assert.AreEqual(expected.IsVeteran, actual.IsVeteran, nameof(actual.IsVeteran));
         }

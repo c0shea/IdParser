@@ -36,8 +36,8 @@ namespace IdParser
         public string InventoryControlNumber { get; set; }
         
         public ComplianceType? ComplianceType { get; set; }
+
         public bool? HasTemporaryLawfulStatus { get; set; }
-        
         public bool? IsOrganDonor { get; set; }
         public bool? IsVeteran { get; set; }
 
