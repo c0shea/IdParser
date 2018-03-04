@@ -24,7 +24,7 @@ namespace IdParser.Parsers
             return string.IsNullOrEmpty(input) || input == "00000000";
         }
 
-        protected static bool NameHasNoValue(string input)
+        protected static bool StringHasNoValue(string input)
         {
             return string.IsNullOrEmpty(input) || input == "NONE" || input == "unavl" || input == "unavail";
         }

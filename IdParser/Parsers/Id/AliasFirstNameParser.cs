@@ -17,6 +17,11 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
+            if (StringHasNoValue(input))
+            {
+                return;
+            }
+
             IdCard.Name.AliasFirst = input;
         }
     }

@@ -11,7 +11,7 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            if (NameHasNoValue(input))
+            if (StringHasNoValue(input))
             {
                 return;
             }

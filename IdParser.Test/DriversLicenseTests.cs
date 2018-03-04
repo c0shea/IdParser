@@ -47,9 +47,7 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "D",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "D"
                 }
             };
 
@@ -100,9 +98,7 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "D",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "D"
                 }
             };
 
@@ -120,15 +116,6 @@ namespace IdParser.Test
 
             Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
             Assert.AreEqual("08102016", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
-
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
-
-            if (idCard is DriversLicense license)
-            {
-                Assert.AreEqual("D", license.Jurisdiction.VehicleClass);
-                Assert.AreEqual("NONE", license.Jurisdiction.RestrictionCodes);
-                Assert.AreEqual("NONE", license.Jurisdiction.EndorsementCodes);
-            }
         }
 
         [TestMethod]
@@ -168,9 +155,7 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "D",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "D"
                 }
             };
 
@@ -217,14 +202,7 @@ namespace IdParser.Test
                 AamvaVersionNumber = Version.Aamva2012,
 
                 IssueDate = new DateTime(2013, 08, 31),
-                ExpirationDate = new DateTime(2013, 08, 31),
-
-                Jurisdiction = new DriversLicenseJurisdiction
-                {
-                    VehicleClass = "NONE",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
-                }
+                ExpirationDate = new DateTime(2013, 08, 31)
             };
 
             var file = File.ReadAllText("NY License.txt");
@@ -274,7 +252,6 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "NONE",
                     RestrictionCodes = "158X9",
                     EndorsementCodes = "S"
                 }
@@ -332,7 +309,6 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "C",
-                    RestrictionCodes = "NONE",
                     EndorsementCodes = "P"
                 }
             };
@@ -344,15 +320,6 @@ namespace IdParser.Test
             AssertLicense(expected, idCard);
 
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
-
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
-
-            if (idCard is DriversLicense license)
-            {
-                Assert.AreEqual("NONE", license.Jurisdiction.RestrictionCodes);
-                Assert.AreEqual("C", license.Jurisdiction.VehicleClass);
-                Assert.AreEqual("P", license.Jurisdiction.EndorsementCodes);
-            }
         }
 
         [TestMethod]
@@ -391,8 +358,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "D",
-                    RestrictionCodes = "B",
-                    EndorsementCodes = ""
+                    RestrictionCodes = "B"
                 }
             };
 
@@ -449,8 +415,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "D",
-                    RestrictionCodes = "B",
-                    EndorsementCodes = ""
+                    RestrictionCodes = "B"
                 }
             };
 
@@ -497,9 +462,7 @@ namespace IdParser.Test
                 IsOrganDonor = false,
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "D",
-                    RestrictionCodes = "",
-                    EndorsementCodes = ""
+                    VehicleClass = "D"
                 }
             };
 
@@ -546,9 +509,7 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "F",
-                    RestrictionCodes = "",
-                    EndorsementCodes = ""
+                    VehicleClass = "F"
                 }
             };
 
@@ -605,8 +566,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "E",
-                    RestrictionCodes = "A",
-                    EndorsementCodes = "NONE"
+                    RestrictionCodes = "A"
                 }
             };
 
@@ -719,9 +679,7 @@ namespace IdParser.Test
 
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "C",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "C"
                 }
             };
 
@@ -827,8 +785,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "C",
-                    RestrictionCodes = "1",
-                    EndorsementCodes = "NONE"
+                    RestrictionCodes = "1"
                 }
             };
 
@@ -885,8 +842,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "10",
-                    RestrictionCodes = "A",
-                    EndorsementCodes = "NONE"
+                    RestrictionCodes = "A"
                 }
             };
 
@@ -940,9 +896,7 @@ namespace IdParser.Test
                 HasTemporaryLawfulStatus = false,
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "D",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "D"
                 }
             };
 
@@ -997,9 +951,7 @@ namespace IdParser.Test
                 ComplianceType = ComplianceType.NonCompliant,
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
-                    VehicleClass = "C",
-                    RestrictionCodes = "NONE",
-                    EndorsementCodes = "NONE"
+                    VehicleClass = "C"
                 }
             };
 
@@ -1049,8 +1001,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "D",
-                    RestrictionCodes = "J",
-                    EndorsementCodes = ""
+                    RestrictionCodes = "J"
                 }
             };
 
@@ -1102,8 +1053,7 @@ namespace IdParser.Test
                 Jurisdiction = new DriversLicenseJurisdiction
                 {
                     VehicleClass = "C",
-                    RestrictionCodes = "B",
-                    EndorsementCodes = "NONE"
+                    RestrictionCodes = "B"
                 }
             };
 
@@ -1115,6 +1065,67 @@ namespace IdParser.Test
 
             Assert.AreEqual("04401", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Maine", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestOHLicense()
+        {
+            var weight = Weight.FromImperial(140);
+            weight.WeightRange = WeightRange.Lbs131To160;
+
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "DEBBIE",
+                    Middle = "T",
+                    Last = "MOTORIST",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "102 PARK AVE",
+                    City = "NORTHWOOD",
+                    JurisdictionCode = "OH",
+                    PostalCode = "436191234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1956, 02, 23),
+                PlaceOfBirth = "US,OHIO",
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Brown,
+                HairColor = HairColor.Brown,
+                Height = Height.FromImperial(60),
+                Weight = weight,
+
+                IdNumber = "PJ842270",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2016, 12, 02),
+                ExpirationDate = new DateTime(2020, 02, 23),
+                RevisionDate = new DateTime(2013, 12, 04),
+
+                ComplianceType = ComplianceType.MateriallyCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("OH License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("43619-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Ohio", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
@@ -1140,6 +1151,7 @@ namespace IdParser.Test
             Assert.AreEqual(expected.Address.Country, actual.Address.Country, nameof(actual.Address.Country));
 
             Assert.AreEqual(expected.DateOfBirth, actual.DateOfBirth, nameof(actual.DateOfBirth));
+            Assert.AreEqual(expected.PlaceOfBirth, actual.PlaceOfBirth, nameof(actual.PlaceOfBirth));
             Assert.AreEqual(expected.Sex, actual.Sex, nameof(actual.Sex));
             Assert.AreEqual(expected.Height, actual.Height, nameof(actual.Height));
             Assert.AreEqual(expected.Weight, actual.Weight, nameof(actual.Weight));

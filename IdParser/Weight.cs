@@ -42,6 +42,18 @@ namespace IdParser
             return new Weight(weightRange, null, false);
         }
 
+        internal void SetImperial(int pounds)
+        {
+            Kilograms = pounds * PoundsPerKilogram;
+            IsMetric = false;
+        }
+
+        internal void SetMetric(double kilograms)
+        {
+            Kilograms = kilograms;
+            IsMetric = true;
+        }
+
         public override string ToString()
         {
             if (!Kilograms.HasValue)

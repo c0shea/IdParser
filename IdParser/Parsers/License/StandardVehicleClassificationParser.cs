@@ -11,6 +11,11 @@ namespace IdParser.Parsers.License
 
         public override void ParseAndSet(string input)
         {
+            if (StringHasNoValue(input))
+            {
+                return;
+            }
+
             License.StandardVehicleClassification = input;
         }
     }
