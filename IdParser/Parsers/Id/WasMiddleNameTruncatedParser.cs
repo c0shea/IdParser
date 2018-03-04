@@ -11,7 +11,7 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            IdCard.WasMiddleNameTruncated = ParseBool(input);
+            IdCard.Name.WasMiddleTruncated = ParseBool(input);
         }
     }
 }

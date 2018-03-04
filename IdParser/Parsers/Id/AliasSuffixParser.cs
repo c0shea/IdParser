@@ -11,7 +11,7 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            IdCard.AliasSuffix = input;
+            IdCard.Name.AliasSuffix = input;
         }
     }
 }

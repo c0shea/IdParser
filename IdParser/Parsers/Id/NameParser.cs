@@ -18,24 +18,24 @@ namespace IdParser.Parsers.Id
             if (input.IndexOfAny(standardSplitCharacters) >= 0)
             {
                 var names = input.Split(standardSplitCharacters);
-                IdCard.LastName = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
-                IdCard.FirstName = names.Length > 1 ? names[1].Trim().ReplaceEmptyWithNull() : null;
-                IdCard.MiddleName = names.Length > 2 ? names[2].Trim().ReplaceEmptyWithNull() : null;
+                IdCard.Name.Last = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
+                IdCard.Name.First = names.Length > 1 ? names[1].Trim().ReplaceEmptyWithNull() : null;
+                IdCard.Name.Middle = names.Length > 2 ? names[2].Trim().ReplaceEmptyWithNull() : null;
             }
             // Jurisdictions like Pennsylvania that don't follow the standard
             else if (input.IndexOf(' ') >= 0)
             {
                 var names = input.Split(' ');
-                IdCard.FirstName = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
+                IdCard.Name.First = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
 
                 if (names.Length == 2)
                 {
-                    IdCard.LastName = names[1].Trim().ReplaceEmptyWithNull();
+                    IdCard.Name.Last = names[1].Trim().ReplaceEmptyWithNull();
                 }
                 else if (names.Length > 2)
                 {
-                    IdCard.MiddleName = names[1].Trim().ReplaceEmptyWithNull();
-                    IdCard.LastName = names[2].Trim().ReplaceEmptyWithNull();
+                    IdCard.Name.Middle = names[1].Trim().ReplaceEmptyWithNull();
+                    IdCard.Name.Last = names[2].Trim().ReplaceEmptyWithNull();
                 }
             }
         }

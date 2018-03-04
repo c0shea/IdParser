@@ -9,10 +9,9 @@ namespace IdParser
         public Version AamvaVersionNumber { get; set; }
         public byte JurisdictionVersionNumber { get; set; }
 
+        public Name Name { get; set; } = new Name();
+
         public DateTime ExpirationDate { get; set; }
-        public string LastName { get; set; }
-        public string FirstName { get; set; }
-        public string MiddleName { get; set; }
         public DateTime IssueDate { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Sex Sex { get; set; }
@@ -24,18 +23,13 @@ namespace IdParser
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }
         
-        public bool? WasLastNameTruncated { get; set; }
-        public bool? WasFirstNameTruncated { get; set; }
-        public bool? WasMiddleNameTruncated { get; set; }
+        
 
         public HairColor? HairColor { get; set; }
         public string PlaceOfBirth { get; set; }
         public string AuditInformation { get; set; }
         public string InventoryControlNumber { get; set; }
-        public string AliasLastName { get; set; }
-        public string AliasFirstName { get; set; }
-        public string AliasSuffix { get; set; }
-        public string NameSuffix { get; set; }
+        
         public WeightRange? WeightRange { get; set; }
         public Ethnicity? Ethnicity { get; set; }
         public ComplianceType? ComplianceType { get; set; }

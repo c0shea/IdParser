@@ -16,7 +16,7 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
-            IdCard.NameSuffix = input;
+            IdCard.Name.Suffix = input;
         }
     }
 }

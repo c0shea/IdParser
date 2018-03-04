@@ -16,7 +16,7 @@ namespace IdParser.Parsers.Id
                 return;
             }
 
-            IdCard.FirstName = input;
+            IdCard.Name.First = input;
         }
     }
 }

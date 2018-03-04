@@ -13,8 +13,8 @@ namespace IdParser.Parsers.Id
         public override void ParseAndSet(string input)
         {
             var givenNames = input.Split(',', '$', ' ');
-            IdCard.FirstName = givenNames[0].Trim();
-            IdCard.MiddleName = givenNames.Length > 1 ? givenNames[1].Trim().ReplaceEmptyWithNull() : null;
+            IdCard.Name.First = givenNames[0].Trim();
+            IdCard.Name.Middle = givenNames.Length > 1 ? givenNames[1].Trim().ReplaceEmptyWithNull() : null;
         }
     }
 }

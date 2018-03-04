@@ -14,14 +14,17 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "ROBERT",
-                MiddleName = "LOWNEY",
-                LastName = "SMITH",
+                Name = new Name
+                {
+                    First = "ROBERT",
+                    Middle = "LOWNEY",
+                    Last = "SMITH",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
-
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+                
                 Address = new Address
                 {
                     StreetLine1 = "123 MAIN STREET",
@@ -56,14 +59,17 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "MORRIS",
-                MiddleName = "T",
-                LastName = "SAMPLE",
+                Name = new Name
+                {
+                    First = "MORRIS",
+                    Middle = "T",
+                    Last = "SAMPLE",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
-
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+                
                 Address = new Address
                 {
                     StreetLine1 = "24 BEACON STREET",
@@ -114,12 +120,15 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "TONY",
-                LastName = "ROBERT",
+                Name = new Name
+                {
+                    First = "TONY",
+                    Last = "ROBERT",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -155,13 +164,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "M",
-                MiddleName = "Motorist",
-                LastName = "Michael",
+                Name = new Name
+                {
+                    First = "M",
+                    Middle = "Motorist",
+                    Last = "Michael",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -197,10 +209,13 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "JUSTIN",
-                MiddleName = "WILLIAM",
-                LastName = "MAURY",
-
+                Name = new Name
+                {
+                    First = "JUSTIN",
+                    Middle = "WILLIAM",
+                    Last = "MAURY"
+                },
+                
                 Address = new Address
                 {
                     StreetLine1 = "17 FIRST STREET",
@@ -243,9 +258,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "JANICE",
-                LastName = "SAMPLE",
-                NameSuffix = "PH.D.",
+                Name = new Name
+                {
+                    First = "JANICE",
+                    Last = "SAMPLE",
+                    Suffix = "PH.D."
+                },
 
                 Address = new Address
                 {
@@ -275,7 +293,6 @@ namespace IdParser.Test
 
             AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("PH.D.", idCard.NameSuffix);
             Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
 
             Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
@@ -293,9 +310,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "ADULT",
-                MiddleName = "A",
-                LastName = "CTLIC",
+                Name = new Name
+                {
+                    First = "ADULT",
+                    Middle = "A",
+                    Last = "CTLIC"
+                },
 
                 Address = new Address
                 {
@@ -341,9 +361,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "ADULT",
-                MiddleName = "A",
-                LastName = "CTLIC",
+                Name = new Name
+                {
+                    First = "ADULT",
+                    Middle = "A",
+                    Last = "CTLIC"
+                },
 
                 Address = new Address
                 {
@@ -381,8 +404,11 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "CHUNG",
-                LastName = "WANG",
+                Name = new Name
+                {
+                    First = "CHUNG",
+                    Last = "WANG"
+                },
 
                 Address = new Address
                 {
@@ -420,8 +446,11 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "FirstNameTest",
-                LastName = "LastNameTest",
+                Name = new Name
+                {
+                    First = "FirstNameTest",
+                    Last = "LastNameTest"
+                },
 
                 Address = new Address
                 {
@@ -469,9 +498,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "JOEY",
-                MiddleName = "MIDLAND",
-                LastName = "TESTER",
+                Name = new Name
+                {
+                    First = "JOEY",
+                    Middle = "MIDLAND",
+                    Last = "TESTER"
+                },
 
                 Address = new Address
                 {
@@ -516,13 +548,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "DONNIE",
-                MiddleName = "G",
-                LastName = "TESTER",
+                Name = new Name
+                {
+                    First = "DONNIE",
+                    Middle = "G",
+                    Last = "TESTER",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -560,8 +595,11 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "ROBERTO",
-                LastName = "GONSALVES",
+                Name = new Name
+                {
+                    First = "ROBERTO",
+                    Last = "GONSALVES"
+                },
 
                 Address = new Address
                 {
@@ -599,9 +637,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "JOHN",
-                MiddleName = "P",
-                LastName = "SMITH",
+                Name = new Name
+                {
+                    First = "JOHN",
+                    Middle = "P",
+                    Last = "SMITH"
+                },
 
                 Address = new Address
                 {
@@ -640,13 +681,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "CAPTAIN",
-                MiddleName = "JACK",
-                LastName = "MORGAN",
+                Name = new Name
+                {
+                    First = "CAPTAIN",
+                    Middle = "JACK",
+                    Last = "MORGAN",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -685,13 +729,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "LOIS",
-                MiddleName = "PATRICE",
-                LastName = "GRIFFIN",
+                Name = new Name
+                {
+                    First = "LOIS",
+                    Middle = "PATRICE",
+                    Last = "GRIFFIN",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -732,13 +779,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "MELISSA",
-                MiddleName = "R",
-                LastName = "FOX",
+                Name = new Name
+                {
+                    First = "MELISSA",
+                    Middle = "R",
+                    Last = "FOX",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -776,13 +826,16 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "RICK",
-                MiddleName = "SANTIAGO",
-                LastName = "MORALES MARTIZ",
+                Name = new Name
+                {
+                    First = "RICK",
+                    Middle = "SANTIAGO",
+                    Last = "MORALES MARTIZ",
 
-                WasFirstNameTruncated = false,
-                WasMiddleNameTruncated = false,
-                WasLastNameTruncated = false,
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
 
                 Address = new Address
                 {
@@ -821,9 +874,12 @@ namespace IdParser.Test
         {
             var expected = new DriversLicense
             {
-                FirstName = "MARY",
-                MiddleName = "ROBINS",
-                LastName = "SMITH",
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "ROBINS",
+                    Last = "SMITH"
+                },
                 
                 Address = new Address
                 {
@@ -861,14 +917,14 @@ namespace IdParser.Test
         {
             Assert.IsNotNull(actual);
 
-            Assert.AreEqual(expected.FirstName, actual.FirstName, nameof(actual.FirstName));
-            Assert.AreEqual(expected.MiddleName, actual.MiddleName, nameof(actual.MiddleName));
-            Assert.AreEqual(expected.LastName, actual.LastName, nameof(actual.LastName));
-            Assert.AreEqual(expected.NameSuffix, actual.NameSuffix, nameof(actual.NameSuffix));
+            Assert.AreEqual(expected.Name.First, actual.Name.First, nameof(actual.Name.First));
+            Assert.AreEqual(expected.Name.Middle, actual.Name.Middle, nameof(actual.Name.Middle));
+            Assert.AreEqual(expected.Name.Last, actual.Name.Last, nameof(actual.Name.Last));
+            Assert.AreEqual(expected.Name.Suffix, actual.Name.Suffix, nameof(actual.Name.Suffix));
 
-            Assert.AreEqual(expected.WasFirstNameTruncated, actual.WasFirstNameTruncated, nameof(actual.WasFirstNameTruncated));
-            Assert.AreEqual(expected.WasMiddleNameTruncated, actual.WasMiddleNameTruncated, nameof(actual.WasMiddleNameTruncated));
-            Assert.AreEqual(expected.WasLastNameTruncated, actual.WasLastNameTruncated, nameof(actual.WasLastNameTruncated));
+            Assert.AreEqual(expected.Name.WasFirstTruncated, actual.Name.WasFirstTruncated, nameof(actual.Name.WasFirstTruncated));
+            Assert.AreEqual(expected.Name.WasMiddleTruncated, actual.Name.WasMiddleTruncated, nameof(actual.Name.WasMiddleTruncated));
+            Assert.AreEqual(expected.Name.WasLastTruncated, actual.Name.WasLastTruncated, nameof(actual.Name.WasLastTruncated));
 
             Assert.AreEqual(expected.Address.City, actual.Address.City, nameof(actual.Address.City));
             Assert.AreEqual(expected.Address.StreetLine1, actual.Address.StreetLine1, nameof(actual.Address.StreetLine1));

@@ -11,7 +11,7 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            IdCard.WasFirstNameTruncated = ParseBool(input);
+            IdCard.Name.WasFirstTruncated = ParseBool(input);
         }
     }
 }
