@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using IdParser.Attributes;
 using IdParser.Parsers;
 
@@ -55,6 +56,7 @@ namespace IdParser
             var idCard = GetIdCardInstance(version, rawPdf417Input);
             var subfileRecords = GetSubfileRecords(idCard, version, rawPdf417Input);
             var country = ParseCountry(version, subfileRecords);
+            idCard.Address.Country = country;
             
             PopulateIdCard(idCard, version, country, subfileRecords);
 
@@ -154,12 +156,12 @@ namespace IdParser
         /// Parses the country based on the DCG subfile record. The <see cref="IdentificationCard"/>
         /// constructor attempts to determine the correct country based on the IIN if the country is unknown.
         /// </summary>
-        private static Country? ParseCountry(Version version, List<string> subfileRecords)
+        private static Country ParseCountry(Version version, List<string> subfileRecords)
         {
             // Country is not a subfile record in the AAMVA 2000 standard
             if (version == Version.Aamva2000)
             {
-                return null;
+                return Country.Usa;
             }
 
             foreach (var subfileRecord in subfileRecords)
@@ -180,7 +182,7 @@ namespace IdParser
                 }
             }
 
-            return null;
+            return Country.Usa;
         }
 
         private static List<string> GetSubfileRecords(IdentificationCard idCard, Version version, string input)
@@ -200,6 +202,22 @@ namespace IdParser
             else if (version >= Version.Aamva2003)
             {
                 offset = Convert.ToInt32(input.Substring(23, 4));
+            }
+
+            if (offset == 0)
+            {
+                // Some jurisdictions, like Ontario, have a zero offset, which is incorrect.
+                // Set the offset to the start of the subfile type indicator.
+                var subfileRegex = new Regex("[0-9]{8}[A-Z]{2}[D][A-Z]{2}");
+                var match = subfileRegex.Match(input);
+
+                if (match.Success)
+                {
+                    const int subfileTypeLength = 2;
+                    const int firstElementIdLength = 3;
+
+                    offset = match.Index + match.Length - subfileTypeLength - firstElementIdLength;
+                }
             }
 
             var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();

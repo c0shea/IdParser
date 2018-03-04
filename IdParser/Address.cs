@@ -14,9 +14,23 @@ namespace IdParser
         public string PostalCode { get; set; }
         public Country Country { get; set; }
 
-        public string PostalCodeDisplay => Country == Country.Usa && PostalCode.Length > 5
-            ? $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}"
-            : PostalCode;
+        public string PostalCodeDisplay
+        {
+            get
+            {
+                if (Country == Country.Usa && PostalCode.Length > 5)
+                {
+                    return $"{PostalCode.Substring(0, 5)}-{PostalCode.Substring(5)}";
+                }
+
+                if (Country == Country.Canada && PostalCode.Length == 6)
+                {
+                    return $"{PostalCode.Substring(0, 3)} {PostalCode.Substring(3)}";
+                }
+
+                return PostalCode;
+            }
+        }
 
         public override string ToString() => StreetLine2 == null
             ? $"{StreetLine1}{Environment.NewLine}{City}, {JurisdictionCode} {PostalCodeDisplay}"

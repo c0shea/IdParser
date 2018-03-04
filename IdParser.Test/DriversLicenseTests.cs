@@ -1168,6 +1168,53 @@ namespace IdParser.Test
             Assert.AreEqual("Michigan", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestONLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "ANN",
+                    Last = "TESTER"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 ST GEORGE ST E",
+                    City = "FERGUS",
+                    JurisdictionCode = "ON",
+                    PostalCode = "N1M3J6",
+                    Country = Country.Canada
+                },
+
+                DateOfBirth = new DateTime(1996, 06, 03),
+                Sex = Sex.Female,
+                Height = Height.FromMetric(170),
+
+                IdNumber = "S9244-43879-65702",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2017, 06, 07),
+                ExpirationDate = new DateTime(2020, 06, 03),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "G"
+                }
+            };
+
+            var file = File.ReadAllText("ON License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("N1M 3J6", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Ontario", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);

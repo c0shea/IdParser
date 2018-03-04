@@ -1,0 +1,22 @@
+﻿@
+
+ANSI 636012030001DL00000367DLDCAG   
+DCBNONE      
+DCDNONE 
+DBA20200603
+DCSTESTER,                               
+DCTMARY,ANN                                                                       
+DBD20170607
+DBB19960603
+DBC2
+DAYNONE
+DAU170 CM
+DAG123 ST GEORGE ST E,                   
+DAIFERGUS              
+DAJON
+DAKN1M 3J6    
+DAQS9244-43879-65702
+DCFDV1539283
+DCGCAN
+DCHNONE
+DCK839267959
