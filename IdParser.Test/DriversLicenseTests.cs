@@ -1215,6 +1215,63 @@ namespace IdParser.Test
             Assert.AreEqual("Ontario", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestVTLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "BOBBY",
+                    Middle = "L",
+                    Last = "TABLES",
+
+                    WasFirstTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "304 PARK ST APT 5",
+                    City = "BENNINGTON",
+                    JurisdictionCode = "VT",
+                    PostalCode = "05201",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1978, 08, 09),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(67),
+                Weight = Weight.FromImperial(195),
+
+                IdNumber = "92265728",
+                AamvaVersionNumber = Version.Aamva2012,
+
+                IssueDate = new DateTime(2016, 08, 14),
+                ExpirationDate = new DateTime(2018, 08, 09),
+                RevisionDate = new DateTime(2013, 02, 20),
+
+                IsOrganDonor = true,
+                ComplianceType = ComplianceType.FullyCompliant,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("VT License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("05201", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Vermont", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);
