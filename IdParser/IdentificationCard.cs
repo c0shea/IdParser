@@ -23,20 +23,16 @@ namespace IdParser
         public string IdNumber { get; set; }
         public string DocumentDiscriminator { get; set; }
         
-        
-
         public HairColor? HairColor { get; set; }
         public string PlaceOfBirth { get; set; }
         public string AuditInformation { get; set; }
         public string InventoryControlNumber { get; set; }
         
-        public WeightRange? WeightRange { get; set; }
+        public Weight Weight { get; set; }
         public Ethnicity? Ethnicity { get; set; }
         public ComplianceType? ComplianceType { get; set; }
         public DateTime? RevisionDate { get; set; }
         public bool? HasTemporaryLawfulStatus { get; set; }
-        public short? WeightInPounds { get; set; }
-        public short? WeightInKilograms { get; set; }
         public DateTime? Under18Until { get; set; }
         public DateTime? Under19Until { get; set; }
         public DateTime? Under21Until { get; set; }

@@ -12,7 +12,15 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            IdCard.WeightRange = (WeightRange) Convert.ToByte(input);
+            var weightRange = (WeightRange)Convert.ToByte(input);
+
+            if (IdCard.Weight == null)
+            {
+                IdCard.Weight = Weight.FromRange(weightRange);
+                return;
+            }
+
+            IdCard.Weight.WeightRange = weightRange;
         }
     }
 }

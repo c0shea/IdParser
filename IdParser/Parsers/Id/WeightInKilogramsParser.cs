@@ -12,7 +12,12 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
-            IdCard.WeightInKilograms = Convert.ToInt16(input);
+            if (IdCard.Weight != null)
+            {
+                return;
+            }
+
+            IdCard.Weight = Weight.FromMetric(Convert.ToInt16(input));
         }
     }
 }

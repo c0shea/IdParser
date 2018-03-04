@@ -16,6 +16,16 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void ComparableTest()
+        {
+            var first = Height.FromImperial(6, 2);
+            var second = Height.FromImperial(5, 8);
+
+            Assert.IsTrue(first.CompareTo(second) > 0);
+            Assert.IsTrue(second.CompareTo(first) < 0);
+        }
+
+        [TestMethod]
         public void ImperialDisplayTest()
         {
             var height = Height.FromImperial(67);

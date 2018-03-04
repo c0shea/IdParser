@@ -2,6 +2,9 @@
 
 namespace IdParser
 {
+    /// <summary>
+    /// Represents the address of the person identified in the ID card.
+    /// </summary>
     public class Address
     {
         public string StreetLine1 { get; set; }

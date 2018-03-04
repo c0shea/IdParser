@@ -277,15 +277,14 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1957, 07, 01),
                 Sex = Sex.Female,
                 Height = Height.FromImperial(64),
+                Weight = Weight.FromRange(WeightRange.Lbs101To130),
                 EyeColor = EyeColor.Blue,
 
                 IdNumber = "100000001",
                 AamvaVersionNumber = Version.Aamva2005,
 
                 IssueDate = new DateTime(2006, 07, 01),
-                ExpirationDate = new DateTime(2013, 02, 01),
-
-                WeightRange = WeightRange.Lbs101To130
+                ExpirationDate = new DateTime(2013, 02, 01)
             };
 
             var file = File.ReadAllText("GA License.txt");
@@ -464,15 +463,14 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(2017, 08, 09),
                 Sex = Sex.Male,
                 Height = Height.FromImperial(5, 8),
+                Weight = Weight.FromImperial(155),
                 EyeColor = EyeColor.Brown,
 
                 IdNumber = "X100097001",
                 AamvaVersionNumber = Version.Aamva2000,
 
                 IssueDate = new DateTime(2011, 06, 30),
-                ExpirationDate = new DateTime(2018, 02, 04),
-
-                WeightInPounds = 155
+                ExpirationDate = new DateTime(2018, 02, 04)
             };
 
             var file = File.ReadAllText("MO License.txt");
@@ -753,10 +751,10 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1988, 04, 21),
                 Sex = Sex.Female,
                 Height = Height.FromImperial(66),
+                Weight = Weight.FromImperial(170),
                 EyeColor = EyeColor.Brown,
                 HairColor = HairColor.Black,
-                WeightInPounds = 170,
-
+                
                 IdNumber = "30005037",
                 AamvaVersionNumber = Version.Aamva2013,
 
@@ -893,7 +891,7 @@ namespace IdParser.Test
                 DateOfBirth = new DateTime(1972, 02, 12),
                 Sex = Sex.Female,
                 Height = Height.FromImperial(5, 10),
-                WeightInPounds = 128,
+                Weight = Weight.FromImperial(128),
 
                 IdNumber = "102639206",
                 AamvaVersionNumber = Version.Aamva2000,
@@ -936,7 +934,9 @@ namespace IdParser.Test
 
             Assert.AreEqual(expected.DateOfBirth, actual.DateOfBirth, nameof(actual.DateOfBirth));
             Assert.AreEqual(expected.Sex, actual.Sex, nameof(actual.Sex));
-            Assert.AreEqual(expected.Height, actual.Height);
+            Assert.AreEqual(expected.Height, actual.Height, nameof(actual.Height));
+            Assert.AreEqual(expected.Weight, actual.Weight, nameof(actual.Weight));
+
             Assert.AreEqual(expected.EyeColor, actual.EyeColor, nameof(actual.EyeColor));
             Assert.AreEqual(expected.HairColor, actual.HairColor, nameof(actual.HairColor));
             Assert.AreEqual(expected.Ethnicity, actual.Ethnicity, nameof(actual.Ethnicity));
@@ -948,18 +948,12 @@ namespace IdParser.Test
             Assert.AreEqual(expected.ExpirationDate, actual.ExpirationDate, nameof(actual.ExpirationDate));
             Assert.AreEqual(expected.RevisionDate, actual.RevisionDate, nameof(actual.RevisionDate));
 
-            Assert.AreEqual(expected.WeightRange, actual.WeightRange, nameof(actual.WeightRange));
-            Assert.AreEqual(expected.WeightInPounds, actual.WeightInPounds, nameof(actual.WeightInPounds));
-            Assert.AreEqual(expected.WeightInKilograms, actual.WeightInKilograms, nameof(actual.WeightInKilograms));
-
             Assert.AreEqual(expected.Under18Until, actual.Under18Until, nameof(actual.Under18Until));
             Assert.AreEqual(expected.Under19Until, actual.Under19Until, nameof(actual.Under19Until));
             Assert.AreEqual(expected.Under21Until, actual.Under21Until, nameof(actual.Under21Until));
 
             Assert.AreEqual(expected.IsOrganDonor, actual.IsOrganDonor, nameof(actual.IsOrganDonor));
             Assert.AreEqual(expected.IsVeteran, actual.IsVeteran, nameof(actual.IsVeteran));
-
-            //Assert.AreEqual(expected., actual.);
         }
     }
 }
