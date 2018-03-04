@@ -23,6 +23,7 @@ namespace IdParser
         Future = 99
     }
 
+    // https://www.aamva.org/IIN-and-RID/
     public enum IssuerIdentificationNumber
     {
         [Country(Country.Usa)]
@@ -32,6 +33,11 @@ namespace IdParser
         [Country(Country.Usa)]
         [Abbreviation("AK")]
         Alaska = 636059,
+
+        [Country(Country.Canada)]
+        [Abbreviation("AB")]
+        [Description("Alberta")]
+        Alberta,
 
         [Country(Country.Usa)]
         [Abbreviation("AS")]
@@ -68,13 +74,13 @@ namespace IdParser
         Connecticut = 636006,
 
         [Country(Country.Usa)]
+        [Abbreviation("DE")]
+        Delaware = 636011,
+
+        [Country(Country.Usa)]
         [Abbreviation("DC")]
         [Description("District of Columbia")]
         DistrictOfColumbia = 636043,
-
-        [Country(Country.Usa)]
-        [Abbreviation("DE")]
-        Delaware = 636011,
 
         [Country(Country.Usa)]
         [Abbreviation("FL")]
@@ -207,10 +213,19 @@ namespace IdParser
         [Description("North Dakota")]
         NorthDakota = 636034,
 
+        [Country(Country.Usa)]
+        [Abbreviation("MP")]
+        [Description("Northern Marianna Islands")]
+        NorthernMariannaIslands = 604430,
+
         [Country(Country.Canada)]
         [Abbreviation("NS")]
         [Description("Nova Scotia")]
         NovaScotia = 636013,
+
+        [Country(Country.Canada)]
+        [Abbreviation("NU")]
+        Nunavut = 604433,
 
         [Country(Country.Usa)]
         [Abbreviation("OH")]
@@ -236,6 +251,11 @@ namespace IdParser
         [Abbreviation("PE")]
         [Description("Price Edward Island")]
         PrinceEdwardIsland = 604426,
+
+        [Country(Country.Usa)]
+        [Abbreviation("PR")]
+        [Description("Puerto Rico")]
+        PuertoRico = 604431,
 
         [Country(Country.Canada)]
         [Abbreviation("QC")]
