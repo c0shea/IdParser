@@ -6,18 +6,23 @@ namespace IdParser
     /// Represents the height of the person identified in the ID card.
     /// Heights are approximated when converting between Metric and Imperial units.
     /// </summary>
-    public struct Height : IComparable<Height>, IEquatable<Height>
+    public class Height : IComparable<Height>, IEquatable<Height>
     {
         private const double CentimetersPerInch = 2.54;
         private const byte InchesPerFoot = 12;
 
-        private readonly double _centimeters;
-        private readonly bool _isMetric;
+        // In order for JSON serialization and deserialization to work in both Json.NET
+        // and ServiceStack.Text, an immutable type has to:
+        // - Be a class and not a struct (immutable structs do not deserialize in ServiceStack)
+        // - Have public properties with a private setter for ServiceStack
+        // - Have a public constructor that initializes the public properties for Json.NET
+        public double Centimeters { get; private set; }
+        public bool IsMetric { get; private set; }
 
-        private Height(double centimeters, bool isMetric)
+        public Height(double centimeters, bool isMetric)
         {
-            _centimeters = centimeters;
-            _isMetric = isMetric;
+            Centimeters = centimeters;
+            IsMetric = isMetric;
         }
 
         public static Height FromMetric(double centimeters)
@@ -37,12 +42,12 @@ namespace IdParser
 
         public override string ToString()
         {
-            if (_isMetric)
+            if (IsMetric)
             {
-                return $"{_centimeters} cm";
+                return $"{Centimeters} cm";
             }
 
-            var totalInches = _centimeters / CentimetersPerInch;
+            var totalInches = Centimeters / CentimetersPerInch;
             var feet = (int) (totalInches / InchesPerFoot);
 
             return $"{feet}'{totalInches - feet * InchesPerFoot}\"";
@@ -52,7 +57,7 @@ namespace IdParser
 
         public int CompareTo(Height other)
         {
-            return _centimeters.CompareTo(other._centimeters);
+            return Centimeters.CompareTo(other.Centimeters);
         }
 
         #endregion
@@ -61,35 +66,57 @@ namespace IdParser
 
         public bool Equals(Height other)
         {
-            return _centimeters.Equals(other._centimeters) && _isMetric == other._isMetric;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
+            if (other is null)
             {
                 return false;
             }
 
-            return obj is Height height && Equals(height);
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Centimeters.Equals(other.Centimeters) && IsMetric == other.IsMetric;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, obj))
+            {
+                return true;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return Equals((Height) obj);
         }
 
         public override int GetHashCode()
         {
             unchecked
             {
-                return (_centimeters.GetHashCode() * 397) ^ _isMetric.GetHashCode();
+                // ReSharper disable NonReadonlyMemberInGetHashCode
+                return (Centimeters.GetHashCode() * 397) ^ IsMetric.GetHashCode();
+                // ReSharper restore NonReadonlyMemberInGetHashCode
             }
         }
 
         public static bool operator ==(Height left, Height right)
         {
-            return left.Equals(right);
+            return Equals(left, right);
         }
 
         public static bool operator !=(Height left, Height right)
         {
-            return !left.Equals(right);
+            return !Equals(left, right);
         }
 
         #endregion
