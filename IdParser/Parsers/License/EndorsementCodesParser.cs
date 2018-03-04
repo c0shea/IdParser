@@ -11,6 +11,7 @@ namespace IdParser.Parsers.License
 
         public override void ParseAndSet(string input)
         {
+            // Leave the word "NONE" since null would indicate that we don't have the information available.
             License.Jurisdiction.EndorsementCodes = input;
         }
     }
