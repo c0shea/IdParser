@@ -16,7 +16,7 @@ namespace IdParser
         public DateTime IssueDate { get; set; }
         public DateTime DateOfBirth { get; set; }
         public Sex Sex { get; set; }
-        public EyeColor EyeColor { get; set; }
+        public EyeColor? EyeColor { get; set; }
         public Height Height { get; set; }
 
         public Address Address { get; set; } = new Address();

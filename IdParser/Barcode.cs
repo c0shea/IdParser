@@ -52,10 +52,10 @@ namespace IdParser
             }
 
             var version = ParseAamvaVersion(rawPdf417Input);
-            var subfileRecords = GetSubfileRecords(version, rawPdf417Input);
-            var country = ParseCountry(version, subfileRecords);
             var idCard = GetIdCardInstance(version, rawPdf417Input);
-
+            var subfileRecords = GetSubfileRecords(idCard, version, rawPdf417Input);
+            var country = ParseCountry(version, subfileRecords);
+            
             PopulateIdCard(idCard, version, country, subfileRecords);
 
             return idCard;
@@ -183,13 +183,19 @@ namespace IdParser
             return null;
         }
 
-        private static List<string> GetSubfileRecords(Version version, string input)
+        private static List<string> GetSubfileRecords(IdentificationCard idCard, Version version, string input)
         {
             int offset = 0;
 
             if (version == Version.Aamva2000)
             {
                 offset = Convert.ToInt32(input.Substring(21, 4));
+
+                // South Carolina's offset is off by one byte which causes the parsing of the IdNumber to fail
+                if (idCard.IssuerIdentificationNumber == IssuerIdentificationNumber.SouthCarolina && offset == 30)
+                {
+                    offset--;
+                }
             }
             else if (version >= Version.Aamva2003)
             {

@@ -816,6 +816,47 @@ namespace IdParser.Test
             Assert.AreEqual("North Carolina", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestSCLicense()
+        {
+            var expected = new DriversLicense
+            {
+                FirstName = "MARY",
+                MiddleName = "ROBINS",
+                LastName = "SMITH",
+                
+                Address = new Address
+                {
+                    StreetLine1 = "209 CEDAR HILL DR UNIT 12",
+                    City = "SURFSIDE BEACH",
+                    JurisdictionCode = "SC",
+                    PostalCode = "295754321",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1972, 02, 12),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(5, 10),
+                WeightInPounds = 128,
+
+                IdNumber = "102639206",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2009, 06, 19),
+                ExpirationDate = new DateTime(2019, 02, 12),
+
+                IsOrganDonor = false
+            };
+
+            var file = File.ReadAllText("SC License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+
+            Assert.AreEqual("29575-4321", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("South Carolina", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(actual);

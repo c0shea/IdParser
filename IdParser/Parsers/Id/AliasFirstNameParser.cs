@@ -11,6 +11,12 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
+            // DBG was designated for Medical Indicator/Codes only in AAMVA 2000 but we don't support this deprecated property
+            if (Version == Version.Aamva2000)
+            {
+                return;
+            }
+
             IdCard.AliasFirstName = input;
         }
     }
