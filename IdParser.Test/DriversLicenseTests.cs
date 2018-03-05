@@ -1325,6 +1325,61 @@ namespace IdParser.Test
             Assert.AreEqual("Puerto Rico", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestMDLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "DIANA",
+                    Middle = "ROSE",
+                    Last = "SMITH",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12 DOGWOOD CT APT B",
+                    City = "BALTIMORE",
+                    JurisdictionCode = "MD",
+                    PostalCode = "21201",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1992, 10, 10),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(66),
+                Weight = Weight.FromImperial(170),
+
+                IdNumber = "S-512-887-236-780",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2017, 06, 10),
+                ExpirationDate = new DateTime(2025, 10, 10),
+                RevisionDate = new DateTime(2016, 06, 20),
+
+                ComplianceType = ComplianceType.FullyCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("MD License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("21201", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Maryland", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);
