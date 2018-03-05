@@ -1272,6 +1272,59 @@ namespace IdParser.Test
             Assert.AreEqual("Vermont", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestPRLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "LAURENCIA",
+                    Last = "ORTIZ ORTIZ",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "CAM CUBA LIBRE 800 KM",
+                    City = "COROZAL",
+                    JurisdictionCode = "PR",
+                    PostalCode = "00783",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1972, 03, 06),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(62),
+
+                IdNumber = "4696735",
+                AamvaVersionNumber = Version.Aamva2010,
+
+                IssueDate = new DateTime(2017, 03, 03),
+                ExpirationDate = new DateTime(2023, 03, 06),
+
+                ComplianceType = ComplianceType.NonCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "3",
+                    RestrictionCodes = "7"
+                }
+            };
+
+            var file = File.ReadAllText("PR License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("00783", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Puerto Rico", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);

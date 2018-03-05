@@ -42,5 +42,14 @@ namespace IdParser.Test
 
             Assert.AreEqual("175 cm", actual);
         }
+
+        [TestMethod]
+        public void RoundingTest()
+        {
+            var height = Height.FromImperial(62);
+            var actual = height.ToString();
+
+            Assert.AreEqual("5'2\"", actual);
+        }
     }
 }

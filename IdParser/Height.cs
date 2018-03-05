@@ -50,7 +50,7 @@ namespace IdParser
             var totalInches = Centimeters / CentimetersPerInch;
             var feet = (int) (totalInches / InchesPerFoot);
 
-            return $"{feet}'{totalInches - feet * InchesPerFoot}\"";
+            return $"{feet}'{Math.Round(totalInches - feet * InchesPerFoot, 0)}\"";
         }
 
         #region IComparable
