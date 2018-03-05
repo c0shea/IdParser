@@ -1433,6 +1433,54 @@ namespace IdParser.Test
             Assert.AreEqual("California", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestNMLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "LUIS",
+                    Last = "SINCLAIR-ESCUEVA"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1675 W 54TH ST",
+                    City = "LOS ALAMOS",
+                    JurisdictionCode = "NM",
+                    PostalCode = "87544",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1981, 10, 27),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(72),
+
+                IdNumber = "513577879",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2013, 08, 22),
+                ExpirationDate = new DateTime(2021, 11, 27),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("NM License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("87544", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("New Mexico", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);
