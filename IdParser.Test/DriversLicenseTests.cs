@@ -1479,6 +1479,65 @@ namespace IdParser.Test
 
             Assert.AreEqual("87544", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("New Mexico", idCard.IssuerIdentificationNumber.GetDescription());
-        }        
+        }
+
+        [TestMethod]
+        public void TestUTLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARIE",
+                    Middle = "RAYE",
+                    Last = "CALENDAR"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "200 E 1900 N",
+                    City = "LEHI",
+                    JurisdictionCode = "UT",
+                    PostalCode = "84043",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1981, 08, 14),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Green,
+                HairColor = HairColor.Brown,
+                Height = Height.FromImperial(64),
+                Weight = Weight.FromImperial(205),
+
+                IdNumber = "0163375279",
+                AamvaVersionNumber = Version.Aamva2012,
+
+                IssueDate = new DateTime(2013, 08, 14),
+                ExpirationDate = new DateTime(2018, 08, 14),
+                RevisionDate = new DateTime(2013, 01, 01),
+
+                Under18Until = new DateTime(1999, 08, 14),
+                Under19Until = new DateTime(2000, 08, 14),
+                Under21Until = new DateTime(2002, 08, 14),
+
+                IsOrganDonor = true,
+                ComplianceType = ComplianceType.FullyCompliant,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "A"
+                }
+            };
+
+            var file = File.ReadAllText("UT License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("84043", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Utah", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
