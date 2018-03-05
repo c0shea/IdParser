@@ -1691,5 +1691,59 @@ namespace IdParser.Test
             Assert.AreEqual("71238", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Louisiana", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestKYLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "ANN",
+                    Last = "SMITH",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 WISTERIA LN 23",
+                    City = "LOUISVILLE",
+                    JurisdictionCode = "KY",
+                    PostalCode = "40218",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1954, 11, 12),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Hazel,
+                Height = Height.FromImperial(65),
+
+                IdNumber = "K12340057",
+                AamvaVersionNumber = Version.Aamva2010,
+
+                IssueDate = new DateTime(2017, 11, 22),
+                ExpirationDate = new DateTime(2021, 12, 13),
+                RevisionDate = new DateTime(2012, 03, 16),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "1"
+                }
+            };
+
+            var file = File.ReadAllText("KY License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("40218", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Kentucky", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
