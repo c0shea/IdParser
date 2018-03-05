@@ -1593,5 +1593,53 @@ namespace IdParser.Test
             Assert.AreEqual("51566", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Iowa", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestORLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY JONES",
+                    Last = "SMITH"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "4455 SE 25TH ST",
+                    City = "CORVALLIS",
+                    JurisdictionCode = "OR",
+                    PostalCode = "97330",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1950, 06, 26),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(5, 2),
+                Weight = Weight.FromImperial(185),
+
+                IdNumber = "4066452",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2016, 06, 24),
+                ExpirationDate = new DateTime(2024, 06, 26),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C",
+                    RestrictionCodes = "BD"
+                }
+            };
+
+            var file = File.ReadAllText("OR License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("97330", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Oregon", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

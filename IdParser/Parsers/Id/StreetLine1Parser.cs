@@ -14,4 +14,17 @@ namespace IdParser.Parsers.Id
             IdCard.Address.StreetLine1 = input.TrimEnd(',');
         }
     }
+
+    [Parser("DAL")]
+    public class StreetLine1LegacyParser : AbstractParser
+    {
+        public StreetLine1LegacyParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        {
+        }
+
+        public override void ParseAndSet(string input)
+        {
+            IdCard.Address.StreetLine1 = input.TrimEnd(',');
+        }
+    }
 }
