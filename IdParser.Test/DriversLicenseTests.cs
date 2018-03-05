@@ -1539,5 +1539,59 @@ namespace IdParser.Test
             Assert.AreEqual("84043", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Utah", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestIALicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARK",
+                    Middle = "MOTORIST",
+                    Last = "SMITH",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 ANY MAIN ST",
+                    City = "RED OAK",
+                    JurisdictionCode = "IA",
+                    PostalCode = "51566",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1991, 07, 11),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(72),
+
+                IdNumber = "109BB2608",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2013, 10, 16),
+                ExpirationDate = new DateTime(2020, 07, 11),
+                RevisionDate = new DateTime(2011, 07, 25),
+                
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C",
+                    EndorsementCodes = "L"
+                }
+            };
+
+            var file = File.ReadAllText("IA License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("51566", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Iowa", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
