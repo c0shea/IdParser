@@ -1601,7 +1601,8 @@ namespace IdParser.Test
             {
                 Name = new Name
                 {
-                    First = "MARY JONES",
+                    First = "MARY",
+                    Middle = "JONES",
                     Last = "SMITH"
                 },
 
@@ -1640,6 +1641,55 @@ namespace IdParser.Test
 
             Assert.AreEqual("97330", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Oregon", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestLALicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARCIA",
+                    Middle = "MOTORIST",
+                    Last = "JONES"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1234 HWY 57",
+                    City = "EROS",
+                    JurisdictionCode = "LA",
+                    PostalCode = "71238",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1974, 07, 07),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(5, 2),
+                Weight = Weight.FromImperial(220),
+
+                IdNumber = "005799564",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2014, 05, 20),
+                ExpirationDate = new DateTime(2018, 07, 07),
+
+                IsOrganDonor = true,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "E"
+                }
+            };
+
+            var file = File.ReadAllText("LA License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("71238", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Louisiana", idCard.IssuerIdentificationNumber.GetDescription());
         }
     }
 }

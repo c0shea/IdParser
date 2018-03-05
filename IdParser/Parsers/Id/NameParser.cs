@@ -1,4 +1,5 @@
-﻿using IdParser.Attributes;
+﻿using System.Linq;
+using IdParser.Attributes;
 
 namespace IdParser.Parsers.Id
 {
@@ -14,15 +15,19 @@ namespace IdParser.Parsers.Id
         {
             var standardSplitCharacters = new[] { ',', '$', '@' };
 
-            // Jurisdictions that follow the AAMVA 2000 standard
+            // Jurisdictions that (mostly) follow the AAMVA 2000 standard
             if (input.IndexOfAny(standardSplitCharacters) >= 0)
             {
-                var names = input.Split(standardSplitCharacters);
+                // Some jurisdictions separate the first and middle names with a space
+                var names = input.Split(standardSplitCharacters)
+                                 .SelectMany(n => n.Trim().Split(' '))
+                                 .ToArray();
+
                 IdCard.Name.Last = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
                 IdCard.Name.First = names.Length > 1 ? names[1].Trim().ReplaceEmptyWithNull() : null;
                 IdCard.Name.Middle = names.Length > 2 ? names[2].Trim().ReplaceEmptyWithNull() : null;
             }
-            // Jurisdictions like Pennsylvania that don't follow the standard
+            // Jurisdictions like Pennsylvania that use non-standard separators
             else if (input.IndexOf(' ') >= 0)
             {
                 var names = input.Split(' ');
