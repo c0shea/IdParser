@@ -1380,6 +1380,59 @@ namespace IdParser.Test
             Assert.AreEqual("Maryland", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
+        [TestMethod]
+        public void TestCALicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "ELIJAH",
+                    Middle = "MASON",
+                    Last = "HARPER"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "671 BLUEBERRY HILL DR",
+                    City = "MILPITAS",
+                    JurisdictionCode = "CA",
+                    PostalCode = "95035",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1973, 07, 05),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Blue,
+                HairColor = HairColor.Brown,
+                Height = Height.FromImperial(68),
+                Weight = Weight.FromImperial(165),
+
+                IdNumber = "F1485768",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2016, 02, 02),
+                ExpirationDate = new DateTime(2019, 07, 05),
+                RevisionDate = new DateTime(2010, 04, 16),
+
+                HasTemporaryLawfulStatus = false,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C"
+                }
+            };
+
+            var file = File.ReadAllText("CA License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("95035", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("California", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
         private void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);
