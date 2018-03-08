@@ -1745,5 +1745,62 @@ namespace IdParser.Test
             Assert.AreEqual("40218", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Kentucky", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestWILicense()
+        {
+            // Wisconsin defines a subfile in the header but we don't follow it
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "JOEY",
+                    Middle = "M",
+                    Last = "TESTER",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "N1234 PINEWOOD RD",
+                    City = "CHEESY",
+                    JurisdictionCode = "WI",
+                    PostalCode = "54767",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1983, 08, 15),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(72),
+
+                IdNumber = "M2861738629325",
+                AamvaVersionNumber = Version.Aamva2010,
+
+                IssueDate = new DateTime(2013, 04, 11),
+                ExpirationDate = new DateTime(2018, 08, 15),
+                RevisionDate = new DateTime(2012, 03, 16),
+
+                ComplianceType = ComplianceType.NonCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "ABCD",
+                    RestrictionCodes = "B",
+                    EndorsementCodes = "N"
+                }
+            };
+
+            var file = File.ReadAllText("WI License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("54767", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Wisconsin", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
