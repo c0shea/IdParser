@@ -11,6 +11,11 @@ namespace IdParser.Parsers.Id
 
         public override void ParseAndSet(string input)
         {
+            if (StringHasNoValue(input))
+            {
+                return;
+            }
+
             IdCard.DocumentDiscriminator = input;
         }
     }

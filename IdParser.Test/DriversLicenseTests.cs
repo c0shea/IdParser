@@ -1859,5 +1859,55 @@ namespace IdParser.Test
             Assert.AreEqual("19752-1234", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Delaware", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestCOLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MICHAEL",
+                    Middle = "CODY",
+                    Last = "MOTORIST"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "909 COUNTRY ROAD 206",
+                    City = "BOULDER",
+                    JurisdictionCode = "CO",
+                    PostalCode = "81635",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1992, 07, 13),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(73),
+
+                IdNumber = "102367033",
+                AamvaVersionNumber = Version.Aamva2012,
+
+                IssueDate = new DateTime(2013, 08, 08),
+                ExpirationDate = new DateTime(2018, 07, 13),
+                RevisionDate = new DateTime(2013, 06, 01),
+
+                ComplianceType = ComplianceType.MateriallyCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "R"
+                }
+            };
+
+            var file = File.ReadAllText("CO License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("81635", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
