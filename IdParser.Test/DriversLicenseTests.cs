@@ -2160,5 +2160,61 @@ namespace IdParser.Test
             Assert.AreEqual("59601", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Montana", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestKSLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "JOEY",
+                    Middle = "SMITH",
+                    Last = "MOTORIST",
+
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12345 S 110TH TER",
+                    City = "OVERLAND PARK",
+                    JurisdictionCode = "KS",
+                    PostalCode = "66210",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1980, 01, 26),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(71),
+
+                IdNumber = "K04-76-5990",
+                AamvaVersionNumber = Version.Aamva2016,
+
+                IssueDate = new DateTime(2017, 11, 29),
+                ExpirationDate = new DateTime(2023, 01, 26),
+                RevisionDate = new DateTime(2017, 02, 26),
+
+                ComplianceType = ComplianceType.FullyCompliant,
+                IsOrganDonor = true,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C"
+                }
+            };
+
+            var file = File.ReadAllText("KS License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("66210", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Kansas", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
