@@ -2216,5 +2216,53 @@ namespace IdParser.Test
             Assert.AreEqual("66210", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Kansas", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestINLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "RYAN",
+                    Middle = "MICHAEL",
+                    Last = "MOTORIST"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12345 W HENCHMEN CIR",
+                    City = "ANYCITY",
+                    JurisdictionCode = "IN",
+                    PostalCode = "47458",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1993, 02, 25),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Hazel,
+                HairColor = HairColor.Blond,
+                Height = Height.FromImperial(69),
+                Weight = Weight.FromImperial(245),
+
+                IdNumber = "3249-09-7547",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2016, 08, 03),
+                ExpirationDate = new DateTime(2023, 02, 25),
+                RevisionDate = new DateTime(2009, 09, 21),
+
+                ComplianceType = ComplianceType.FullyCompliant
+            };
+
+            var file = File.ReadAllText("IN License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("47458", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Indiana", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
