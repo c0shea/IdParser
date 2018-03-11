@@ -1041,6 +1041,7 @@ namespace IdParser.Test
 
                 DateOfBirth = new DateTime(1947, 10, 02),
                 Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
                 Height = Height.FromImperial(69),
                 Weight = Weight.FromImperial(175),
 
@@ -2012,6 +2013,59 @@ namespace IdParser.Test
 
             Assert.AreEqual("85641-4321", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Arizona", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestARLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MICHAEL",
+                    Middle = "RALPH",
+                    Last = "MOTORIST"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "321 MAIN ST",
+                    City = "HOT SPRINGS",
+                    JurisdictionCode = "AR",
+                    PostalCode = "719014455",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1946, 11, 22),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Ethnicity = Ethnicity.White,
+                Height = Height.FromImperial(70),
+
+                IdNumber = "9298847972",
+                AamvaVersionNumber = Version.Aamva2010,
+
+                IssueDate = new DateTime(2016, 09, 13),
+                ExpirationDate = new DateTime(2024, 11, 22),
+                RevisionDate = new DateTime(2012, 09, 15),
+
+                ComplianceType = ComplianceType.NonCompliant,
+                HasTemporaryLawfulStatus = false,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = File.ReadAllText("AR License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("71901-4455", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Arkansas", idCard.IssuerIdentificationNumber.GetDescription());
         }
     }
 }
