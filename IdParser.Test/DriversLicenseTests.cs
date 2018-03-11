@@ -2067,5 +2067,49 @@ namespace IdParser.Test
             Assert.AreEqual("71901-4455", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Arkansas", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestWALicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "S",
+                    Last = "TESTER"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "16255 PEWDER CT SE",
+                    City = "REDMOND",
+                    JurisdictionCode = "WA",
+                    PostalCode = "980081234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1950, 05, 23),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(61),
+                Weight = Weight.FromRange(WeightRange.Lbs131To160),
+
+                IdNumber = "TESTEDM504K9",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2015, 04, 16),
+                ExpirationDate = new DateTime(2021, 05, 23)
+            };
+
+            var file = File.ReadAllText("WA License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("98008-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Washington", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

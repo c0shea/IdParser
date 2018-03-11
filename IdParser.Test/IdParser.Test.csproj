@@ -85,6 +85,9 @@
     </Content>
     <Compile Include="WeightTests.cs" />
     <Compile Include="ValidationTests.cs" />
+    <Content Include="WA License.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="WI License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
