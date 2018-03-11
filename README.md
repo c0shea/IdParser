@@ -55,3 +55,9 @@ will be parsed correctly. The app works with both OPOS and HID keyboard emulatio
   scanning using a web browser, the expected data can become malformed. You can try using the `None`
   validation level, however this is not guaranteed to work in all cases. Data elements may be skipped
   and exceptions may still be thrown.
+
+## Find IDs Not in Tests Regex
+
+```regex
+DAJ(?!(AL|AR|AZ|CA|CO|CT|DE|FL|GA|IA|IL|IN|KS|KY|LA|MA|MD|ME|MI|MO|MT|NC|NH|NJ|NM|NY|OH|ON|OR|PA|PR|RI|SC|TN|TX|UT|VA|VT|WA|WI|QC|OK))[A-Z]+
+```
