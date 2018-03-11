@@ -1909,5 +1909,57 @@ namespace IdParser.Test
             Assert.AreEqual("81635", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestALLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MICHAEL",
+                    Middle = "MOTORIST",
+                    Last = "SMITH"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 COUNTY DR",
+                    City = "BLUE RIDGE",
+                    JurisdictionCode = "AL",
+                    PostalCode = "360931234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1967, 03, 27),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Blue,
+                HairColor = HairColor.Brown,
+                Height = Height.FromImperial(70),
+                Weight = Weight.FromRange(WeightRange.Lbs191To220),
+
+                IdNumber = "5677922",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2014, 11, 26),
+                ExpirationDate = new DateTime(2018, 11, 18),
+                RevisionDate = new DateTime(2009, 11, 06),
+
+                ComplianceType = ComplianceType.NonCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "DMV"
+                }
+            };
+
+            var file = File.ReadAllText("AL License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("36093-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Alabama", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace IdParser
                     return WeightRange.Value.GetDescription();
                 }
 
-                throw new InvalidOperationException($"{nameof(Kilograms)} cannot be null.");
+                throw new ArgumentNullException($"{nameof(Kilograms)} cannot be null.");
             }
 
             if (IsMetric)
