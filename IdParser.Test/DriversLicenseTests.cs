@@ -800,7 +800,7 @@ namespace IdParser.Test
         }
 
         [TestMethod]
-        public void TestRHLicense()
+        public void TestRILicense()
         {
             var expected = new DriversLicense
             {
@@ -846,7 +846,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("RH License.txt");
+            var file = File.ReadAllText("RI License.txt");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);

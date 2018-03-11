@@ -171,7 +171,7 @@
     <Content Include="PR License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RH License.txt">
+    <Content Include="RI License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SC License.txt">
