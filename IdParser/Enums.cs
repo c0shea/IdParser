@@ -50,7 +50,7 @@ namespace IdParser
 
         [Country(Country.Usa)]
         [Abbreviation("AR")]
-        Arkansas = 636026,
+        Arkansas = 636021,
 
         [Country(Country.Canada)]
         [Abbreviation("BC")]
