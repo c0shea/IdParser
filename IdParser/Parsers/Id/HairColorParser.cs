@@ -37,6 +37,11 @@ namespace IdParser.Parsers.Id
             {
                 IdCard.HairColor = HairColor.Brown;
             }
+            // Arizona doesn't follow the abbreviation scheme for brown
+            else if (input.EqualsIgnoreCase("BR"))
+            {
+                IdCard.HairColor = HairColor.Brown;
+            }
             else if (input.EqualsIgnoreCase(HairColor.Gray.GetAbbreviation()))
             {
                 IdCard.HairColor = HairColor.Gray;

@@ -28,6 +28,16 @@ namespace IdParser.Parsers.Id
             {
                 IdCard.EyeColor = EyeColor.Brown;
             }
+            // California doesn't follow the abbreviation scheme for brown
+            else if (input.EqualsIgnoreCase("BRN"))
+            {
+                IdCard.EyeColor = EyeColor.Brown;
+            }
+            // Arizona doesn't follow the abbreviation scheme for brown
+            else if (input.EqualsIgnoreCase("BR"))
+            {
+                IdCard.EyeColor = EyeColor.Brown;
+            }
             else if (input.EqualsIgnoreCase(EyeColor.Dichromatic.GetAbbreviation()))
             {
                 IdCard.EyeColor = EyeColor.Dichromatic;

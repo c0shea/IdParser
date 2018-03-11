@@ -1961,5 +1961,57 @@ namespace IdParser.Test
             Assert.AreEqual("36093-1234", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Alabama", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestAZLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "SUSAN",
+                    Middle = "T",
+                    Last = "WILLIAMS"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "5123 WACO DR",
+                    City = "TUSCON",
+                    JurisdictionCode = "AZ",
+                    PostalCode = "856414321",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1989, 01, 24),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Blue,
+                HairColor = HairColor.Brown,
+                Height = Height.FromImperial(5, 5),
+                Weight = Weight.FromImperial(160),
+
+                IdNumber = "D04852767",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2013, 06, 04),
+                ExpirationDate = new DateTime(2054, 01, 24),
+
+                IsOrganDonor = false,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("AZ License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("85641-4321", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Arizona", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
