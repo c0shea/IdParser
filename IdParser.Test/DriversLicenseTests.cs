@@ -2111,5 +2111,54 @@ namespace IdParser.Test
             Assert.AreEqual("98008-1234", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Washington", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestMTLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "ROSE",
+                    Last = "TESTER"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1254 MAGNOLIA AVE",
+                    City = "HELENA",
+                    JurisdictionCode = "MT",
+                    PostalCode = "59601",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1994, 05, 14),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Hazel,
+                Height = Height.FromImperial(67),
+                Weight = Weight.FromRange(WeightRange.Lbs131To160),
+
+                IdNumber = "0504928899117",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                IssueDate = new DateTime(2015, 07, 02),
+                ExpirationDate = new DateTime(2023, 05, 14),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = File.ReadAllText("MT License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("59601", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Montana", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
