@@ -38,10 +38,10 @@ namespace IdParser.Parsers.Id
             {
                 IdCard.EyeColor = EyeColor.Brown;
             }
-			// West Verginia doesn't follow the abbreviation scheme for brown
+            // West Verginia doesn't follow the abbreviation scheme for brown
             else if (input.EqualsIgnoreCase("BN"))
             {
-	            IdCard.EyeColor = EyeColor.Brown;
+                IdCard.EyeColor = EyeColor.Brown;
             }
             else if (input.EqualsIgnoreCase(EyeColor.Dichromatic.GetAbbreviation()))
             {
