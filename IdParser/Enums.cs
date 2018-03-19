@@ -1,11 +1,15 @@
-﻿using IdParser.Attributes;
+﻿using System;
+using IdParser.Attributes;
 
 namespace IdParser
 {
+    [Flags]
     public enum Validation
     {
-        None,
-        Strict
+        None = 0,
+        Header = 1,
+        Fields = 2,
+        Strict = Header | Fields
     }
 
     public enum Version : byte
