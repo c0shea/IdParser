@@ -58,7 +58,7 @@ namespace IdParser
             var country = ParseCountry(version, subfileRecords);
             idCard.Address.Country = country;
 
-	        PopulateIdCard(idCard, version, country, subfileRecords, validationLevel);
+            PopulateIdCard(idCard, version, country, subfileRecords, validationLevel);
 
             return idCard;
         }
