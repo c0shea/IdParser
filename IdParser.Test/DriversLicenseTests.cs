@@ -2372,54 +2372,54 @@ namespace IdParser.Test
             Assert.AreEqual("Hawaii", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-	    [TestMethod]
-	    public void TestWVLicense()
-	    {
-		    var expected = new DriversLicense
-		    {
-			    Name = new Name
-			    {
-				    First = "JOE",
-				    Middle = "BOB",
-				    Last = "SMITH"
-			    },
+        [TestMethod]
+        public void TestWVLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "JOE",
+                    Middle = "BOB",
+                    Last = "SMITH"
+                },
 
-			    Address = new Address
-			    {
-				    StreetLine1 = "518   S RANDOM STREET",
-				    City = "ANYTOWN",
-				    JurisdictionCode = "WV",
-				    PostalCode = "12345",
-				    Country = Country.Usa
-			    },
+                Address = new Address
+                {
+                    StreetLine1 = "518   S RANDOM STREET",
+                    City = "ANYTOWN",
+                    JurisdictionCode = "WV",
+                    PostalCode = "12345",
+                    Country = Country.Usa
+                },
 
-			    DateOfBirth = new DateTime(1972, 11, 03),
-			    Sex = Sex.Male,
-			    EyeColor = EyeColor.Brown,
-			    Height = Height.FromImperial(71),
-				Weight = Weight.FromImperial(190),
+                DateOfBirth = new DateTime(1972, 11, 03),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(71),
+                Weight = Weight.FromImperial(190),
 
-			    IdNumber = "F123456",
-			    AamvaVersionNumber = Version.Aamva2009,
+                IdNumber = "F123456",
+                AamvaVersionNumber = Version.Aamva2009,
 
-			    IssueDate = new DateTime(2017, 10, 01),
-			    ExpirationDate = new DateTime(2022, 11, 03),
-				ComplianceType = ComplianceType.NonCompliant,
+                IssueDate = new DateTime(2017, 10, 01),
+                ExpirationDate = new DateTime(2022, 11, 03),
+                ComplianceType = ComplianceType.NonCompliant,
 
-			    Jurisdiction = new DriversLicenseJurisdiction
-			    {
-					VehicleClass = "E"
-			    }
-			};
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "E"
+                }
+            };
 
-		    var file = File.ReadAllText("WV License.txt");
-		    var idCard = Barcode.Parse(file, Validation.None);
+            var file = File.ReadAllText("WV License.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
 
-		    AssertIdCard(expected, idCard);
-		    AssertLicense(expected, idCard);
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
 
-		    Assert.AreEqual("12345", idCard.Address.PostalCodeDisplay);
-		    Assert.AreEqual("West Virginia", idCard.IssuerIdentificationNumber.GetDescription());
-	    }
+            Assert.AreEqual("12345", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("West Virginia", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
