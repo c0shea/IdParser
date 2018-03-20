@@ -58,7 +58,7 @@ namespace IdParser
             var country = ParseCountry(idCard.IssuerIdentificationNumber, version, subfileRecords);
             idCard.Address.Country = country;
             
-            PopulateIdCard(idCard, version, country, subfileRecords);
+            PopulateIdCard(idCard, version, country, subfileRecords, validationLevel);
 
             return idCard;
         }
@@ -231,7 +231,7 @@ namespace IdParser
             return records;
         }
 
-        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords)
+        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords, Validation validationLevel)
         {
             foreach (var subfileRecord in subfileRecords)
             {
@@ -248,8 +248,22 @@ namespace IdParser
                     idCard.AdditionalJurisdictionElements.Add(elementId, data);
                     continue;
                 }
-
+                
                 var parser = CreateParserInstance(elementId, version, country, idCard);
+
+                if (validationLevel == Validation.None)
+                {
+                    try
+                    {
+                        parser?.ParseAndSet(data);
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    continue;
+                }
+
                 parser?.ParseAndSet(data);
             }
         }
