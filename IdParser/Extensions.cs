@@ -12,7 +12,7 @@ namespace IdParser
         /// </summary>
         public static string GetDescription(this Enum value)
         {
-            return value.GetAttributeValueOrDefault<DescriptionAttribute>(a => a.Description);
+            return value.GetAttributeValueOrDefault<DescriptionAttribute, string>(a => a.Description);
         }
 
         /// <summary>
@@ -20,15 +20,28 @@ namespace IdParser
         /// </summary>
         public static string GetAbbreviation(this Enum value)
         {
-            return value.GetAttributeValueOrDefault<AbbreviationAttribute>(a => a.Abbreviation);
+            return value.GetAttributeValueOrDefault<AbbreviationAttribute, string>(a => a.Abbreviation);
         }
 
-        private static string GetAttributeValueOrDefault<T>(this Enum value, Func<T, string> property) where T : Attribute
+        /// <summary>
+        /// Gets the value of the <see cref="CountryAttribute"/> on the <see cref="Enum"/>.
+        /// </summary>
+        public static Country GetCountry(this Enum value)
+        {
+            return value.GetAttributeValueOrDefault<CountryAttribute, Country>(a => a.Country);
+        }
+
+        private static TVal GetAttributeValueOrDefault<T, TVal>(this Enum value, Func<T, TVal> property) where T : Attribute
         {
             var field = value.GetType().GetTypeInfo().GetField(value.ToString());
             var attribute = field.GetCustomAttribute<T>();
 
-            return attribute == null ? value.ToString() : property(attribute);
+            if (typeof(TVal) == typeof(string))
+            {
+                return attribute == null ? (TVal)(object)value.ToString() : property(attribute);
+            }
+            
+            return property(attribute);
         }
 
         internal static string ReplaceEmptyWithNull(this string data)

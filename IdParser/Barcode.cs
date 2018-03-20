@@ -55,7 +55,7 @@ namespace IdParser
             var version = ParseAamvaVersion(rawPdf417Input);
             var idCard = GetIdCardInstance(version, rawPdf417Input);
             var subfileRecords = GetSubfileRecords(idCard, version, rawPdf417Input);
-            var country = ParseCountry(version, subfileRecords);
+            var country = ParseCountry(idCard.IssuerIdentificationNumber, version, subfileRecords);
             idCard.Address.Country = country;
             
             PopulateIdCard(idCard, version, country, subfileRecords);
@@ -153,10 +153,10 @@ namespace IdParser
         }
 
         /// <summary>
-        /// Parses the country based on the DCG subfile record. The <see cref="IdentificationCard"/>
-        /// constructor attempts to determine the correct country based on the IIN if the country is unknown.
+        /// Parses the country based on the DCG subfile record.
+        /// Gets the country from the IIN if no matching subfile record was found.
         /// </summary>
-        private static Country ParseCountry(Version version, List<string> subfileRecords)
+        private static Country ParseCountry(IssuerIdentificationNumber iin, Version version, List<string> subfileRecords)
         {
             // Country is not a subfile record in the AAMVA 2000 standard
             if (version == Version.Aamva2000)
@@ -182,7 +182,7 @@ namespace IdParser
                 }
             }
 
-            return Country.Usa;
+            return iin.GetCountry();
         }
 
         private static List<string> GetSubfileRecords(IdentificationCard idCard, Version version, string input)
