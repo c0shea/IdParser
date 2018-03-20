@@ -41,7 +41,7 @@ namespace IdParser
                 throw new ArgumentException($"The input is missing required header elements and is not a valid AAMVA format. Expected at least 31 characters. Received {rawPdf417Input.Length}.", nameof(rawPdf417Input));
             }
 
-            if ((validationLevel & Validation.Header) == Validation.Header)
+            if (validationLevel == Validation.Strict)
             {
                 ValidateFormat(rawPdf417Input);
             }
@@ -57,8 +57,8 @@ namespace IdParser
             var subfileRecords = GetSubfileRecords(idCard, version, rawPdf417Input);
             var country = ParseCountry(version, subfileRecords);
             idCard.Address.Country = country;
-
-            PopulateIdCard(idCard, version, country, subfileRecords, validationLevel);
+            
+            PopulateIdCard(idCard, version, country, subfileRecords);
 
             return idCard;
         }
@@ -231,7 +231,7 @@ namespace IdParser
             return records;
         }
 
-        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords, Validation validationLevel)
+        private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords)
         {
             foreach (var subfileRecord in subfileRecords)
             {
@@ -249,15 +249,8 @@ namespace IdParser
                     continue;
                 }
 
-                try
-                {
-                    var parser = CreateParserInstance(elementId, version, country, idCard);
-                    parser?.ParseAndSet(data);
-                }
-                catch (ArgumentException)
-                {
-                    if ((validationLevel & Validation.Header) == Validation.Header) throw;
-                }
+                var parser = CreateParserInstance(elementId, version, country, idCard);
+                parser?.ParseAndSet(data);
             }
         }
 
