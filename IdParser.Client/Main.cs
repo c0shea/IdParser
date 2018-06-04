@@ -184,7 +184,10 @@ namespace IdParser.Client
                     lblIdType.Text = "Identification Card";
                 }
 
-                txtParsedId.Text = JsonConvert.SerializeObject(id, Formatting.Indented);
+                txtParsedId.Text = JsonConvert.SerializeObject(id, Formatting.Indented, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
             }
             catch (Exception ex)
             {

@@ -2421,5 +2421,57 @@ namespace IdParser.Test
             Assert.AreEqual("12345", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("West Virginia", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestLeadingWhitespaceLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MOTORIST",
+                    Middle = "R",
+                    Last = "SHEEHAN",
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "2 ROBERTS DRIVE",
+                    City = "PLYMOUTH",
+                    JurisdictionCode = "MA",
+                    PostalCode = "023601234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1939, 12, 07),
+                Sex = Sex.Male,
+                Height = Height.FromImperial(71),
+
+                IdNumber = "S58239477",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2014, 11, 14),
+                ExpirationDate = new DateTime(2018, 12, 07),
+                RevisionDate = new DateTime(2009, 07, 15),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "DM",
+                    RestrictionCodes = "B"
+                }
+            };
+
+            var file = File.ReadAllText("Leading Whitespace.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("02360-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

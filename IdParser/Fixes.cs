@@ -1,18 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace IdParser
 {
     internal static class Fixes
     {
+        internal static string Apply(string input)
+        {
+            return input.RemoveInvalidCharactersFromHeader()
+                        .FixIncorrectHeader()
+                        .RemoveIncorrectCarriageReturns();
+        }
+
         /// <summary>
         /// HID keyboard emulation, especially entered via a web browser, tends to mutilate the header.
         /// As long as part of the header is correct, this will fix the rest of it to make it parse-able.
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        internal static string FixIncorrectHeader(this string input)
+        private static string FixIncorrectHeader(this string input)
         {
             if (input[0] == '@' &&
                 input[1] == Barcode.ExpectedSegmentTerminator &&
@@ -30,8 +35,10 @@ namespace IdParser
         /// Sometimes bad characters (e.g. @a ANSI) get into the header (usually through HID keyboard emulation).
         /// Replace the header with what we are expecting.
         /// </summary>
-        internal static string RemoveInvalidCharactersFromHeader(this string input)
+        private static string RemoveInvalidCharactersFromHeader(this string input)
         {
+            input = input.TrimStart();
+
             if (input[0] != '@' || input.StartsWith(Barcode.ExpectedHeader))
             {
                 return input;
@@ -53,7 +60,7 @@ namespace IdParser
         /// HID keyboard emulation (and some other methods) tend to replace the \r with \r\n
         /// which is invalid and doesn't conform to the AAMVA standard. This fixes it before attempting to parse the fields.
         /// </summary>
-        internal static string RemoveIncorrectCarriageReturns(this string input)
+        private static string RemoveIncorrectCarriageReturns(this string input)
         {
             var crLf = Barcode.ExpectedSegmentTerminator.ToString() + Barcode.ExpectedDataElementSeparator;
             var doesInputContainCrLf = input.IndexOf(crLf, StringComparison.Ordinal) >= 0;

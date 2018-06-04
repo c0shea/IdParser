@@ -47,9 +47,7 @@ namespace IdParser
             }
             else
             {
-                rawPdf417Input = rawPdf417Input.RemoveInvalidCharactersFromHeader()
-                                               .FixIncorrectHeader()
-                                               .RemoveIncorrectCarriageReturns();
+                rawPdf417Input = Fixes.Apply(rawPdf417Input);
             }
 
             var version = ParseAamvaVersion(rawPdf417Input);
