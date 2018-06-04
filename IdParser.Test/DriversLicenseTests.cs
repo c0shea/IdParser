@@ -2473,5 +2473,54 @@ namespace IdParser.Test
             Assert.AreEqual("02360-1234", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestInvalidHeader()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MICHAEL",
+                    Middle = "G",
+                    Last = "MOTORIST"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12 MAIN AVE",
+                    City = "WEST HAVEN",
+                    JurisdictionCode = "CT",
+                    PostalCode = "06516",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1961, 02, 04),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(5, 4),
+
+                IdNumber = "025995434",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2016, 11, 14),
+                ExpirationDate = new DateTime(2023, 02, 04),
+
+                IsOrganDonor = true,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = File.ReadAllText("Invalid Header.txt");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("06516", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

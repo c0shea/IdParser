@@ -44,14 +44,21 @@ namespace IdParser
                 return input;
             }
 
-            var ansiPosition = input.IndexOf(Barcode.ExpectedFileType, StringComparison.CurrentCulture);
+            // AAMVA 2003+
+            var ansiPosition = input.IndexOf(Barcode.ExpectedFileType, StringComparison.Ordinal);
 
-            if (ansiPosition < 0)
+            if (ansiPosition >= 0)
             {
-                return input;
+                return Barcode.ExpectedHeader + input.Substring(ansiPosition + Barcode.ExpectedFileType.Length);
             }
 
-            input = Barcode.ExpectedHeader + input.Substring(ansiPosition + Barcode.ExpectedFileType.Length);
+            // AAMVA 2000 and earlier
+            var aamvaPosition = input.IndexOf("AAMVA", StringComparison.Ordinal);
+
+            if (aamvaPosition >= 0)
+            {
+                return Barcode.ExpectedHeader + input.Substring(aamvaPosition + Barcode.ExpectedFileType.Length);
+            }
 
             return input;
         }
