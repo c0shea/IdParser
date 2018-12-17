@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>4.0.1</Version>
+    <Version>4.1.0</Version>
     <Authors>Connor O'Shea</Authors>
     <Company />
     <Product>ID Parser</Product>
@@ -13,8 +13,8 @@
     <PackageProjectUrl>https://github.com/c0shea/IdParser</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</PackageIconUrl>
     <PackageTags>Drivers License Identification Card Parser PDF417 AAMVA Standard</PackageTags>
-    <AssemblyVersion>4.0.1.0</AssemblyVersion>
-    <FileVersion>4.0.1.0</FileVersion>
+    <AssemblyVersion>4.1.0.0</AssemblyVersion>
+    <FileVersion>4.1.0.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <SignAssembly>False</SignAssembly>
     <RootNamespace>IdParser</RootNamespace>
