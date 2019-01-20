@@ -26,6 +26,7 @@ namespace IdParser.Parsers.Id
                 IdCard.Name.Last = names.Length > 0 ? names[0].Trim().ReplaceEmptyWithNull() : null;
                 IdCard.Name.First = names.Length > 1 ? names[1].Trim().ReplaceEmptyWithNull() : null;
                 IdCard.Name.Middle = names.Length > 2 ? names[2].Trim().ReplaceEmptyWithNull() : null;
+                IdCard.Name.Suffix = names.Length > 3 ? names[3].Trim().ReplaceEmptyWithNull() : null;
             }
             // Jurisdictions like Pennsylvania that use non-standard separators
             else if (input.IndexOf(' ') >= 0)

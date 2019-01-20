@@ -2522,5 +2522,54 @@ namespace IdParser.Test
             Assert.AreEqual("06516", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestCTLicenseSuffix()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "PABLO",
+                    Last = "CORTEZ",
+                    Suffix = "JR"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "715 MAIN LN",
+                    City = "STRATFORD",
+                    JurisdictionCode = "CT",
+                    PostalCode = "066140123",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1976, 10, 07),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(6, 0),
+
+                IdNumber = "227881513",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2016, 08, 23),
+                ExpirationDate = new DateTime(2022, 10, 07),
+
+                IsOrganDonor = true,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = License("CT Suffix");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("06614-0123", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }
