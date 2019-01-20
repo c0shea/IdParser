@@ -8,7 +8,7 @@
     <Company />
     <Product>ID Parser</Product>
     <Description>Parses AAMVA-compliant driver's licenses and ID cards</Description>
-    <Copyright>Copyright 2018</Copyright>
+    <Copyright>Copyright 2019</Copyright>
     <PackageLicenseUrl>https://github.com/c0shea/IdParser/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/c0shea/IdParser</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</PackageIconUrl>

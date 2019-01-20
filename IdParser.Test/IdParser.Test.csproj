@@ -53,66 +53,66 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HeightTests.cs" />
     <Compile Include="IdentificationCardTests.cs" />
-    <Content Include="AL License.txt">
+    <Content Include="Licenses\AL.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AR License.txt">
+    <Content Include="Licenses\AR.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="AZ License.txt">
+    <Content Include="Licenses\AZ.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CO License.txt">
+    <Content Include="Licenses\CO.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="DE License.txt">
+    <Content Include="Licenses\DE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="HI License.txt">
+    <Content Include="Licenses\HI.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="IA License.txt">
+    <Content Include="Licenses\IA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="IL License.txt">
+    <Content Include="Licenses\IL.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="IN License.txt">
+    <Content Include="Licenses\IN.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Invalid Header.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="KS License.txt">
+    <Content Include="Licenses\KS.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="KY License.txt">
+    <Content Include="Licenses\KY.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="LA License.txt">
+    <Content Include="Licenses\LA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Leading Whitespace.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MT License.txt">
+    <Content Include="Licenses\MT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OR License.txt">
+    <Content Include="Licenses\OR.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="UT License.txt">
+    <Content Include="Licenses\UT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Compile Include="WeightTests.cs" />
     <Compile Include="ValidationTests.cs" />
-    <Content Include="WA License.txt">
+    <Content Include="Licenses\WA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WV License.txt">
+    <Content Include="Licenses\WV.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="WI License.txt">
+    <Content Include="Licenses\WI.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -126,94 +126,94 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CA License.txt">
+    <Content Include="Licenses\CA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CT License No Middle Name.txt">
+    <Content Include="Licenses\CT No Middle Name.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CT License Web Browser.txt">
+    <Content Include="Licenses\CT Web Browser.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="CT License.txt">
+    <Content Include="Licenses\CT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="FL License.txt">
+    <Content Include="Licenses\FL.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="GA License.txt">
+    <Content Include="Licenses\GA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MA License 2009.txt">
+    <Content Include="Licenses\MA 2009.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MA License 2016.txt">
+    <Content Include="Licenses\MA 2016.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MA License No Middle Name.txt">
+    <Content Include="Licenses\MA No Middle Name.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MA License Piped.txt">
+    <Content Include="Licenses\MA Piped.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MD License.txt">
+    <Content Include="Licenses\MD.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ME License.txt">
+    <Content Include="Licenses\ME.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MI License.txt">
+    <Content Include="Licenses\MI.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="MO License.txt">
+    <Content Include="Licenses\MO.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NC License.txt">
+    <Content Include="Licenses\NC.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NH License.txt">
+    <Content Include="Licenses\NH.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NJ License.txt">
+    <Content Include="Licenses\NJ.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NM License.txt">
+    <Content Include="Licenses\NM.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="NY License.txt">
+    <Content Include="Licenses\NY.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="OH License.txt">
+    <Content Include="Licenses\OH.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ON License.txt">
+    <Content Include="Licenses\ON.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PA License 2016.txt">
+    <Content Include="Licenses\PA 2016.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PA License.txt">
+    <Content Include="Licenses\PA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="PR License.txt">
+    <Content Include="Licenses\PR.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="RI License.txt">
+    <Content Include="Licenses\RI.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SC License.txt">
+    <Content Include="Licenses\SC.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TN ID.txt">
+    <Content Include="Ids\TN.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="TX License.txt">
+    <Content Include="Licenses\TX.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VA License.txt">
+    <Content Include="Licenses\VA.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="VT License.txt">
+    <Content Include="Licenses\VT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

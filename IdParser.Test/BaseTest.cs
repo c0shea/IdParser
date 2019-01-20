@@ -1,9 +1,14 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.IO;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IdParser.Test
 {
     public class BaseTest
     {
+        protected string Id(string jurisdiction) => File.ReadAllText(Path.Combine("Ids", $"{jurisdiction}.txt"));
+
+        protected string License(string jurisdiction) => File.ReadAllText(Path.Combine("Licenses", $"{jurisdiction}.txt"));
+
         protected void AssertIdCard(IdentificationCard expected, IdentificationCard actual)
         {
             Assert.IsNotNull(expected);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable InconsistentNaming
 
@@ -48,7 +47,7 @@ namespace IdParser.Test
                 IsOrganDonor = true
             };
 
-            var file = File.ReadAllText("TN ID.txt");
+            var file = Id("TN");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);

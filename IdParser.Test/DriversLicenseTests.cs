@@ -51,7 +51,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MA License 2009.txt");
+            var file = License("MA 2009");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -102,7 +102,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MA License 2016.txt");
+            var file = License("MA 2016");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -159,7 +159,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MA License No Middle Name.txt");
+            var file = License("MA No Middle Name");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -205,7 +205,7 @@ namespace IdParser.Test
                 ExpirationDate = new DateTime(2013, 08, 31)
             };
 
-            var file = File.ReadAllText("NY License.txt");
+            var file = License("NY");
             var idCard = Barcode.Parse(file);
 
             AssertIdCard(expected, idCard);
@@ -257,7 +257,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("VA License.txt");
+            var file = License("VA");
             var idCard = Barcode.Parse(file);
 
             AssertIdCard(expected, idCard);
@@ -313,7 +313,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("GA License.txt");
+            var file = License("GA");
             var idCard = Barcode.Parse(file);
 
             AssertIdCard(expected, idCard);
@@ -362,7 +362,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("CT License.txt");
+            var file = License("CT");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -419,7 +419,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("CT License Web Browser.txt");
+            var file = License("CT Web Browser");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -466,7 +466,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("CT License No Middle Name.txt");
+            var file = License("CT No Middle Name");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -513,7 +513,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MO License.txt");
+            var file = License("MO");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -570,7 +570,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("FL License.txt");
+            var file = License("FL");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -635,7 +635,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("NH License.txt");
+            var file = License("NH");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -683,7 +683,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("TX License.txt");
+            var file = License("TX");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -734,7 +734,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("PA License.txt");
+            var file = License("PA");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -789,7 +789,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("PA License 2016.txt");
+            var file = License("PA 2016");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -846,7 +846,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("RI License.txt");
+            var file = License("RI");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -900,7 +900,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("NJ License.txt");
+            var file = License("NJ");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -955,7 +955,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("NC License.txt");
+            var file = License("NC");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1005,7 +1005,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("SC License.txt");
+            var file = License("SC");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1058,7 +1058,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("ME License.txt");
+            var file = License("ME");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1119,7 +1119,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("OH License.txt");
+            var file = License("OH");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1159,7 +1159,7 @@ namespace IdParser.Test
                 ExpirationDate = new DateTime(2020, 03, 25)
             };
 
-            var file = File.ReadAllText("MI License.txt");
+            var file = License("MI");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1206,7 +1206,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("ON License.txt");
+            var file = License("ON");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1263,7 +1263,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("VT License.txt");
+            var file = License("VT");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1316,7 +1316,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("PR License.txt");
+            var file = License("PR");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1371,7 +1371,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MD License.txt");
+            var file = License("MD");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1424,7 +1424,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("CA License.txt");
+            var file = License("CA");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1472,7 +1472,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("NM License.txt");
+            var file = License("NM");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1531,7 +1531,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("UT License.txt");
+            var file = License("UT");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1585,7 +1585,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("IA License.txt");
+            var file = License("IA");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1634,7 +1634,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("OR License.txt");
+            var file = License("OR");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1683,7 +1683,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("LA License.txt");
+            var file = License("LA");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1737,7 +1737,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("KY License.txt");
+            var file = License("KY");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1794,7 +1794,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("WI License.txt");
+            var file = License("WI");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1851,7 +1851,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("DE License.txt");
+            var file = License("DE");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1901,7 +1901,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("CO License.txt");
+            var file = License("CO");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -1953,7 +1953,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("AL License.txt");
+            var file = License("AL");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2005,7 +2005,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("AZ License.txt");
+            var file = License("AZ");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2058,7 +2058,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("AR License.txt");
+            var file = License("AR");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2102,7 +2102,7 @@ namespace IdParser.Test
                 ExpirationDate = new DateTime(2021, 05, 23)
             };
 
-            var file = File.ReadAllText("WA License.txt");
+            var file = License("WA");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2151,7 +2151,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("MT License.txt");
+            var file = License("MT");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2207,7 +2207,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("KS License.txt");
+            var file = License("KS");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2255,7 +2255,7 @@ namespace IdParser.Test
                 ComplianceType = ComplianceType.FullyCompliant
             };
 
-            var file = File.ReadAllText("IN License.txt");
+            var file = License("IN");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2311,7 +2311,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("IL License.txt");
+            var file = License("IL");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2362,7 +2362,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("HI License.txt");
+            var file = License("HI");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
@@ -2412,7 +2412,7 @@ namespace IdParser.Test
                 }
             };
 
-            var file = File.ReadAllText("WV License.txt");
+            var file = License("WV");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
