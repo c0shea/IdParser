@@ -19,8 +19,46 @@
         public string AliasLast { get; set; }
         public string AliasSuffix { get; set; }
 
-        public override string ToString() => Middle == null
-            ? $"{First} {Last}"
-            : $"{First} {Middle} {Last}";
+        public override string ToString()
+        {
+            var fullName = "";
+
+            if (First != null)
+            {
+                fullName += First;
+            }
+
+            if (Middle != null)
+            {
+                if (fullName.Length > 0)
+                {
+                    fullName += " ";
+                }
+
+                fullName += Middle;
+            }
+
+            if (Last != null)
+            {
+                if (fullName.Length > 0)
+                {
+                    fullName += " ";
+                }
+
+                fullName += Last;
+            }
+
+            if (Suffix != null)
+            {
+                if (fullName.Length > 0)
+                {
+                    fullName += ", ";
+                }
+
+                fullName += Suffix;
+            }
+
+            return fullName;
+        }
     }
 }
