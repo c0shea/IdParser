@@ -2423,6 +2423,62 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestAKLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "JOE",
+                    Last = "SMITH"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12345 E MAIN HY",
+                    City = "ANCHORAGE",
+                    JurisdictionCode = "AK",
+                    PostalCode = "99645",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1955, 04, 02),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Blue,
+                HairColor = HairColor.Gray,
+                Height = Height.FromImperial(64),
+                Weight = Weight.FromImperial(160),
+
+                IdNumber = "7559886",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2016, 03, 22),
+                ExpirationDate = new DateTime(2021, 04, 02),
+                Under21Until = new DateTime(1976, 04, 02),
+                
+                IsOrganDonor = true,
+                IsVeteran = false,
+                DocumentDiscriminator = "2881111",
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "1"
+                }
+            };
+
+            var file = License("AK");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("99645", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Alaska", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense

@@ -75,6 +75,9 @@ namespace IdParser.Parsers
                     return true;
                 case "0":
                     return false;
+                case "U":
+                    // Unknown whether truncated
+                    return null;
                 default:
                     return null;
             }
