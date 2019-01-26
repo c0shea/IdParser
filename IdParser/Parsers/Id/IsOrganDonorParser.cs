@@ -1,4 +1,5 @@
-﻿using IdParser.Attributes;
+﻿using System;
+using IdParser.Attributes;
 
 namespace IdParser.Parsers.Id
 {
@@ -27,6 +28,11 @@ namespace IdParser.Parsers.Id
             if (Version == Version.Aamva2000)
             {
                 IdCard.IsOrganDonor = ParseBool(input) ?? false;
+
+                if (input.Equals("DONOR", StringComparison.OrdinalIgnoreCase))
+                {
+                    IdCard.IsOrganDonor = true;
+                }
             }
         }
     }

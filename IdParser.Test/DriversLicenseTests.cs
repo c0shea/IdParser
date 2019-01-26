@@ -2479,6 +2479,57 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestDCLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "DIANA",
+                    Middle = "ROBIN",
+                    Last = "AL-MAAR"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1234 14TH ST SW 1A",
+                    City = "WASHINGTON",
+                    JurisdictionCode = "DC",
+                    PostalCode = "200091234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1985, 07, 29),
+                Sex = Sex.Female,
+                Height = Height.FromImperial(5, 6),
+                Weight = Weight.FromImperial(140),
+
+                IdNumber = "3234567",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2013, 07, 30),
+                ExpirationDate = new DateTime(2021, 07, 29),
+
+                IsOrganDonor = true,
+                DocumentDiscriminator = "2881111",
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = License("DC");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("20009-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("District of Columbia", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense
