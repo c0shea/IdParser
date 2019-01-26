@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDL")]
     public class IsVeteranParser : AbstractParser
     {
-        public IsVeteranParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public IsVeteranParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

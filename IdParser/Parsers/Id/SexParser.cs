@@ -6,7 +6,7 @@ namespace IdParser.Parsers.Id
     [Parser("DBC")]
     public class SexParser : AbstractParser
     {
-        public SexParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public SexParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

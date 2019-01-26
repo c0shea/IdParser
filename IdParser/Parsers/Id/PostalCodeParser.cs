@@ -9,7 +9,7 @@ namespace IdParser.Parsers.Id
     {
         private const string NonAlphaNumericPattern = @"[^\w\d]";
 
-        public PostalCodeParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public PostalCodeParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

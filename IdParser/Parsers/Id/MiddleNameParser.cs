@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAD")]
     public class MiddleNameParser : AbstractParser
     {
-        public MiddleNameParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public MiddleNameParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

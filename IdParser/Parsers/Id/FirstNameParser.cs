@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAC")]
     public class FirstNameParser : AbstractParser
     {
-        public FirstNameParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public FirstNameParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

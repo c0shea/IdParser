@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDK")]
     public class IsOrganDonorParser : AbstractParser
     {
-        public IsOrganDonorParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public IsOrganDonorParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 
@@ -18,7 +18,7 @@ namespace IdParser.Parsers.Id
     [Parser("DBH")]
     public class IsOrganDonorLegacyParser : AbstractParser
     {
-        public IsOrganDonorLegacyParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public IsOrganDonorLegacyParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

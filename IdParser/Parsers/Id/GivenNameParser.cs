@@ -6,7 +6,7 @@ namespace IdParser.Parsers.Id
     public class GivenNameParser : AbstractParser
     {
         // AAMVA 2003-2005
-        public GivenNameParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public GivenNameParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

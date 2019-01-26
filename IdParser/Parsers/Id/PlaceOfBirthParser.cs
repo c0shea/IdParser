@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DCI")]
     public class PlaceOfBirthParser : AbstractParser
     {
-        public PlaceOfBirthParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public PlaceOfBirthParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

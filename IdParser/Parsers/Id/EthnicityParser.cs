@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DCL")]
     public class EthnicityParser : AbstractParser
     {
-        public EthnicityParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public EthnicityParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

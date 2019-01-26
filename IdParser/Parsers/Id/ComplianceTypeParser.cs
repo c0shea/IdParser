@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDA")]
     public class ComplianceTypeParser : AbstractParser
     {
-        public ComplianceTypeParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public ComplianceTypeParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

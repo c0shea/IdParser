@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DBG")]
     public class AliasFirstNameParser : AbstractParser
     {
-        public AliasFirstNameParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public AliasFirstNameParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

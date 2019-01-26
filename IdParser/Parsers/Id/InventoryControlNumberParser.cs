@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DCK")]
     public class InventoryControlNumberParser : AbstractParser
     {
-        public InventoryControlNumberParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public InventoryControlNumberParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

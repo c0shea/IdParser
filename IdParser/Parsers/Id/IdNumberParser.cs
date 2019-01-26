@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAQ")]
     public class IdNumberParser : AbstractParser
     {
-        public IdNumberParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public IdNumberParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

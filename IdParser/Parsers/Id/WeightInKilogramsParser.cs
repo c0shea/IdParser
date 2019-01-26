@@ -6,7 +6,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAX")]
     public class WeightInKilogramsParser : AbstractParser
     {
-        public WeightInKilogramsParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public WeightInKilogramsParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAY")]
     public class EyeColorParser : AbstractParser
     {
-        public EyeColorParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public EyeColorParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDG")]
     public class WasMiddleNameTruncatedParser : AbstractParser
     {
-        public WasMiddleNameTruncatedParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public WasMiddleNameTruncatedParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDB")]
     public class RevisionDate : AbstractParser
     {
-        public RevisionDate(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public RevisionDate(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

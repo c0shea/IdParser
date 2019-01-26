@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAG")]
     public class StreetLine1Parser : AbstractParser
     {
-        public StreetLine1Parser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public StreetLine1Parser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 
@@ -18,7 +18,7 @@ namespace IdParser.Parsers.Id
     [Parser("DAL")]
     public class StreetLine1LegacyParser : AbstractParser
     {
-        public StreetLine1LegacyParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public StreetLine1LegacyParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 

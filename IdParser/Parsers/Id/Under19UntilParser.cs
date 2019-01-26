@@ -5,7 +5,7 @@ namespace IdParser.Parsers.Id
     [Parser("DDI")]
     public class Under19UntilParser : AbstractParser
     {
-        public Under19UntilParser(IdParser.IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
+        public Under19UntilParser(IdentificationCard idCard, Version version, Country country) : base(idCard, version, country)
         {
         }
 
