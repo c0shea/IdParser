@@ -255,30 +255,7 @@ namespace IdParser.Client
                 txtFilePath.Text = dialog.FileName;
             }
         }
-
-        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
-        {
-            var current = (sender as TabControl).SelectedTab;
-
-            switch (current.Name)
-            {
-                case nameof(tabPageOpos):
-                    txtLogicalName.Focus();
-                    break;
-
-                case nameof(tabPageHidKeyboardEmulation):
-                    txtHidData.Focus();
-                    break;
-
-                case nameof(tabPageFile):
-                    txtFilePath.Focus();
-                    break;
-
-                default:
-                    return;
-            }
-        }
-
+        
         private void btnParseFile_Click(object sender, EventArgs e)
         {
             if (!File.Exists(txtFilePath.Text))

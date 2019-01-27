@@ -71,9 +71,9 @@
             this.txtScanData.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtScanData.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtScanData.Location = new System.Drawing.Point(9, 150);
+            this.txtScanData.Location = new System.Drawing.Point(9, 91);
             this.txtScanData.Name = "txtScanData";
-            this.txtScanData.Size = new System.Drawing.Size(526, 294);
+            this.txtScanData.Size = new System.Drawing.Size(526, 312);
             this.txtScanData.TabIndex = 3;
             this.txtScanData.Text = "";
             // 
@@ -83,7 +83,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtBarcodeType.AutoSize = true;
             this.txtBarcodeType.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.txtBarcodeType.Location = new System.Drawing.Point(6, 86);
+            this.txtBarcodeType.Location = new System.Drawing.Point(6, 43);
             this.txtBarcodeType.Name = "txtBarcodeType";
             this.txtBarcodeType.Size = new System.Drawing.Size(76, 17);
             this.txtBarcodeType.TabIndex = 2;
@@ -98,9 +98,9 @@
             this.txtConnectScanner.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.txtConnectScanner.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtConnectScanner.ForeColor = System.Drawing.Color.White;
-            this.txtConnectScanner.Location = new System.Drawing.Point(381, 42);
+            this.txtConnectScanner.Location = new System.Drawing.Point(273, 409);
             this.txtConnectScanner.Name = "txtConnectScanner";
-            this.txtConnectScanner.Size = new System.Drawing.Size(154, 35);
+            this.txtConnectScanner.Size = new System.Drawing.Size(151, 32);
             this.txtConnectScanner.TabIndex = 1;
             this.txtConnectScanner.Text = "Connect to Scanner";
             this.txtConnectScanner.UseVisualStyleBackColor = false;
@@ -141,12 +141,10 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(549, 480);
             this.tabControl1.TabIndex = 6;
-            this.tabControl1.Selecting += new System.Windows.Forms.TabControlCancelEventHandler(this.tabControl1_Selecting);
             // 
             // tabPageOpos
             // 
             this.tabPageOpos.Controls.Add(this.btnSaveDataToFile);
-            this.tabPageOpos.Controls.Add(this.lblStatus);
             this.tabPageOpos.Controls.Add(this.lblSymbology);
             this.tabPageOpos.Controls.Add(this.label3);
             this.tabPageOpos.Controls.Add(this.txtLogicalName);
@@ -171,9 +169,9 @@
             this.btnSaveDataToFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveDataToFile.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveDataToFile.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSaveDataToFile.Location = new System.Drawing.Point(381, 112);
+            this.btnSaveDataToFile.Location = new System.Drawing.Point(116, 409);
             this.btnSaveDataToFile.Name = "btnSaveDataToFile";
-            this.btnSaveDataToFile.Size = new System.Drawing.Size(154, 32);
+            this.btnSaveDataToFile.Size = new System.Drawing.Size(151, 32);
             this.btnSaveDataToFile.TabIndex = 2;
             this.btnSaveDataToFile.Text = "Save Data to File";
             this.btnSaveDataToFile.UseVisualStyleBackColor = false;
@@ -184,18 +182,18 @@
             this.lblStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblStatus.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStatus.Location = new System.Drawing.Point(6, 42);
+            this.lblStatus.Location = new System.Drawing.Point(13, 536);
             this.lblStatus.Name = "lblStatus";
-            this.lblStatus.Size = new System.Drawing.Size(339, 35);
+            this.lblStatus.Size = new System.Drawing.Size(936, 25);
             this.lblStatus.TabIndex = 8;
-            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblSymbology
             // 
             this.lblSymbology.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblSymbology.AutoSize = true;
-            this.lblSymbology.Location = new System.Drawing.Point(160, 86);
+            this.lblSymbology.Location = new System.Drawing.Point(166, 43);
             this.lblSymbology.Name = "lblSymbology";
             this.lblSymbology.Size = new System.Drawing.Size(0, 17);
             this.lblSymbology.TabIndex = 7;
@@ -205,7 +203,7 @@
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 120);
+            this.label3.Location = new System.Drawing.Point(6, 71);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 17);
             this.label3.TabIndex = 6;
@@ -233,7 +231,7 @@
             this.btnParse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnParse.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnParse.ForeColor = System.Drawing.Color.White;
-            this.btnParse.Location = new System.Drawing.Point(288, 412);
+            this.btnParse.Location = new System.Drawing.Point(273, 412);
             this.btnParse.Name = "btnParse";
             this.btnParse.Size = new System.Drawing.Size(151, 32);
             this.btnParse.TabIndex = 11;
@@ -250,7 +248,7 @@
             this.btnSaveHidToFile.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveHidToFile.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveHidToFile.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.btnSaveHidToFile.Location = new System.Drawing.Point(131, 412);
+            this.btnSaveHidToFile.Location = new System.Drawing.Point(116, 412);
             this.btnSaveHidToFile.Name = "btnSaveHidToFile";
             this.btnSaveHidToFile.Size = new System.Drawing.Size(151, 32);
             this.btnSaveHidToFile.TabIndex = 10;
@@ -383,8 +381,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(961, 544);
+            this.ClientSize = new System.Drawing.Size(961, 569);
             this.Controls.Add(this.txtParsedId);
+            this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.lblIdType);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
