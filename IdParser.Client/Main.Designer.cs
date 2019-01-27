@@ -308,11 +308,11 @@
             // lblIdType
             // 
             this.lblIdType.AutoSize = true;
-            this.lblIdType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblIdType.ForeColor = System.Drawing.Color.Orange;
+            this.lblIdType.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIdType.ForeColor = System.Drawing.Color.SteelBlue;
             this.lblIdType.Location = new System.Drawing.Point(567, 52);
             this.lblIdType.Name = "lblIdType";
-            this.lblIdType.Size = new System.Drawing.Size(0, 17);
+            this.lblIdType.Size = new System.Drawing.Size(0, 20);
             this.lblIdType.TabIndex = 7;
             // 
             // txtParsedId
