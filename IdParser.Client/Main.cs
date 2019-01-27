@@ -157,7 +157,7 @@ namespace IdParser.Client
 
             if (symbology == BarCodeSymbology.Pdf417 && data.Contains("@"))
             {
-                ParseScanData(data);
+                ParseBarcodeData(data);
             }
             else
             {
@@ -168,7 +168,7 @@ namespace IdParser.Client
             SetStatus(Level.Success, "Ready");
         }
 
-        private void ParseScanData(string input)
+        private void ParseBarcodeData(string input)
         {
             try
             {
@@ -199,6 +199,8 @@ namespace IdParser.Client
         {
             lblIdType.Text = string.Empty;
             txtParsedId.Text = string.Empty;
+            txtFileContents.Text = string.Empty;
+            txtFilePath.Text = string.Empty;
         }
 
         private void btnSaveDataToFile_Click(object sender, EventArgs e)
@@ -237,7 +239,59 @@ namespace IdParser.Client
         {
             if (txtHidData.Text.Contains("@"))
             {
-                ParseScanData(txtHidData.Text);
+                ParseBarcodeData(txtHidData.Text);
+            }
+            else
+            {
+                ClearParsedId();
+            }
+        }
+
+        private void btnSelectFile_Click(object sender, EventArgs e)
+        {
+            var dialog = openFileDialog;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                txtFilePath.Text = dialog.FileName;
+            }
+        }
+
+        private void tabControl1_Selecting(object sender, TabControlCancelEventArgs e)
+        {
+            var current = (sender as TabControl).SelectedTab;
+
+            switch (current.Name)
+            {
+                case nameof(tabPageOpos):
+                    txtLogicalName.Focus();
+                    break;
+
+                case nameof(tabPageHidKeyboardEmulation):
+                    txtHidData.Focus();
+                    break;
+
+                case nameof(tabPageFile):
+                    txtFilePath.Focus();
+                    break;
+
+                default:
+                    return;
+            }
+        }
+
+        private void btnParseFile_Click(object sender, EventArgs e)
+        {
+            if (!File.Exists(txtFilePath.Text))
+            {
+                SetStatus(Level.Error, "File doesn't exist");
+                return;
+            }
+
+            txtFileContents.Text = File.ReadAllText(txtFilePath.Text);
+
+            if (txtFileContents.Text.Contains("@"))
+            {
+                ParseBarcodeData(txtFileContents.Text);
             }
             else
             {
