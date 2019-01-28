@@ -60,7 +60,6 @@ namespace IdParser.Parsers.Id
         /// <summary>
         /// Parses names separated by non-standard space separators (e.g. JOHN Q PUBLIC)
         /// </summary>
-        /// <param name="input"></param>
         private void ParseWithSpaceSeparator(string input)
         {
             var names = input.Split(SpaceSeparator).ToList();
