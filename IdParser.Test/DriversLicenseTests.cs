@@ -745,6 +745,76 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestPALicenseTwoMiddleNames()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "JOHN",
+                    Middle = "ROBERT LEE",
+                    Last = "SMITH"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "140 MAIN ST",
+                    City = "PHILADELPHIA",
+                    JurisdictionCode = "PA",
+                    PostalCode = "19130",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1986, 02, 02),
+                Sex = Sex.Male,
+                Height = Height.FromImperial(6, 0),
+                EyeColor = EyeColor.Hazel,
+
+                IdNumber = "26798765",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2016, 01, 04),
+                ExpirationDate = new DateTime(2020, 02, 03),
+
+                IsOrganDonor = true,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C",
+                    RestrictionCodes = "*/1",
+                    EndorsementCodes = "----"
+                }
+            };
+
+            var file = License("PA Two Middle Names");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("19130", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestPALicenseThreeMiddleNames()
+        {
+            var expected = new Name
+            {
+                First = "JOHN",
+                Middle = "ROBERT LEE JOHNSON",
+                Last = "SMITH"
+            };
+
+            var file = License("PA Three Middle Names");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            Assert.AreEqual(expected.First, idCard.Name.First);
+            Assert.AreEqual(expected.Middle, idCard.Name.Middle);
+            Assert.AreEqual(expected.Last, idCard.Name.Last);
+            Assert.AreEqual(expected.Suffix, idCard.Name.Suffix);
+        }
+
+        [TestMethod]
         public void TestPA2016License()
         {
             var expected = new DriversLicense
@@ -2670,6 +2740,56 @@ namespace IdParser.Test
             };
 
             var file = License("CT Suffix");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("06614-0123", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
+        public void TestCTLicenseMultipleMiddleNames()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "PABLO",
+                    Middle = "LUIS RODRIGUEZ",
+                    Last = "CORTEZ",
+                    Suffix = "JR"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "715 MAIN LN",
+                    City = "STRATFORD",
+                    JurisdictionCode = "CT",
+                    PostalCode = "066140123",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1976, 10, 07),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(6, 0),
+
+                IdNumber = "227881513",
+                AamvaVersionNumber = Version.Aamva2000,
+
+                IssueDate = new DateTime(2016, 08, 23),
+                ExpirationDate = new DateTime(2022, 10, 07),
+
+                IsOrganDonor = true,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D"
+                }
+            };
+
+            var file = License("CT Multiple Middle Names");
             var idCard = Barcode.Parse(file, Validation.None);
 
             AssertIdCard(expected, idCard);
