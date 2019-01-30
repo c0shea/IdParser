@@ -2600,6 +2600,58 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestPELicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "PATTY",
+                    Last = "FLOWERS",
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 NORTH LAKE SHORE DR",
+                    City = "ANYTOWN",
+                    JurisdictionCode = "PE",
+                    PostalCode = "C0A2B4",
+                    Country = Country.Canada
+                },
+
+                DateOfBirth = new DateTime(1955, 09, 04),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Blue,
+                Height = Height.FromMetric(157),
+
+                IdNumber = "247725",
+                AamvaVersionNumber = Version.Aamva2016,
+
+                IssueDate = new DateTime(2017, 12, 22),
+                ExpirationDate = new DateTime(2020, 09, 04),
+
+                DocumentDiscriminator = "PE2017122200000019550904",
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "5"
+                }
+            };
+
+            var file = License("PE");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("C0A 2B4", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Price Edward Island", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense

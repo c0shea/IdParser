@@ -63,7 +63,6 @@ namespace IdParser.Parsers.Id
             {
                 IdCard.HairColor = HairColor.White;
             }
-
             else if (input.EqualsIgnoreCase(HairColor.Bald.ToString()))
             {
                 IdCard.HairColor = HairColor.Bald;
