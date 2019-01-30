@@ -188,10 +188,13 @@ namespace IdParser.Client
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 });
+
+                SetStatus(Level.Info, "");
             }
             catch (Exception ex)
             {
                 txtParsedId.Text = $"Failed to Parse ID.{Environment.NewLine}{Environment.NewLine}{ex.Message}{Environment.NewLine}{ex.StackTrace}";
+                SetStatus(Level.Error, ex.Message);
             }
         }
 
