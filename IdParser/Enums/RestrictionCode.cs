@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using IdParser.Attributes;
 
+// ReSharper disable once CheckNamespace
 namespace IdParser
 {
     [Flags]

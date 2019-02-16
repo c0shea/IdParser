@@ -1,4 +1,5 @@
-﻿namespace IdParser
+﻿// ReSharper disable once CheckNamespace
+namespace IdParser
 {
     public enum Version : byte
     {
