@@ -1,12 +1,31 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace IdParser
 {
     internal static class Fixes
     {
+        private static readonly string[] UndefinedCharacters;
+
+        /// <remarks>
+        /// http://lwp.interglacial.com/appf_01.htm
+        /// </remarks>
+        static Fixes()
+        {
+            var undefinedCharacters = new List<string>();
+
+            for (int i = 0x80; i <= 0x9F; i++)
+            {
+                undefinedCharacters.Add(((char)i).ToString());
+            }
+
+            UndefinedCharacters = undefinedCharacters.ToArray();
+        }
+
         internal static string Apply(string input)
         {
-            return input.RemoveInvalidCharactersFromHeader()
+            return input.RemoveUndefinedCharacters()
+                        .RemoveInvalidCharactersFromHeader()
                         .FixIncorrectHeader()
                         .RemoveIncorrectCarriageReturns();
         }
@@ -77,6 +96,25 @@ namespace IdParser
                 var replacedString = input.Replace(Barcode.ExpectedSegmentTerminator.ToString(), string.Empty);
 
                 return replacedString.Substring(0, 3) + Barcode.ExpectedSegmentTerminator + replacedString.Substring(4);
+            }
+
+            return input;
+        }
+
+
+        /// <summary>
+        /// The DS4308 scanner using HID keyboard emulation tends to insert undefined characters (0xC2,0x80 through 0xC2,0x9F)
+        /// at the start and end of every subfile record. That throws off the parsing of the offsets in the header.
+        /// This removes the undefined noise characters.
+        /// </summary>
+        /// <remarks>
+        /// http://lwp.interglacial.com/appf_01.htm
+        /// </remarks>
+        private static string RemoveUndefinedCharacters(this string input)
+        {
+            foreach (var undefinedCharacter in UndefinedCharacters)
+            {
+                input = input.Replace(undefinedCharacter, "");
             }
 
             return input;

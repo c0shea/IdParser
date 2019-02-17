@@ -2780,6 +2780,69 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestCTLicenseUndefinedCharacters()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "WENDY",
+                    Middle = "SMITH",
+                    Last = "MOTORIST",
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12 SACAGAWEA DR",
+                    City = "WEST HARTFORD",
+                    JurisdictionCode = "CT",
+                    PostalCode = "061171234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1966, 01, 26),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Brown,
+                Height = Height.FromImperial(67),
+
+                IdNumber = "123456780",
+                AamvaVersionNumber = Version.Aamva2016,
+
+                IssueDate = new DateTime(2019, 01, 08),
+                ExpirationDate = new DateTime(2026, 01, 26),
+                RevisionDate = new DateTime(2017, 02, 10),
+
+                DocumentDiscriminator = "12345678909870MVK3",
+                InventoryControlNumber = "123456780CTRBTL02",
+
+                ComplianceType = ComplianceType.FullyCompliant,
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                },
+
+                AdditionalJurisdictionElements =
+                {
+                    { "ZCZ", "CA" },
+                    { "ZCB", "0005276677" }
+                }
+            };
+
+            var file = License("CT Undefined Characters");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("06117-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense
