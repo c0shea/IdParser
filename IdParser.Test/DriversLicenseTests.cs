@@ -2843,6 +2843,59 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestABLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MARY",
+                    Middle = "SMITH",
+                    Last = "MOTORIST"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "123 MAPLE LEAF TERR SW",
+                    City = "CALGARY",
+                    JurisdictionCode = "AB",
+                    PostalCode = "T4G7A7",
+                    Country = Country.Canada
+                },
+
+                DateOfBirth = new DateTime(1993, 02, 04),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Brown,
+                HairColor = HairColor.Brown,
+                Height = Height.FromMetric(155),
+                Weight = Weight.FromMetric(50),
+
+                IdNumber = "123400-056",
+                AamvaVersionNumber = Version.Aamva2005,
+
+                ExpirationDate = new DateTime(2019, 01, 08),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "5",
+                    EndorsementCodes = "A"
+                }
+            };
+
+            // Alberta specifies the weight range following the weight in kilograms
+            expected.Weight.WeightRange = WeightRange.Lbs101To130;
+
+            var file = License("AB");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("T4G 7A7", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Alberta", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense

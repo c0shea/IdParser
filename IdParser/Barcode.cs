@@ -185,7 +185,21 @@ namespace IdParser
 
         private static List<string> GetSubfileRecords(IdentificationCard idCard, Version version, string input)
         {
-            int offset = 0;
+            var offset = ParseSubfileOffset(idCard, version, input);
+            var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var firstRecord = records[0].Substring(0, 2);
+
+            if (firstRecord == "DL" || firstRecord == "ID")
+            {
+                records[0] = records[0].Substring(2);
+            }
+
+            return records;
+        }
+
+        private static int ParseSubfileOffset(IdentificationCard idCard, Version version, string input)
+        {
+            var offset = 0;
 
             if (version == Version.Aamva2000)
             {
@@ -199,14 +213,21 @@ namespace IdParser
             }
             else if (version >= Version.Aamva2003)
             {
-                offset = Convert.ToInt32(input.Substring(23, 4));
+                var offsetAsString = input.Substring(23, 4);
+
+                // Alberta specifies characters, like "abac", in the place of the expected offset
+                // which causes the parsing of the subfile records to fail
+                if (offsetAsString.All(char.IsDigit))
+                {
+                    offset = Convert.ToInt32(offsetAsString);
+                }
             }
 
             if (offset == 0)
             {
                 // Some jurisdictions, like Ontario, have a zero offset, which is incorrect.
                 // Set the offset to the start of the subfile type indicator.
-                var subfileRegex = new Regex("[0-9]{8}[A-Z]{2}[D][A-Z]{2}");
+                var subfileRegex = new Regex("(DL|ID)([\\d\\w]{3,8})(DL|ID|Z\\w)([DZ][A-Z]{2})");
                 var match = subfileRegex.Match(input);
 
                 if (match.Success)
@@ -218,15 +239,7 @@ namespace IdParser
                 }
             }
 
-            var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            var firstRecord = records[0].Substring(0, 2);
-
-            if (firstRecord == "DL" || firstRecord == "ID")
-            {
-                records[0] = records[0].Substring(2);
-            }
-
-            return records;
+            return offset;
         }
 
         private static void PopulateIdCard(IdentificationCard idCard, Version version, Country? country, List<string> subfileRecords, Validation validationLevel)

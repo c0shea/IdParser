@@ -18,8 +18,12 @@ namespace IdParser
 
         [Country(Country.Canada)]
         [Abbreviation("AB")]
+        Alberta = 604432,
+
+        [Country(Country.Canada)]
+        [Abbreviation("AB")]
         [Description("Alberta")]
-        Alberta,
+        AlbertaNonIso = 990876,
 
         [Country(Country.Usa)]
         [Abbreviation("AS")]
