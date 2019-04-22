@@ -3030,6 +3030,67 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestIDLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "CLAY",
+                    Middle = "MOTORIST",
+                    Last = "JENSEN"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1234 MAIN STREET",
+                    City = "GRANGEVILL",
+                    JurisdictionCode = "ID",
+                    PostalCode = "83530",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1967, 12, 08),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                HairColor = HairColor.Blond,
+                Height = Height.FromImperial(73),
+                Weight = Weight.FromImperial(240),
+
+                IdNumber = "WA104577G",
+                AamvaVersionNumber = Version.Aamva2010,
+
+                IssueDate = new DateTime(2011, 11, 20),
+                ExpirationDate = new DateTime(2019, 12, 08),
+                RevisionDate = new DateTime(2011, 05, 09),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "B"
+                },
+
+                AdditionalJurisdictionElements =
+                {
+                    { "ZIZ", "IADONOR" },
+                    { "ZIB", "" },
+                    { "ZIC", "" }
+                }
+            };
+
+            var file = License("ID");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("83530", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Idaho", idCard.IssuerIdentificationNumber.GetDescription());
+
+            Assert.AreEqual(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense
