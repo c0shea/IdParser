@@ -2896,6 +2896,72 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestMNLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "DALE",
+                    Middle = "THOR",
+                    Last = "SPARKS",
+                    WasFirstTruncated = false,
+                    WasMiddleTruncated = false,
+                    WasLastTruncated = false
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "12345 MAIN ST",
+                    StreetLine2 = "UNIT 91",
+                    City = "AITKIN",
+                    JurisdictionCode = "MN",
+                    PostalCode = "564311234",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1995, 01, 04),
+                Sex = Sex.Male,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(70),
+                Weight = Weight.FromImperial(138),
+
+                IdNumber = "H868087743210",
+                AamvaVersionNumber = Version.Aamva2016,
+
+                IssueDate = new DateTime(2018, 12, 22),
+                ExpirationDate = new DateTime(2020, 01, 04),
+                RevisionDate = new DateTime(2017, 10, 23),
+
+                IsOrganDonor = true,
+                ComplianceType = ComplianceType.NonCompliant,
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "D",
+                    RestrictionCodes = "2"
+                },
+
+                AdditionalJurisdictionElements =
+                {
+                    { "ZMZ", "MAN" },
+                    { "ZMB", "N" }
+                }
+            };
+
+            var file = License("MN");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("56431-1234", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Minnesota", idCard.IssuerIdentificationNumber.GetDescription());
+            
+            Assert.AreEqual(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
+        }
+
+        [TestMethod]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense
