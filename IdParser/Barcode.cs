@@ -187,13 +187,16 @@ namespace IdParser
         {
             var offset = ParseSubfileOffset(idCard, version, input);
             var records = input.Substring(offset).Split(new[] { ParseDataElementSeparator(input), ParseSegmentTerminator(input) }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            var firstRecord = records[0].Substring(0, 2);
 
-            if (firstRecord == "DL" || firstRecord == "ID")
+            if (records[0] == "DL" || records[0] == "ID")
+            {
+                records.RemoveAt(0);
+            }
+            else if (records[0].StartsWith("DL") || records[0].StartsWith("ID"))
             {
                 records[0] = records[0].Substring(2);
             }
-
+            
             return records;
         }
 

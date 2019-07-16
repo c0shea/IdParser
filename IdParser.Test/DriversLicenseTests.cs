@@ -1982,6 +1982,65 @@ namespace IdParser.Test
         }
 
         [TestMethod]
+        public void TestCO2013License()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "JANE",
+                    Middle = "LYNN",
+                    Last = "MOTORIST",
+                    Suffix = "SR"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "98765 W 23RD AVE",
+                    City = "LAKEWOOD",
+                    JurisdictionCode = "CO",
+                    PostalCode = "80401",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1972, 02, 04),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Green,
+                Height = Height.FromImperial(63),
+
+                IdNumber = "124336019",
+                AamvaVersionNumber = Version.Aamva2013,
+
+                IssueDate = new DateTime(2016, 12, 27),
+                ExpirationDate = new DateTime(2022, 01, 04),
+                RevisionDate = new DateTime(2015, 10, 30),
+
+                HasTemporaryLawfulStatus = false,
+                DocumentDiscriminator = "16455534969",
+                AuditInformation = "20170104_000227_9_3776",
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "R"
+                },
+
+                AdditionalJurisdictionElements =
+                {
+                    { "ZCZ", "CANONE" }
+                }
+            };
+
+            var file = License("CO 2013");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("80401", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
+        }
+
+        [TestMethod]
         public void TestALLicense()
         {
             var expected = new DriversLicense
