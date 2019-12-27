@@ -59,5 +59,5 @@ will be parsed correctly. The app works with both OPOS and HID keyboard emulatio
 ## Find IDs Not in Tests Regex
 
 ```regex
-DAJ(?!(AL|AR|AZ|CA|CO|CT|DE|FL|GA|IA|IL|IN|KS|KY|LA|MA|MD|ME|MI|MO|MT|NC|NH|NJ|NM|NY|OH|ON|OR|PA|PR|RI|SC|TN|TX|UT|VA|VT|WA|WI|QC|OK))[A-Z]+
+DAJ(?!(AL|AR|AZ|AK|CA|CO|CT|DE|FL|GA|HI|IA|ID|IL|IN|KS|KY|LA|MA|MD|ME|MI|MN|MO|MS|MT|NC|ND|NH|NJ|NM|NV|NY|OH|ON|OR|PA|PE|PR|RI|SC|TN|TX|UT|VA|VT|WA|WI|WV|QC|OK|NS|NE|NB|AB|SD|DC))[A-Z]+
 ```
