@@ -3390,5 +3390,55 @@ namespace IdParser.Test
             Assert.AreEqual("E5K 1Y3", idCard.Address.PostalCodeDisplay);
             Assert.AreEqual("New Brunswick", idCard.IssuerIdentificationNumber.GetDescription());
         }
+
+        [TestMethod]
+        public void TestWYLicense()
+        {
+            var expected = new DriversLicense
+            {
+                Name = new Name
+                {
+                    First = "MOTORIST",
+                    Middle = "E",
+                    Last = "O NEIL"
+                },
+
+                Address = new Address
+                {
+                    StreetLine1 = "1234 MAIN WAY",
+                    //StreetLine2 = "BLUE STREAM, WY  82930", TODO: Check if this is the same as city, state, zip and remove if so
+                    City = "BLUE STREAM",
+                    JurisdictionCode = "WY",
+                    PostalCode = "82930",
+                    Country = Country.Usa
+                },
+
+                DateOfBirth = new DateTime(1958, 10, 31),
+                Sex = Sex.Female,
+                EyeColor = EyeColor.Blue,
+                HairColor = HairColor.Blond,
+                Height = Height.FromImperial(69),
+
+                IdNumber = "123456-789",
+                AamvaVersionNumber = Version.Aamva2009,
+
+                IssueDate = new DateTime(2017, 10, 11),
+                ExpirationDate = new DateTime(2021, 10, 31),
+
+                Jurisdiction = new DriversLicenseJurisdiction
+                {
+                    VehicleClass = "C"
+                }
+            };
+
+            var file = License("WY");
+            var idCard = Barcode.Parse(file, Validation.None);
+
+            AssertIdCard(expected, idCard);
+            AssertLicense(expected, idCard);
+
+            Assert.AreEqual("82930", idCard.Address.PostalCodeDisplay);
+            Assert.AreEqual("Wyoming", idCard.IssuerIdentificationNumber.GetDescription());
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using IdParser.Attributes;
+﻿using System.Text.RegularExpressions;
+using IdParser.Attributes;
 
 namespace IdParser.Parsers.Id
 {
@@ -12,6 +13,15 @@ namespace IdParser.Parsers.Id
         public override void ParseAndSet(string input)
         {
             if (StringHasNoValue(input))
+            {
+                return;
+            }
+
+            // Jurisdictions like Wyoming set the StreetLine2 to the City, State, and Postal Code when it
+            if (IdCard.Address.City != null &&
+                IdCard.Address.JurisdictionCode != null &&
+                IdCard.Address.PostalCode != null &&
+                Regex.IsMatch(input, $@"\s*{IdCard.Address.City}(\s|,)*{IdCard.Address.JurisdictionCode}(\s|,)*{IdCard.Address.PostalCode}"))
             {
                 return;
             }
