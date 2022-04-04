@@ -13,6 +13,7 @@ namespace IdParser
         Aamva2012 = 7,
         Aamva2013 = 8,
         Aamva2016 = 9,
+        Aamva2020 = 10,
         Future = 99
     }
 }
