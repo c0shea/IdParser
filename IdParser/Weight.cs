@@ -11,6 +11,17 @@ namespace IdParser
     {
         private const double PoundsPerKilogram = 2.20462262;
 
+        private static double PoundsToKilograms(int pounds)
+        {
+            return pounds / PoundsPerKilogram;
+        }
+
+        private static int KilogramsToPounds(double kilograms)
+        {
+            return (int)Math.Round(kilograms * PoundsPerKilogram, 0);
+        }
+
+
         // In order for JSON serialization and deserialization to work in both Json.NET
         // and ServiceStack.Text, an immutable type has to:
         // - Be a class and not a struct (immutable structs do not deserialize in ServiceStack)
@@ -34,7 +45,7 @@ namespace IdParser
 
         public static Weight FromImperial(int pounds)
         {
-            return new Weight(null, pounds * PoundsPerKilogram, false);
+            return new Weight(null, PoundsToKilograms(pounds), false);
         }
 
         public static Weight FromRange(WeightRange weightRange)
@@ -44,7 +55,7 @@ namespace IdParser
 
         internal void SetImperial(int pounds)
         {
-            Kilograms = pounds * PoundsPerKilogram;
+            Kilograms = PoundsToKilograms(pounds);
             IsMetric = false;
         }
 
@@ -71,7 +82,7 @@ namespace IdParser
                 return $"{Kilograms} kg";
             }
 
-            return $"{(int)(Kilograms.Value / PoundsPerKilogram)} lbs";
+            return $"{KilogramsToPounds(Kilograms.Value)} lbs";
         }
 
         #region IComparable
