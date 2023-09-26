@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace IdParser.Test
+﻿namespace IdParser.Test
 {
-    [TestClass]
     public class NameTests
     {
-        [TestMethod]
+        [Fact]
         public void NoMiddleNameTest()
         {
             var name = new Name
@@ -14,10 +11,10 @@ namespace IdParser.Test
                 Last = "Doe"
             };
 
-            Assert.AreEqual("John Doe", name.ToString());
+            Assert.Equal("John Doe", name.ToString());
         }
 
-        [TestMethod]
+        [Fact]
         public void FullNameTest()
         {
             var name = new Name
@@ -27,10 +24,10 @@ namespace IdParser.Test
                 Last = "Doe"
             };
 
-            Assert.AreEqual("John Martin Doe", name.ToString());
+            Assert.Equal("John Martin Doe", name.ToString());
         }
 
-        [TestMethod]
+        [Fact]
         public void SuffixTest()
         {
             var name = new Name
@@ -40,7 +37,7 @@ namespace IdParser.Test
                 Suffix = "Jr"
             };
 
-            Assert.AreEqual("John Doe, Jr", name.ToString());
+            Assert.Equal("John Doe, Jr", name.ToString());
         }
     }
 }

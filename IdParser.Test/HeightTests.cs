@@ -1,55 +1,51 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace IdParser.Test
+﻿namespace IdParser.Test
 {
-    [TestClass]
     public class HeightTests
     {
-        [TestMethod]
+        [Fact]
         public void EqualityTest()
         {
             var left = Height.FromImperial(65);
             var right = Height.FromImperial(65);
 
-            Assert.AreEqual(left, right);
+            Assert.Equal(left, right);
         }
 
-        [TestMethod]
+        [Fact]
         public void ComparableTest()
         {
             var first = Height.FromImperial(6, 2);
             var second = Height.FromImperial(5, 8);
 
-            Assert.IsTrue(first.CompareTo(second) > 0);
-            Assert.IsTrue(second.CompareTo(first) < 0);
+            Assert.True(first.CompareTo(second) > 0);
+            Assert.True(second.CompareTo(first) < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImperialDisplayTest()
         {
             var height = Height.FromImperial(67);
             var actual = height.ToString();
 
-            Assert.AreEqual("5'7\"", actual);
+            Assert.Equal("5'7\"", actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void MetricDisplayTest()
         {
             var height = Height.FromMetric(175);
             var actual = height.ToString();
 
-            Assert.AreEqual("175 cm", actual);
+            Assert.Equal("175 cm", actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void RoundingTest()
         {
             var height = Height.FromImperial(62);
             var actual = height.ToString();
 
-            Assert.AreEqual("5'2\"", actual);
+            Assert.Equal("5'2\"", actual);
         }
     }
 }

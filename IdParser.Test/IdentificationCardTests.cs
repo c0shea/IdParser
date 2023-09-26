@@ -1,13 +1,11 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable InconsistentNaming
 
 namespace IdParser.Test
 {
-    [TestClass]
     public class IdentificationCardTests : BaseTest
     {
-        [TestMethod]
+        [Fact]
         public void TestTNIdCard()
         {
             var expected = new IdentificationCard
@@ -52,8 +50,8 @@ namespace IdParser.Test
 
             AssertIdCard(expected, idCard);
 
-            Assert.AreEqual("37011-5509", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Tennessee", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("37011-5509", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Tennessee", idCard.IssuerIdentificationNumber.GetDescription());
         }
     }
 }

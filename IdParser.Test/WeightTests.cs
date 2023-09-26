@@ -1,66 +1,62 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace IdParser.Test
+﻿namespace IdParser.Test
 {
-    [TestClass]
     public class WeightTests
     {
-        [TestMethod]
+        [Fact]
         public void EqualityFromRangeTest()
         {
             var left = Weight.FromRange(WeightRange.Lbs131To160);
             var right = Weight.FromRange(WeightRange.Lbs131To160);
 
-            Assert.AreEqual(left, right);
-            Assert.AreNotSame(left, right);
+            Assert.Equal(left, right);
+            Assert.NotSame(left, right);
         }
 
-        [TestMethod]
+        [Fact]
         public void EqualityFromPoundsTest()
         {
             var left = Weight.FromImperial(120);
             var right = Weight.FromImperial(120);
 
-            Assert.AreEqual(left, right);
-            Assert.AreNotSame(left, right);
+            Assert.Equal(left, right);
+            Assert.NotSame(left, right);
         }
 
-        [TestMethod]
+        [Fact]
         public void ComparableTest()
         {
             var first = Weight.FromImperial(150);
             var second = Weight.FromImperial(125);
 
-            Assert.IsTrue(first.CompareTo(second) > 0);
-            Assert.IsTrue(second.CompareTo(first) < 0);
+            Assert.True(first.CompareTo(second) > 0);
+            Assert.True(second.CompareTo(first) < 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void ImperialDisplayTest()
         {
             var weight = Weight.FromImperial(115);
             var actual = weight.ToString();
 
-            Assert.AreEqual("115 lbs", actual);
+            Assert.Equal("115 lbs", actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void RangeDisplayTest()
         {
             var weight = Weight.FromRange(WeightRange.Lbs161To190);
             var actual = weight.ToString();
 
-            Assert.AreEqual("161-190 lbs (71-86 kg)", actual);
+            Assert.Equal("161-190 lbs (71-86 kg)", actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void MetricDisplayTest()
         {
             var weight = Weight.FromMetric(33);
             var actual = weight.ToString();
 
-            Assert.AreEqual("33 kg", actual);
+            Assert.Equal("33 kg", actual);
         }
     }
 }

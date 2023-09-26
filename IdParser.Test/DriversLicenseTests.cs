@@ -1,15 +1,13 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 // ReSharper disable InconsistentNaming
 
 namespace IdParser.Test
 {
-    [TestClass]
     public class DriversLicenseTests : BaseTest
     {
-        [TestMethod]
+        [Fact]
         public void TestMA2009License()
         {
             var expected = new DriversLicense
@@ -57,10 +55,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMA2016License()
         {
             var expected = new DriversLicense
@@ -108,17 +106,17 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("02133", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("02133", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.AreEqual("08102016 REV 02222016", idCard.DocumentDiscriminator);
-            Assert.AreEqual("12345S123456780612", idCard.InventoryControlNumber);
+            Assert.Equal("08102016 REV 02222016", idCard.DocumentDiscriminator);
+            Assert.Equal("12345S123456780612", idCard.InventoryControlNumber);
 
-            Assert.AreEqual("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
-            Assert.AreEqual("08102016", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
+            Assert.Equal("MA504", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
+            Assert.Equal("08102016", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMALicenseWithNoMiddleName()
         {
             var expected = new DriversLicense
@@ -165,10 +163,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNYLicense()
         {
             var expected = new DriversLicense
@@ -211,10 +209,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("New York", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("New York", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestVALicense()
         {
             var expected = new DriversLicense
@@ -263,17 +261,17 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Virginia", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Virginia", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
+            Assert.IsType<DriversLicense>(idCard);
 
             if (idCard is DriversLicense license)
             {
-                Assert.AreEqual("158X9", license.Jurisdiction.RestrictionCodes);
+                Assert.Equal("158X9", license.Jurisdiction.RestrictionCodes);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGALicense()
         {
             var expected = new DriversLicense
@@ -319,10 +317,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Georgia", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicense()
         {
             var expected = new DriversLicense
@@ -368,18 +366,18 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
+            Assert.IsType<DriversLicense>(idCard);
 
             if (idCard is DriversLicense license)
             {
-                Assert.AreEqual("D", license.Jurisdiction.VehicleClass);
-                Assert.AreEqual("B", license.Jurisdiction.RestrictionCodes);
+                Assert.Equal("D", license.Jurisdiction.VehicleClass);
+                Assert.Equal("B", license.Jurisdiction.RestrictionCodes);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicenseWebBrowser()
         {
             var expected = new DriversLicense
@@ -425,10 +423,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicenseNoMiddleName()
         {
             var expected = new DriversLicense
@@ -472,10 +470,10 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMOLicense()
         {
             var expected = new DriversLicense
@@ -519,20 +517,20 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("Missouri", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("Missouri", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.AreEqual("MAST LOUIS CITY", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
-            Assert.AreEqual("112001810097", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
+            Assert.Equal("MAST LOUIS CITY", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMZ").Value);
+            Assert.Equal("112001810097", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZMB").Value);
 
-            Assert.IsInstanceOfType(idCard, typeof(DriversLicense));
+            Assert.IsType<DriversLicense>(idCard);
 
             if (idCard is DriversLicense license)
             {
-                Assert.AreEqual("F", license.Jurisdiction.VehicleClass);
+                Assert.Equal("F", license.Jurisdiction.VehicleClass);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestFLLicense()
         {
             var expected = new DriversLicense
@@ -576,20 +574,20 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("33040-0504", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Florida", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("33040-0504", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Florida", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.AreEqual(5, idCard.AdditionalJurisdictionElements.Count);
-            Assert.AreEqual("FA", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZFZ").Value);
+            Assert.Equal(5, idCard.AdditionalJurisdictionElements.Count);
+            Assert.Equal("FA", idCard.AdditionalJurisdictionElements.Single(e => e.Key == "ZFZ").Value);
 
             if (idCard is DriversLicense license)
             {
-                Assert.AreEqual("A", license.Jurisdiction.RestrictionCodes);
-                Assert.AreEqual("E", license.Jurisdiction.VehicleClass);
+                Assert.Equal("A", license.Jurisdiction.RestrictionCodes);
+                Assert.Equal("E", license.Jurisdiction.VehicleClass);
             }
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNHLicense()
         {
             var expected = new DriversLicense
@@ -641,11 +639,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("01234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("New Hampshire", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("01234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("New Hampshire", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestTXLicense()
         {
             var expected = new DriversLicense
@@ -689,11 +687,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("79936", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Texas", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("79936", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Texas", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPALicense()
         {
             var expected = new DriversLicense
@@ -740,11 +738,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("19130", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("19130", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPALicenseTwoMiddleNames()
         {
             var expected = new DriversLicense
@@ -791,11 +789,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("19130", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("19130", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPALicenseThreeMiddleNames()
         {
             var expected = new Name
@@ -808,13 +806,13 @@ namespace IdParser.Test
             var file = License("PA Three Middle Names");
             var idCard = Barcode.Parse(file, Validation.None);
 
-            Assert.AreEqual(expected.First, idCard.Name.First);
-            Assert.AreEqual(expected.Middle, idCard.Name.Middle);
-            Assert.AreEqual(expected.Last, idCard.Name.Last);
-            Assert.AreEqual(expected.Suffix, idCard.Name.Suffix);
+            Assert.Equal(expected.First, idCard.Name.First);
+            Assert.Equal(expected.Middle, idCard.Name.Middle);
+            Assert.Equal(expected.Last, idCard.Name.Last);
+            Assert.Equal(expected.Suffix, idCard.Name.Suffix);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPA2016License()
         {
             var expected = new DriversLicense
@@ -865,11 +863,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("18503", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("18503", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Pennsylvania", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestRILicense()
         {
             var expected = new DriversLicense
@@ -922,11 +920,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("00093-1760", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Rhode Island", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("00093-1760", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Rhode Island", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNJLicense()
         {
             var expected = new DriversLicense
@@ -976,11 +974,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("07418-2554", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("New Jersey", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("07418-2554", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("New Jersey", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNCLicense()
         {
             var expected = new DriversLicense
@@ -1031,11 +1029,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("28304-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("North Carolina", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("28304-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("North Carolina", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestSCLicense()
         {
             var expected = new DriversLicense
@@ -1081,11 +1079,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("29575-4321", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("South Carolina", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("29575-4321", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("South Carolina", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMELicense()
         {
             var expected = new DriversLicense
@@ -1134,11 +1132,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("04401", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Maine", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("04401", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Maine", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestOHLicense()
         {
             var weight = Weight.FromImperial(140);
@@ -1195,11 +1193,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("43619-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Ohio", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("43619-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Ohio", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMILicense()
         {
             var expected = new DriversLicense
@@ -1235,11 +1233,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("48306-4321", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Michigan", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("48306-4321", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Michigan", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestONLicense()
         {
             var expected = new DriversLicense
@@ -1282,11 +1280,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("N1M 3J6", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Ontario", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("N1M 3J6", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Ontario", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestVTLicense()
         {
             var expected = new DriversLicense
@@ -1339,11 +1337,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("05201", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Vermont", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("05201", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Vermont", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPRLicense()
         {
             var expected = new DriversLicense
@@ -1392,11 +1390,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("00783", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Puerto Rico", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("00783", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Puerto Rico", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMDLicense()
         {
             var expected = new DriversLicense
@@ -1447,11 +1445,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("21201", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Maryland", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("21201", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Maryland", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCALicense()
         {
             var expected = new DriversLicense
@@ -1500,11 +1498,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("95035", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("California", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("95035", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("California", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNMLicense()
         {
             var expected = new DriversLicense
@@ -1548,11 +1546,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("87544", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("New Mexico", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("87544", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("New Mexico", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestUTLicense()
         {
             var expected = new DriversLicense
@@ -1607,11 +1605,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("84043", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Utah", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("84043", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Utah", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIALicense()
         {
             var expected = new DriversLicense
@@ -1661,11 +1659,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("51566", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Iowa", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("51566", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Iowa", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestORLicense()
         {
             var expected = new DriversLicense
@@ -1710,11 +1708,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("97330", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Oregon", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("97330", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Oregon", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLALicense()
         {
             var expected = new DriversLicense
@@ -1759,11 +1757,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("71238", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Louisiana", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("71238", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Louisiana", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestKYLicense()
         {
             var expected = new DriversLicense
@@ -1813,11 +1811,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("40218", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Kentucky", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("40218", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Kentucky", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestWILicense()
         {
             // Wisconsin defines a subfile in the header but we don't follow it
@@ -1870,11 +1868,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("54767", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Wisconsin", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("54767", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Wisconsin", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestDELicense()
         {
             // Wisconsin defines a subfile in the header but we don't follow it
@@ -1927,11 +1925,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("19752-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Delaware", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("19752-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Delaware", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCOLicense()
         {
             var expected = new DriversLicense
@@ -1977,11 +1975,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("81635", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("81635", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCO2013License()
         {
             var expected = new DriversLicense
@@ -2036,11 +2034,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("80401", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("80401", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Colorado", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestALLicense()
         {
             var expected = new DriversLicense
@@ -2088,11 +2086,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("36093-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Alabama", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("36093-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Alabama", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAZLicense()
         {
             var expected = new DriversLicense
@@ -2140,11 +2138,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("85641-4321", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Arizona", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("85641-4321", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Arizona", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestARLicense()
         {
             var expected = new DriversLicense
@@ -2193,11 +2191,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("71901-4455", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Arkansas", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("71901-4455", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Arkansas", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestWALicense()
         {
             var expected = new DriversLicense
@@ -2237,11 +2235,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("98008-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Washington", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("98008-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Washington", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMTLicense()
         {
             var expected = new DriversLicense
@@ -2286,11 +2284,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("59601", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Montana", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("59601", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Montana", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestKSLicense()
         {
             var expected = new DriversLicense
@@ -2342,11 +2340,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("66210", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Kansas", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("66210", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Kansas", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestINLicense()
         {
             var expected = new DriversLicense
@@ -2390,11 +2388,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("47458", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Indiana", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("47458", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Indiana", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestILLicense()
         {
             var expected = new DriversLicense
@@ -2446,11 +2444,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("60611", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Illinois", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("60611", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Illinois", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestHILicense()
         {
             var expected = new DriversLicense
@@ -2497,11 +2495,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("96826", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Hawaii", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("96826", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Hawaii", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestWVLicense()
         {
             var expected = new DriversLicense
@@ -2547,11 +2545,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("12345", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("West Virginia", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("12345", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("West Virginia", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAKLicense()
         {
             var expected = new DriversLicense
@@ -2603,11 +2601,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("99645", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Alaska", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("99645", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Alaska", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestDCLicense()
         {
             var expected = new DriversLicense
@@ -2654,11 +2652,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("20009-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("District of Columbia", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("20009-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("District of Columbia", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestPELicense()
         {
             var expected = new DriversLicense
@@ -2706,11 +2704,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("C0A 2B4", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Price Edward Island", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("C0A 2B4", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Price Edward Island", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNVLicense()
         {
             var expected = new DriversLicense
@@ -2772,11 +2770,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("89031-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Nevada", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("89031-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Nevada", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNDLicense()
         {
             var expected = new DriversLicense
@@ -2834,11 +2832,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("58503", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("North Dakota", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("58503", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("North Dakota", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicenseUndefinedCharacters()
         {
             var expected = new DriversLicense
@@ -2897,11 +2895,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("06117-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("06117-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestABLicense()
         {
             var expected = new DriversLicense
@@ -2950,11 +2948,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("T4G 7A7", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Alberta", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("T4G 7A7", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Alberta", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMNLicense()
         {
             var expected = new DriversLicense
@@ -3014,13 +3012,13 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("56431-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Minnesota", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("56431-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Minnesota", idCard.IssuerIdentificationNumber.GetDescription());
             
-            Assert.AreEqual(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
+            Assert.Equal(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestMSLicense()
         {
             var expected = new DriversLicense
@@ -3082,13 +3080,13 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("39402", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Mississippi", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("39402", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Mississippi", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.AreEqual(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
+            Assert.Equal(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIDLicense()
         {
             var expected = new DriversLicense
@@ -3143,13 +3141,13 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("83530", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Idaho", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("83530", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Idaho", idCard.IssuerIdentificationNumber.GetDescription());
 
-            Assert.AreEqual(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
+            Assert.Equal(expected.AdditionalJurisdictionElements.Count, idCard.AdditionalJurisdictionElements.Count);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestLeadingWhitespaceLicense()
         {
             var expected = new DriversLicense
@@ -3197,11 +3195,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("02360-1234", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("02360-1234", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Massachusetts", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestInvalidHeader()
         {
             var expected = new DriversLicense
@@ -3246,11 +3244,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("06516", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("06516", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicenseSuffix()
         {
             var expected = new DriversLicense
@@ -3295,11 +3293,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("06614-0123", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("06614-0123", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCTLicenseMultipleMiddleNames()
         {
             var expected = new DriversLicense
@@ -3345,11 +3343,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("06614-0123", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("06614-0123", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Connecticut", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestNBLicense()
         {
             var expected = new DriversLicense
@@ -3387,11 +3385,11 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("E5K 1Y3", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("New Brunswick", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("E5K 1Y3", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("New Brunswick", idCard.IssuerIdentificationNumber.GetDescription());
         }
 
-        [TestMethod]
+        [Fact]
         public void TestWYLicense()
         {
             var expected = new DriversLicense
@@ -3437,8 +3435,8 @@ namespace IdParser.Test
             AssertIdCard(expected, idCard);
             AssertLicense(expected, idCard);
 
-            Assert.AreEqual("82930", idCard.Address.PostalCodeDisplay);
-            Assert.AreEqual("Wyoming", idCard.IssuerIdentificationNumber.GetDescription());
+            Assert.Equal("82930", idCard.Address.PostalCodeDisplay);
+            Assert.Equal("Wyoming", idCard.IssuerIdentificationNumber.GetDescription());
         }
     }
 }

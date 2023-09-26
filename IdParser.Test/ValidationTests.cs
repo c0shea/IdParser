@@ -1,21 +1,19 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace IdParser.Test
 {
-    [TestClass]
     public class ValidationTests
     {
-        [TestMethod]
+        [Fact]
         public void InvalidLengthTest()
         {
-            Assert.ThrowsException<ArgumentException>(() => Barcode.Parse("ABC123"));
+            Assert.Throws<ArgumentException>(() => Barcode.Parse("ABC123"));
         }
 
-        [TestMethod]
+        [Fact]
         public void InvalidComplianceIndicatorTest()
         {
-            Assert.ThrowsException<ArgumentException>(() => Barcode.Parse(new string('A', 32)));
+            Assert.Throws<ArgumentException>(() => Barcode.Parse(new string('A', 32)));
         }
     }
 }
