@@ -1,33 +1,39 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net45</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Version>4.1.2</Version>
-    <Authors>Connor O'Shea</Authors>
-    <Company />
-    <Product>ID Parser</Product>
-    <Description>Parses AAMVA-compliant driver's licenses and ID cards</Description>
-    <Copyright>Copyright 2019</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/c0shea/IdParser</PackageProjectUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/c0shea/IdParser/master/NuGet%20Package%20Icon.png</PackageIconUrl>
-    <PackageTags>Drivers License Identification Card Parser PDF417 AAMVA Standard</PackageTags>
-    <AssemblyVersion>4.1.2</AssemblyVersion>
-    <FileVersion>4.1.2</FileVersion>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <Version>2023.9.25</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <SignAssembly>False</SignAssembly>
     <RootNamespace>IdParser</RootNamespace>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\IdParser.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
+  <PropertyGroup>
+    <Authors>Connor O'Shea</Authors>
+    <Product>ID Parser</Product>
+    <Description>Parses AAMVA-compliant driver's licenses and ID cards</Description>
+    <PackageTags>Drivers License Identification Card Parser PDF417 AAMVA Standard</PackageTags>
+    <Copyright>Copyright 2023</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/c0shea/IdParser</PackageProjectUrl>
+    <PackageIcon>NuGet Package Icon.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\IdParser.xml</DocumentationFile>
-    <NoWarn>1701;1702;1705;1591</NoWarn>
-  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\NuGet Package Icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>
