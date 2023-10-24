@@ -45,7 +45,7 @@ namespace IdParser.Parsers.Id
             // West Virginia doesn't follow the abbreviation scheme for brown
             else if (input.EqualsIgnoreCase("BN"))
             {
-                IdCard.EyeColor = EyeColor.Brown;
+                IdCard.HairColor = HairColor.Brown;
             }
             else if (input.EqualsIgnoreCase(HairColor.Gray.GetAbbreviation()))
             {
