@@ -1,4 +1,5 @@
-﻿using IdParser.Attributes;
+﻿using System.Linq;
+using IdParser.Attributes;
 
 namespace IdParser.Parsers.Id
 {
@@ -14,7 +15,7 @@ namespace IdParser.Parsers.Id
         {
             var givenNames = input.Split(',', '$', ' ');
             IdCard.Name.First = givenNames[0].Trim();
-            IdCard.Name.Middle = givenNames.Length > 1 ? givenNames[1].Trim().ReplaceEmptyWithNull() : null;
+            IdCard.Name.Middle = givenNames.Length > 1 ? string.Join(" ", givenNames.Skip(1).Select(n => n.ReplaceEmptyWithNull()).Where(n => n != null)).ReplaceEmptyWithNull() : null;
         }
     }
 }
